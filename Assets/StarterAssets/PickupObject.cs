@@ -38,7 +38,7 @@ public class PickupObject : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit))//如果光线碰撞到任何物体，结果会存储在hit变量中，并且返回值为真。
             {
                 if (hit.collider.gameObject == gameObject)
                 {
@@ -66,7 +66,9 @@ public class PickupObject : MonoBehaviour
 
     void ShowPickupUI()
     {
+        if (!pickupUI.activeSelf) { 
         pickupUI.SetActive(true); // 显示UI
+    }
     }
 
     void HidePickupUI()
@@ -80,7 +82,7 @@ public class PickupObject : MonoBehaviour
         PickupController pickupController = FindObjectOfType<PickupController>();
         if (pickupController != null)
         {
-            pickupController.Pickup(this.gameObject);
+           // pickupController.Pickup(this.gameObject);
             isBeingPickedUp = true;
         }
     }
