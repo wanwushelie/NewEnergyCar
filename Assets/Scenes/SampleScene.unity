@@ -979,7 +979,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5540582594249145263, guid: c3b1bf5c5e08ade478ed078fb04cbc61, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2058742273}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7130809818878008018, guid: c3b1bf5c5e08ade478ed078fb04cbc61, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1551478502}
+    - targetCorrespondingSourceObject: {fileID: 7130809818878008018, guid: c3b1bf5c5e08ade478ed078fb04cbc61, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1551478501}
   m_SourcePrefab: {fileID: 100100000, guid: c3b1bf5c5e08ade478ed078fb04cbc61, type: 3}
 --- !u!1 &935210633 stripped
 GameObject:
@@ -1350,6 +1356,56 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 845703993011245451, guid: c3b1bf5c5e08ade478ed078fb04cbc61, type: 3}
   m_PrefabInstance: {fileID: 920689306}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1551478499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7130809818878008018, guid: c3b1bf5c5e08ade478ed078fb04cbc61, type: 3}
+  m_PrefabInstance: {fileID: 920689306}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1551478501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551478499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f41e6a2c8b8384a83212406cb1f5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdPosition: {fileID: 2058742273}
+  putdownUI: {fileID: 9189683170251788384, guid: e225967484a66b3439c5b91b200e77e7, type: 3}
+  pickUpLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  handSphere: {fileID: 0}
+  heldObject: {fileID: 0}
+  targetObject: {fileID: 0}
+--- !u!114 &1551478502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551478499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1feba5845fdb53645a0e34bc38750b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupUIPrefab: {fileID: 9189683170251788384, guid: e225967484a66b3439c5b91b200e77e7, type: 3}
+  pickupController: {fileID: 1551478503}
+--- !u!114 &1551478503 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5744939565016376668, guid: c3b1bf5c5e08ade478ed078fb04cbc61, type: 3}
+  m_PrefabInstance: {fileID: 920689306}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551478499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f41e6a2c8b8384a83212406cb1f5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1575767190
 PrefabInstance:
   m_ObjectHideFlags: 0
