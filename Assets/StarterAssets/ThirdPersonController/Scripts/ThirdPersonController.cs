@@ -134,6 +134,9 @@ namespace StarterAssets
 
         private void Start()
         {
+            // 解锁鼠标光标并显示
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
