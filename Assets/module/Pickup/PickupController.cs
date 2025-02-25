@@ -1,11 +1,9 @@
-using System.Runtime.ExceptionServices;
 using UnityEngine;
 
 public class PickupController : MonoBehaviour
 {
     public Transform holdPosition;   // 手持物体的位置
     public GameObject putdownUI;     // 放下提示UI
-    public LayerMask pickUpLayer;    // 可拾取物体的层
     public GameObject handSphere;    // 手上的圆球（可选）
 
     [Header("Debug")]
@@ -16,7 +14,7 @@ public class PickupController : MonoBehaviour
 
     void Start()
     {
-       //holdPosition.position = handSphere.transform.position;
+        //holdPosition.position = handSphere.transform.position;
     }
 
     // 设置待拾取的物体
@@ -29,6 +27,13 @@ public class PickupController : MonoBehaviour
     public void Pickup(GameObject obj)
     {
         if (IsHoldingObject || obj == null) return;
+
+        // 检查物体是否可以被拾取
+        if (!IsPickupable(obj))
+        {
+            Debug.Log($"拾取失败：物体 {obj.name} 不能被拾取。");
+            return;
+        }
 
         // 设置手持物体
         heldObject = obj;
@@ -70,7 +75,7 @@ public class PickupController : MonoBehaviour
             // 计算放置位置
             Vector3 surfaceNormal = hit.normal;
             Vector3 putDownPosition = hit.point + surfaceNormal * heldObject.GetComponent<Collider>().bounds.extents.y;
-           
+
             // 恢复物理和父物体
             if (heldObjectRb != null)
             {
@@ -104,6 +109,24 @@ public class PickupController : MonoBehaviour
         {
             handSphere.transform.position = hit.point;
             handSphere.SetActive(true);
+        }
+    }
+
+    // 检查物体是否可以被拾取
+    private bool IsPickupable(GameObject obj)
+    {
+        if (obj == null) return false;
+
+        // 获取物体的 ObjectData
+        ObjectData data = ObjectDataManager.Instance.GetData(obj.name);
+        if (data != null)
+        {
+            return data.canBePickedUp;
+        }
+        else
+        {
+            Debug.LogWarning($"未找到物体 {obj.name} 的 ObjectData，默认不允许拾取。");
+            return false;
         }
     }
 }

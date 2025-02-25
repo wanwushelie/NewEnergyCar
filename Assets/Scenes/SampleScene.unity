@@ -201,23 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907e15b531bc66c40bf5514367f2f3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &215380085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 215380082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2adf2e8480321b44495707c6a3aec5af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiPrefab: {fileID: 7715472019337851852, guid: a88a34a02cc464a4a819b1c1348e30e2, type: 3}
-  showingLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  showingTag: UIshowing
 --- !u!65 &215380086
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -239,6 +222,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.2751683, y: 0.26964554, z: 0.4380657}
   m_Center: {x: 0.017528296, y: -0.076557465, z: 0.038745433}
+--- !u!114 &215380088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215380082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e28ea5ee0ae717a4ead7776796760136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiCanvasPosition: {fileID: 0}
 --- !u!1 &239585849
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +249,7 @@ GameObject:
   - component: {fileID: 239585850}
   - component: {fileID: 239585854}
   - component: {fileID: 239585856}
-  - component: {fileID: 239585855}
+  - component: {fileID: 239585857}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -370,7 +366,7 @@ MonoBehaviour:
   verticalSpeed: 2
   mouseSensitivity: 3
   verticalLimit: 80
---- !u!114 &239585855
+--- !u!114 &239585856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -383,8 +379,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupUIPrefab: {fileID: 9189683170251788384, guid: e225967484a66b3439c5b91b200e77e7, type: 3}
-  pickupController: {fileID: 239585856}
---- !u!114 &239585856
+  pickupController: {fileID: 239585857}
+--- !u!114 &239585857
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -398,9 +394,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holdPosition: {fileID: 502885789}
   putdownUI: {fileID: 1842076879}
-  pickUpLayer:
-    serializedVersion: 2
-    m_Bits: 0
   handSphere: {fileID: 1420839661}
   heldObject: {fileID: 0}
   targetObject: {fileID: 0}
@@ -1052,6 +1045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiPanel: {fileID: 1184118258}
   referenceObject: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!1001 &798113491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1829,7 +1823,6 @@ GameObject:
   - component: {fileID: 1875532336}
   - component: {fileID: 1875532335}
   - component: {fileID: 1875532334}
-  - component: {fileID: 1875532338}
   - component: {fileID: 1875532332}
   m_Layer: 7
   m_Name: Cube
@@ -1936,23 +1929,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1875532338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875532331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2adf2e8480321b44495707c6a3aec5af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiPrefab: {fileID: 7715472019337851852, guid: a88a34a02cc464a4a819b1c1348e30e2, type: 3}
-  showingLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  showingTag: UIshowing
 --- !u!1 &1927211843
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,7 +2111,7 @@ PrefabInstance:
       addedObject: {fileID: 215380084}
     - targetCorrespondingSourceObject: {fileID: -2509097794823416806, guid: 850a0ae1504d9704e84191cb4c58e7d3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 215380085}
+      addedObject: {fileID: 215380088}
   m_SourcePrefab: {fileID: 100100000, guid: 850a0ae1504d9704e84191cb4c58e7d3, type: 3}
 --- !u!1 &1955543885
 GameObject:
@@ -2148,6 +2124,7 @@ GameObject:
   - component: {fileID: 1955543888}
   - component: {fileID: 1955543890}
   - component: {fileID: 1955543889}
+  - component: {fileID: 1955543891}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2195,6 +2172,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiCanvasPosition: {fileID: 1927211844}
+--- !u!114 &1955543891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955543885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc32f3d9d31167b4d9fd842f5d03a1c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectDataList:
+  - {fileID: 11400000, guid: bb632ce7141512e41b4ce8d16a9fb283, type: 2}
+  - {fileID: 11400000, guid: f3af50f7b5353b14d99e03704c5b923f, type: 2}
 --- !u!1001 &1971231741
 PrefabInstance:
   m_ObjectHideFlags: 0

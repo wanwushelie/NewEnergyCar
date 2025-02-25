@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 public class pickupmethod : MonoBehaviour
 {
-    public GameObject pickupUIPrefab;   // Ê°È¡UIÔ¤ÖÆÌå
-    public PickupController pickupController; // Ê°È¡¿ØÖÆÆ÷
+    public GameObject pickupUIPrefab;   // æ‹¾å–UIé¢„åˆ¶ä½“
+    public PickupController pickupController; // æ‹¾å–æ§åˆ¶å™¨
 
-    private GameObject pickupUI;        // ¶¯Ì¬Éú³ÉµÄUIÊµÀı
-    private Button pickupButton;        // Ê°È¡°´Å¥×é¼ş
-    private Text objectNameText;        // UIÖĞµÄÎÄ±¾×é¼ş
-    private GameObject targetObject;    // µ±Ç°´ıÊ°È¡µÄÎïÌå
+    private GameObject pickupUI;        // åŠ¨æ€ç”Ÿæˆçš„UIå®ä¾‹
+    private Button pickupButton;        // æ‹¾å–æŒ‰é’®ç»„ä»¶
+    private Text objectNameText;        // UIä¸­çš„æ–‡æœ¬ç»„ä»¶
+    private GameObject targetObject;    // å½“å‰å¾…æ‹¾å–çš„ç‰©ä½“
 
     void Start()
     {
@@ -23,44 +23,43 @@ public class pickupmethod : MonoBehaviour
         {
             CheckForClickableObject();
         }
-        
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         closeputdown();
     }
 
-    // ³õÊ¼»¯Ê°È¡UI
+    // åˆå§‹åŒ–æ‹¾å–UI
     void InitializePickupUI()
     {
         Canvas canvas = FindObjectOfType<Canvas>();
         if (canvas == null)
         {
-            Debug.LogError("³¡¾°ÖĞÎ´ÕÒµ½Canvas£¡");
+            Debug.LogError("åœºæ™¯ä¸­æœªæ‰¾åˆ°Canvasï¼");
             return;
         }
 
-        // ÊµÀı»¯UI²¢»ñÈ¡×é¼ş
+        // å®ä¾‹åŒ–UIå¹¶è·å–ç»„ä»¶
         pickupUI = Instantiate(pickupUIPrefab, canvas.transform);
         pickupButton = pickupUI.GetComponentInChildren<Button>();
         objectNameText = pickupUI.GetComponentInChildren<Text>();
         pickupUI.SetActive(false);
 
-        // °ó¶¨°´Å¥ÊÂ¼ş
+        // ç»‘å®šæŒ‰é’®äº‹ä»¶
         if (pickupButton != null)
         {
-            pickupButton = pickupUI.GetComponentInChildren<Button>();
             pickupButton.onClick.AddListener(OnPickupButtonClicked);
         }
         else
         {
-            Debug.LogError("Ê°È¡UIÖĞÎ´ÕÒµ½Button×é¼ş£¡");
+            Debug.LogError("æ‹¾å–UIä¸­æœªæ‰¾åˆ°Buttonç»„ä»¶ï¼");
         }
     }
 
-    // ¼ì²âÊó±êµã»÷µÄÎïÌå
+    // æ£€æµ‹é¼ æ ‡ç‚¹å‡»çš„ç‰©ä½“
     void CheckForClickableObject()
     {
-        if (EventSystem.current.IsPointerOverGameObject()&& !pickupController.IsHoldingObject) return;
+        if (EventSystem.current.IsPointerOverGameObject() && !pickupController.IsHoldingObject) return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -68,8 +67,8 @@ public class pickupmethod : MonoBehaviour
         {
             GameObject hitObject = hit.collider.gameObject;
 
-            // Èç¹ûµã»÷µÄÊÇ¿ÉÊ°È¡ÎïÌåÇÒµ±Ç°Î´³ÖÓĞÎïÌå
-            if (IsPickupable(hitObject) && !pickupController.IsHoldingObject)
+            // å¦‚æœç‚¹å‡»çš„æ˜¯å¯æ‹¾å–ç‰©ä½“ä¸”å½“å‰æœªæŒæœ‰ç‰©ä½“
+            if (!pickupController.IsHoldingObject)
             {
                 targetObject = hitObject;
                 ShowPickupUI(hitObject.name);
@@ -78,11 +77,6 @@ public class pickupmethod : MonoBehaviour
             {
                 ClearTargetAndHideUI();
             }
-            if(pickupController.IsHoldingObject&&hit.collider.CompareTag("xiaoche"))
-            {
-                pickupController.PutDown();
-            }
-          
         }
         else
         {
@@ -90,20 +84,14 @@ public class pickupmethod : MonoBehaviour
         }
     }
 
-    // ÅĞ¶ÏÎïÌåÊÇ·ñ¿ÉÊ°È¡
-    bool IsPickupable(GameObject obj)
-    {
-        return obj.CompareTag("Pickupable") && obj != pickupController.targetObject;
-    }
-
-    // ÏÔÊ¾Ê°È¡UI
+    // æ˜¾ç¤ºæ‹¾å–UI
     void ShowPickupUI(string objectName)
     {
-        objectNameText.text = "Ê°È¡: " + objectName;
+        objectNameText.text = "æ‹¾å–: " + objectName;
         pickupUI.SetActive(true);
     }
 
-    // µã»÷Ê°È¡°´Å¥Ê±µÄÂß¼­
+    // ç‚¹å‡»æ‹¾å–æŒ‰é’®æ—¶çš„é€»è¾‘
     public void OnPickupButtonClicked()
     {
         if (targetObject != null)
@@ -111,15 +99,16 @@ public class pickupmethod : MonoBehaviour
             pickupController.Pickup(targetObject);
             ClearTargetAndHideUI();
         }
-        Debug.Log("°´Å¥±»µã»÷£¡");
+        Debug.Log("æŒ‰é’®è¢«ç‚¹å‡»ï¼");
     }
 
-    // Çå¿ÕÄ¿±ê²¢Òş²ØUI
+    // æ¸…ç©ºç›®æ ‡å¹¶éšè—UI
     void ClearTargetAndHideUI()
     {
         targetObject = null;
         pickupUI.SetActive(false);
     }
+
     void closeputdown()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -131,6 +120,5 @@ public class pickupmethod : MonoBehaviour
                 pickupController.putdownUI.SetActive(false);
             }
         }
-       
     }
 }
