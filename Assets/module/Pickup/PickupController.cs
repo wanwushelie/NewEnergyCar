@@ -1,3 +1,4 @@
+using System.Runtime.ExceptionServices;
 using UnityEngine;
 
 public class PickupController : MonoBehaviour
@@ -28,10 +29,11 @@ public class PickupController : MonoBehaviour
     {
         if (IsHoldingObject || obj == null) return;
 
-        // 检查物体是否可以被拾取
-        if (!IsPickupable(obj))
+        // 获取物体的 ObjectData
+        ObjectData objectData = ObjectDataManager.Instance.GetData(obj.name);
+        if (objectData == null || !objectData.canBePickedUp)
         {
-            Debug.Log($"拾取失败：物体 {obj.name} 不能被拾取。");
+            Debug.LogWarning($"物体 {obj.name} 无法被拾取！");
             return;
         }
 
@@ -75,7 +77,7 @@ public class PickupController : MonoBehaviour
             // 计算放置位置
             Vector3 surfaceNormal = hit.normal;
             Vector3 putDownPosition = hit.point + surfaceNormal * heldObject.GetComponent<Collider>().bounds.extents.y;
-
+           
             // 恢复物理和父物体
             if (heldObjectRb != null)
             {
@@ -109,24 +111,6 @@ public class PickupController : MonoBehaviour
         {
             handSphere.transform.position = hit.point;
             handSphere.SetActive(true);
-        }
-    }
-
-    // 检查物体是否可以被拾取
-    private bool IsPickupable(GameObject obj)
-    {
-        if (obj == null) return false;
-
-        // 获取物体的 ObjectData
-        ObjectData data = ObjectDataManager.Instance.GetData(obj.name);
-        if (data != null)
-        {
-            return data.canBePickedUp;
-        }
-        else
-        {
-            Debug.LogWarning($"未找到物体 {obj.name} 的 ObjectData，默认不允许拾取。");
-            return false;
         }
     }
 }

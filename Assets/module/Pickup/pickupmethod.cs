@@ -23,7 +23,7 @@ public class pickupmethod : MonoBehaviour
         {
             CheckForClickableObject();
         }
-
+        
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         closeputdown();
@@ -67,8 +67,9 @@ public class pickupmethod : MonoBehaviour
         {
             GameObject hitObject = hit.collider.gameObject;
 
-            // 如果点击的是可拾取物体且当前未持有物体
-            if (!pickupController.IsHoldingObject)
+            // 获取物体的 ObjectData
+            ObjectData objectData = ObjectDataManager.Instance.GetData(hitObject.name);
+            if (objectData != null && objectData.canBePickedUp && !pickupController.IsHoldingObject)
             {
                 targetObject = hitObject;
                 ShowPickupUI(hitObject.name);
@@ -76,6 +77,11 @@ public class pickupmethod : MonoBehaviour
             else
             {
                 ClearTargetAndHideUI();
+            }
+
+            if (pickupController.IsHoldingObject && hit.collider.CompareTag("xiaoche"))
+            {
+                pickupController.PutDown();
             }
         }
         else
