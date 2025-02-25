@@ -6,7 +6,7 @@ public class HighlightAndUIShow : MonoBehaviour
     public LayerMask showingLayer; // 高亮显示的Layer
     public string showingTag = "UIshowing"; // 触发UI显示的Tag
 
-    private HighlightableObject highlightableObject; // 高亮组件引用
+    private HighlightableObject highlightableObject; //  高亮组件引用
     private bool isHighlighted = false; // 当前是否高亮
     private bool isUIShowing = false; // 当前是否显示UI
 

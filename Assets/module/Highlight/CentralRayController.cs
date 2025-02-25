@@ -3,7 +3,7 @@ using UnityEngine;
 public class CentralRayController : MonoBehaviour
 {
     private Camera mainCamera;
-    private Transform currentTarget; // 当前高亮的目标物体
+    private Transform currentTarget; //  当前高亮的目标物体
 
     private void Start()
     {

@@ -4,7 +4,7 @@ public class UIController : MonoBehaviour
 {
     public static UIController Instance { get; private set; }
     public Transform uiCanvasPosition; // UI显示的Canvas定位点
-    private GameObject currentUI; // 当前显示的UI
+    private GameObject currentUI; //  当前显示的UI
 
     private void Awake()
     {
