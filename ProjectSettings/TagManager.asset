@@ -8,6 +8,10 @@ TagManager:
   - xiaoche
   - Pickupable
   - UIshowing
+  - Tool
+  - Select
+  - Check
+  - OilPot
   layers:
   - Default
   - TransparentFX
