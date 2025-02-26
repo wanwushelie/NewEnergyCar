@@ -10,8 +10,8 @@ public class pickupmethod : MonoBehaviour
     private GameObject pickupUI;        // 动态生成的UI实例
     private Button pickupButton;        // 拾取按钮组件
     private Text objectNameText;        // UI中的文本组件
-    private GameObject targetObject;    // 当前待拾取的物体
-
+    private GameObject targetObject;// 当前待拾取的物体
+    public string pickupname;
     void Start()
     {
         InitializePickupUI();
@@ -72,6 +72,7 @@ public class pickupmethod : MonoBehaviour
             if (IsPickupable(hitObject) && !pickupController.IsHoldingObject)
             {
                 targetObject = hitObject;
+                pickupname = hitObject.name;
                 ShowPickupUI(hitObject.name);
             }
             else
