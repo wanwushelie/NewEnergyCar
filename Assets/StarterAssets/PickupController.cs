@@ -9,7 +9,7 @@ public class PickupController : MonoBehaviour
     public GameObject handSphere;    // 手上的圆球（可选）
 
     [Header("Debug")]
-    [SerializeField] private GameObject heldObject;  // 当前手持的物体
+    [SerializeField] public  GameObject heldObject;  // 当前手持的物体
     private Rigidbody heldObjectRb;  // 手持物体的刚体
     public GameObject targetObject; // 待拾取的物体
     public bool IsHoldingObject => heldObject != null; // 是否持有物体
