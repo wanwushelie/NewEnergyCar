@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class pickupmethod : MonoBehaviour
 {
@@ -19,8 +20,11 @@ public class pickupmethod : MonoBehaviour
     Quaternion spawnRotation = Quaternion.identity; // 默认为无旋转
     public GameObject hideobject;
     public GameObject chaixieUI,chelunpart,tulunpart,dizuopart;//显示ui
-    private bool ischelun=false, isdizuo=false, istulun=false;//判断小车上是否搭载组件
+    public  bool ischelun=false, isdizuo=false, istulun=false;//判断小车上是否搭载组件
     public  List<GameObject> HideGameObjects = new List<GameObject>();
+    public xiaochedate Xiaochedate;
+     
+   
     void Start()
     {
         InitializePickupUI();
@@ -83,25 +87,28 @@ public class pickupmethod : MonoBehaviour
             if (IsPickupable(hitObject) && !pickupController.IsHoldingObject)
             {
                 targetObject = hitObject;
-                pickupname = hitObject.name;
                 spawnPosition = hitObject.transform.position;
                 spawnRotation = hitObject.transform.rotation;//储存拾取物体位置
-                hideobject=Instantiate(hitObject, spawnPosition, spawnRotation);
-                HideGameObjects.Add(hideobject);
-                hideobject.SetActive(false);
+                //hideobject = Instantiate(hitObject, spawnPosition, spawnRotation);
+                //hideobject.SetActive(false);
+                HideGameObjects.Add(hitObject);
+                pickupname = hitObject.name;
                 ShowPickupUI(hitObject.name);
             }
             else
             {
                 ClearTargetAndHideUI();
             }
-            if(pickupController.IsHoldingObject&&hit.collider.CompareTag("xiaoche"))
+            if(pickupController.IsHoldingObject&&hit.collider.CompareTag("xiaoche"))//组装小车部件
+            
             {
                 pickupController.PutDown();
+               
             }
-            if (pickupController.IsHoldingObject && hitObject.name == "机械小车未完成")//组装小车部件
+            if (pickupController.IsHoldingObject && hitObject.name == "机械小车未完成"&& pickupController.heldObject.GetComponent<lingjiandate>()!=null)//组装小车部件
             {
                 Assemble(pickupController.heldObject);
+               
             }
             if(!pickupController.IsHoldingObject&& hitObject.name == "机械小车未完成")//拆卸小车部件
             {
@@ -160,39 +167,118 @@ public class pickupmethod : MonoBehaviour
     }
     void Assemble(GameObject car)
     {
+        lingjiandate lingjiandate = car.GetComponent<lingjiandate>();
+        car.transform.parent = null;
+        car.transform.position = spawnPosition;
+        car.transform.rotation = spawnRotation;
         if (Input.GetMouseButtonDown(0))
         {
             switch (car.name)
             {
-                case "tulun":
-                    tulun1.SetActive(true);
-                    tulun2.SetActive(true);
-                    tulunpart.SetActive(true)
-;                    istulun = true;
+                case "金属tulun":
+                    if (!istulun)
+                    {
+                       
+                        tulun1.SetActive(true);
+                        tulun2.SetActive(true);
+                        tulunpart.SetActive(true);
+                        Xiaochedate.totalweight += lingjiandate.C[3].weight;
+                        Xiaochedate.totalwending += lingjiandate.C[3].wending;
+                        pickupController.heldObject = null;
+                        //Destroy(car);
+                        istulun = true;
+                    }
                     break;
-                case "chelun":
-                    chelun.SetActive(true);
-                    ischelun = true;
-                    chelunpart.SetActive(true);
+                case "塑料tulun":
+                    if (!istulun)
+                    {
+                        
+                        tulun1.SetActive(true);
+                        tulun2.SetActive(true);
+                        tulunpart.SetActive(true);
+                        Xiaochedate.totalweight += lingjiandate.C[2].weight;
+                        Xiaochedate.totalwending += lingjiandate.C[2].wending;
+                        pickupController.heldObject = null;
+                        //Destroy(car);
+                        istulun = true;
+                    }
                     break;
-                case "dizuo":
-                    dizuo.SetActive(true);
+                case "金属chelun":
+                    if (!ischelun)
+                    {
+                        
+                        car.transform.rotation = spawnRotation;
+                        chelun.SetActive(true);
+                        ischelun = true;
+                        chelunpart.SetActive(true);
+                        Xiaochedate.totalweight += lingjiandate.C[1].weight;
+                        Xiaochedate.totalwending += lingjiandate.C[1].wending;
+                        pickupController.heldObject = null;
+                    }
+                    break;
+                case "塑料chelun":
+                    if (!ischelun)
+                    {
+                        
+                        chelun.SetActive(true);
+                        ischelun = true;
+                        chelunpart.SetActive(true);
+                        Xiaochedate.totalweight += lingjiandate.C[0].weight;
+                        Xiaochedate.totalwending += lingjiandate.C[0].wending;
+                        pickupController.heldObject = null;
+                      
+                    }
+                    break;
+                case "金属dizuo":
+                    if (!isdizuo)
+                    {
+                        
+                        dizuo.SetActive(true);
                     isdizuo = true;
                     dizuopart.SetActive(true);
+                    Xiaochedate.totalweight += lingjiandate.C[5].weight;
+                    Xiaochedate.totalwending += lingjiandate.C[5].wending;
+                    pickupController.heldObject = null;
+                     }
+                    break;
+                case "塑料dizuo":
+                    if (!isdizuo)
+                    {
+                        
+                        dizuo.SetActive(true);
+                        isdizuo = true;
+                        dizuopart.SetActive(true);
+                        Xiaochedate.totalweight += lingjiandate.C[4].weight;
+                        Xiaochedate.totalwending += lingjiandate.C[4].wending;
+                        pickupController.heldObject = null;
+                       
+                    }
                     break;
             }
+            car.SetActive(false);
             Debug.Log("已拼装: " + car.name);
-            Destroy(car);
+           
         }
     }
     public void Disassemblychelun()
     {
         if (ischelun)
-        { 
-        GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name == "chelun(Clone)");
-        foundObject.SetActive(true);
-        chelun.SetActive(false);
-        HideGameObjects.Remove(foundObject);
+        {
+            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name.Contains("chelun"));
+            lingjiandate lingjiandate = foundObject.GetComponent<lingjiandate>();
+            foundObject.SetActive(true);
+            int i = 0;
+            for (i = 0; i < 6; i++)
+            {
+                if (foundObject.name == lingjiandate.C[i].gameobjectname)
+                {
+                    Xiaochedate.totalweight -= lingjiandate.C[i].weight;
+                    Xiaochedate.totalwending -= lingjiandate.C[i].wending;
+                    break;
+                }
+            }
+            chelun.SetActive(false);
+           HideGameObjects.Remove(foundObject);
     }
         else
         {
@@ -204,8 +290,24 @@ public class pickupmethod : MonoBehaviour
     {
         if (istulun)
         {
-            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name == "tulun(Clone)");
-            foundObject.SetActive(true);
+            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name.Contains("tulun"));
+            if (foundObject != null)
+            {
+                foundObject.SetActive(true);
+            }
+            else
+                Debug.LogError("未找到匹配的对象！");
+            lingjiandate lingjiandate = foundObject.GetComponent<lingjiandate>();
+            int i = 0;
+            for (i = 0; i < 6; i++)
+            {
+                if (foundObject.name == lingjiandate.C[i].gameobjectname)
+                {
+                    Xiaochedate.totalweight -= lingjiandate.C[i].weight;
+                    Xiaochedate.totalwending -= lingjiandate.C[i].wending;
+                    break;
+                }
+            }
             tulun1.SetActive(false);
             tulun2.SetActive(false);
             HideGameObjects.Remove(foundObject);
@@ -220,8 +322,19 @@ public class pickupmethod : MonoBehaviour
     {
         if (isdizuo)
         {
-            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name == "dizuo(Clone)");
+            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name .Contains("dizuo"));
             foundObject.SetActive(true);
+            lingjiandate lingjiandate = foundObject.GetComponent<lingjiandate>();
+            int i = 0;
+            for(i=0;i<6;i++)
+            {
+                if (foundObject.name == lingjiandate.C[i].gameobjectname )
+                {
+                    Xiaochedate.totalweight -= lingjiandate.C[i].weight;
+                    Xiaochedate.totalwending -= lingjiandate.C[i].wending;
+                    break;
+                }
+            }
             dizuo.SetActive(false);
             HideGameObjects.Remove(foundObject);
         }

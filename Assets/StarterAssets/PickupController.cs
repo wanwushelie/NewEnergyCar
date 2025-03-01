@@ -12,6 +12,7 @@ public class PickupController : MonoBehaviour
     [SerializeField] public  GameObject heldObject;  // 当前手持的物体
     private Rigidbody heldObjectRb;  // 手持物体的刚体
     public GameObject targetObject; // 待拾取的物体
+    public pickupmethod pickupmethod;
     public bool IsHoldingObject => heldObject != null; // 是否持有物体
 
     void Start()
@@ -85,6 +86,7 @@ public class PickupController : MonoBehaviour
             euler.y = 0; // 锁定 X 轴旋转
             euler.z = 0; // 锁定 Z 轴旋转
             heldObject.transform.rotation = Quaternion.Euler(euler);
+            pickupmethod.HideGameObjects.Remove(heldObject);
             // 清空引用
             heldObject = null;
             heldObjectRb = null;
