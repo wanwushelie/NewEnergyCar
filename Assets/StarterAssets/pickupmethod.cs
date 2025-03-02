@@ -110,7 +110,7 @@ public class pickupmethod : MonoBehaviour
                 Assemble(pickupController.heldObject);
                
             }
-            if(!pickupController.IsHoldingObject&& hitObject.name == "机械小车未完成")//拆卸小车部件
+            else if(!pickupController.IsHoldingObject&& hitObject.name == "机械小车未完成")//拆卸小车部件
             {
                 chaixieUI.SetActive(true);
             }
@@ -187,6 +187,7 @@ public class pickupmethod : MonoBehaviour
                         pickupController.heldObject = null;
                         //Destroy(car);
                         istulun = true;
+                        car.SetActive(false);
                     }
                     break;
                 case "塑料tulun":
@@ -201,6 +202,7 @@ public class pickupmethod : MonoBehaviour
                         pickupController.heldObject = null;
                         //Destroy(car);
                         istulun = true;
+                        car.SetActive(false);
                     }
                     break;
                 case "金属chelun":
@@ -214,6 +216,7 @@ public class pickupmethod : MonoBehaviour
                         Xiaochedate.totalweight += lingjiandate.C[1].weight;
                         Xiaochedate.totalwending += lingjiandate.C[1].wending;
                         pickupController.heldObject = null;
+                        car.SetActive(false);
                     }
                     break;
                 case "塑料chelun":
@@ -226,7 +229,7 @@ public class pickupmethod : MonoBehaviour
                         Xiaochedate.totalweight += lingjiandate.C[0].weight;
                         Xiaochedate.totalwending += lingjiandate.C[0].wending;
                         pickupController.heldObject = null;
-                      
+                        car.SetActive(false);
                     }
                     break;
                 case "金属dizuo":
@@ -239,7 +242,8 @@ public class pickupmethod : MonoBehaviour
                     Xiaochedate.totalweight += lingjiandate.C[5].weight;
                     Xiaochedate.totalwending += lingjiandate.C[5].wending;
                     pickupController.heldObject = null;
-                     }
+                        car.SetActive(false);
+                    }
                     break;
                 case "塑料dizuo":
                     if (!isdizuo)
@@ -251,11 +255,11 @@ public class pickupmethod : MonoBehaviour
                         Xiaochedate.totalweight += lingjiandate.C[4].weight;
                         Xiaochedate.totalwending += lingjiandate.C[4].wending;
                         pickupController.heldObject = null;
-                       
+                        car.SetActive(false);
                     }
                     break;
             }
-            car.SetActive(false);
+            pickupController.heldObject = null;
             Debug.Log("已拼装: " + car.name);
            
         }
