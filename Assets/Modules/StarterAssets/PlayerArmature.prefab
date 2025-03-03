@@ -2028,11 +2028,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f41e6a2c8b8384a83212406cb1f5e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightWrist: {fileID: 5408975257090114463}
-  pickUpLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  holdPosition: {fileID: 0}
+  putdownUI: {fileID: 0}
   handSphere: {fileID: 845703993011245451}
+  heldObject: {fileID: 0}
+  targetObject: {fileID: 0}
 --- !u!143 &4320026149834982299
 CharacterController:
   m_ObjectHideFlags: 0
