@@ -12,6 +12,7 @@ TagManager:
   - Select
   - Check
   - OilPot
+  - npc
   layers:
   - Default
   - TransparentFX
