@@ -25,6 +25,7 @@ public class pickupmethod : MonoBehaviour
     public xiaochedate Xiaochedate;
     private ObjectData objectData;
     public ObjectDataManager objectdatamanager;
+    public lingjiandate lingjiandate1;
 
     void Start()
     {
@@ -164,7 +165,7 @@ public class pickupmethod : MonoBehaviour
   
     void Assemble(GameObject car)
     {
-        lingjiandate lingjiandate = car.GetComponent<lingjiandate>();
+       
         car.transform.parent = null;
         car.transform.position = spawnPosition;
         car.transform.rotation = spawnRotation;
@@ -172,37 +173,37 @@ public class pickupmethod : MonoBehaviour
         {
             switch (car.name)
             {
-                case "金属tulun":
+                case "金属凸轮":
                     if (!istulun)
                     {
 
                         tulun1.SetActive(true);
                         tulun2.SetActive(true);
                         tulunpart.SetActive(true);
-                        Xiaochedate.totalweight += lingjiandate.C[3].weight;
-                        Xiaochedate.totalwending += lingjiandate.C[3].wending;
-                        pickupController.heldObject = null;
+                        Xiaochedate.totalweight += lingjiandate1.C[3].weight;
+                        Xiaochedate.totalwending += lingjiandate1.C[3].wending;
                         //Destroy(car);
                         istulun = true;
                         car.SetActive(false);
+                        pickupController.heldObject = null;
                     }
                     break;
-                case "塑料tulun":
+                case "塑料凸轮":
                     if (!istulun)
                     {
 
                         tulun1.SetActive(true);
                         tulun2.SetActive(true);
                         tulunpart.SetActive(true);
-                        Xiaochedate.totalweight += lingjiandate.C[2].weight;
-                        Xiaochedate.totalwending += lingjiandate.C[2].wending;
+                        Xiaochedate.totalweight += lingjiandate1.C[2].weight;
+                        Xiaochedate.totalwending += lingjiandate1.C[2].wending;
                         pickupController.heldObject = null;
                         //Destroy(car);
                         istulun = true;
                         car.SetActive(false);
                     }
                     break;
-                case "金属chelun":
+                case "金属车轮":
                     if (!ischelun)
                     {
 
@@ -210,47 +211,47 @@ public class pickupmethod : MonoBehaviour
                         chelun.SetActive(true);
                         ischelun = true;
                         chelunpart.SetActive(true);
-                        Xiaochedate.totalweight += lingjiandate.C[1].weight;
-                        Xiaochedate.totalwending += lingjiandate.C[1].wending;
+                        Xiaochedate.totalweight += lingjiandate1.C[1].weight;
+                        Xiaochedate.totalwending += lingjiandate1.C[1].wending;
                         pickupController.heldObject = null;
                         car.SetActive(false);
                     }
                     break;
-                case "塑料chelun":
+                case "塑料车轮":
                     if (!ischelun)
                     {
 
                         chelun.SetActive(true);
                         ischelun = true;
                         chelunpart.SetActive(true);
-                        Xiaochedate.totalweight += lingjiandate.C[0].weight;
-                        Xiaochedate.totalwending += lingjiandate.C[0].wending;
+                        Xiaochedate.totalweight += lingjiandate1.C[0].weight;
+                        Xiaochedate.totalwending += lingjiandate1.C[0].wending;
                         pickupController.heldObject = null;
                         car.SetActive(false);
                     }
                     break;
-                case "金属dizuo":
+                case "金属底座":
                     if (!isdizuo)
                     {
 
                         dizuo.SetActive(true);
                         isdizuo = true;
                         dizuopart.SetActive(true);
-                        Xiaochedate.totalweight += lingjiandate.C[5].weight;
-                        Xiaochedate.totalwending += lingjiandate.C[5].wending;
+                        Xiaochedate.totalweight += lingjiandate1.C[5].weight;
+                        Xiaochedate.totalwending += lingjiandate1.C[5].wending;
                         pickupController.heldObject = null;
                         car.SetActive(false);
                     }
                     break;
-                case "塑料dizuo":
+                case "塑料底座":
                     if (!isdizuo)
                     {
 
                         dizuo.SetActive(true);
                         isdizuo = true;
                         dizuopart.SetActive(true);
-                        Xiaochedate.totalweight += lingjiandate.C[4].weight;
-                        Xiaochedate.totalwending += lingjiandate.C[4].wending;
+                        Xiaochedate.totalweight += lingjiandate1.C[4].weight;
+                        Xiaochedate.totalwending += lingjiandate1.C[4].wending;
                         pickupController.heldObject = null;
                         car.SetActive(false);
                     }
