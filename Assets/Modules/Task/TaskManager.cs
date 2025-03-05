@@ -27,14 +27,4 @@ public class TaskManager : MonoBehaviour
         }
         OnTaskUpdated?.Invoke(); // 触发事件
     }
-
-    // 更新任务显示
-    public void UpdateTaskDisplay()
-    {
-        foreach (Task task in tasks)
-        {
-            // 这里可以调用 UI 更新逻辑
-            Debug.Log(task.id + ": " + task.description + " - " + (task.isCompleted ? "已完成" : "未完成"));
-        }
-    }
 }
