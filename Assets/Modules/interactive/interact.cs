@@ -16,6 +16,7 @@ public class NewBehaviourScript : MonoBehaviour
     void Start()
     {
         interact = interactivepanel.GetComponentInChildren<Text>();
+        
     }
 
     // Update is called once per frame
