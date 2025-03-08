@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using StarterAssets;
 
 public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -16,12 +17,16 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
     private Image exitButtonImage;
     private Image settingsButtonImage;
 
+    public GameObject Player; // 玩家对象
+
     private void Start()
     {
         // 获取按钮的Image组件
         startButtonImage = startButton.GetComponent<Image>();
         exitButtonImage = exitButton.GetComponent<Image>();
         settingsButtonImage = settingsButton.GetComponent<Image>();
+        //隐藏玩家
+        Player.SetActive(false);
 
         startUI.SetActive(true);
         gameUI.SetActive(false);
@@ -33,6 +38,8 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
         // 隐藏开始界面UI，显示游戏UI
         startUI.SetActive(false);
         gameUI.SetActive(true);
+        // 显示玩家
+        Player.SetActive(true);
 
         // 可以在这里添加其他游戏开始的逻辑
         Debug.Log("Game Started!");
