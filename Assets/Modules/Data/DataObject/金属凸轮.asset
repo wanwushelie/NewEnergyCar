@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce2552419a6171d4bbff82099f97965e, type: 3}
-  m_Name: Youhu
+  m_Name: "\u91D1\u5C5E\u51F8\u8F6E"
   m_EditorClassIdentifier: 
-  objectName: YouHu
+  objectName: "\u91D1\u5C5E\u51F8\u8F6E"
   canBeHighlighted: 1
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
   showUI: 1
-  uiPrefab: {fileID: 7715472019337851852, guid: a88a34a02cc464a4a819b1c1348e30e2, type: 3}
+  uiPrefab: {fileID: 0}
   canBePickedUp: 1
-  canBemakeup: 0
+  canBemakeup: 1

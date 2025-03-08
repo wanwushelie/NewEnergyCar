@@ -4,11 +4,11 @@ using UnityEngine;
 public class PickupController : MonoBehaviour
 {
     public Transform holdPosition;   // 手持物体的位置
-    public GameObject putdownUI;     // 放下提示UI
+    //public GameObject putdownUI;     // 放下提示UI
     public GameObject handSphere;    // 手上的圆球（可选）
 
     [Header("Debug")]
-    [SerializeField] private GameObject heldObject;  // 当前手持的物体
+    [SerializeField] public  GameObject heldObject;  // 当前手持的物体
     private Rigidbody heldObjectRb;  // 手持物体的刚体
     public GameObject targetObject; // 待拾取的物体
     public bool IsHoldingObject => heldObject != null; // 是否持有物体
@@ -56,10 +56,6 @@ public class PickupController : MonoBehaviour
         }
 
         // 显示放下UI
-        if (putdownUI != null)
-        {
-            putdownUI.SetActive(true);
-        }
 
         Debug.Log("已拾取: " + obj.name);
     }
@@ -77,7 +73,7 @@ public class PickupController : MonoBehaviour
             // 计算放置位置
             Vector3 surfaceNormal = hit.normal;
             Vector3 putDownPosition = hit.point + surfaceNormal * heldObject.GetComponent<Collider>().bounds.extents.y;
-           
+
             // 恢复物理和父物体
             if (heldObjectRb != null)
             {
@@ -98,7 +94,7 @@ public class PickupController : MonoBehaviour
         }
 
         // 隐藏放下UI
-        putdownUI.SetActive(false);
+       
     }
 
     // 生成隐藏圆球（可选功能）

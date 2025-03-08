@@ -16,4 +16,13 @@ public class ObjectData : ScriptableObject
 
     [Header("Pickup Settings")]
     public bool canBePickedUp = true; // 是否可以被拾取
+
+    [Header("makeup settings")]
+    public bool canBemakeup = false;//是否可以被组装
+
+    [Header("weight settings")]
+    public int weight;//重量
+
+    [Header("wending settings")]
+    public int wnding;//稳定性
 }
