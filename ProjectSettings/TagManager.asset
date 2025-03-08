@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CinemachineTarget
+  - xiaoche
+  - Pickupable
+  - UIshowing
+  - Tool
+  - Select
+  - Check
+  - OilPot
+  - npc
   layers:
   - Default
   - TransparentFX
@@ -12,7 +21,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - showing
   - 
   - 
   - 
