@@ -1962,12 +1962,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7680408003678097109}
   - component: {fileID: 5385099550961149389}
-  - component: {fileID: 5744939565016376668}
   - component: {fileID: 4320026149834982299}
   - component: {fileID: 1149644177073116782}
   - component: {fileID: 2151468699247577497}
   - component: {fileID: 2415395338263494267}
   - component: {fileID: 623003827717787874}
+  - component: {fileID: 5744939565016376668}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -2016,23 +2016,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5744939565016376668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7130809818878008018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42f41e6a2c8b8384a83212406cb1f5e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdPosition: {fileID: 0}
-  putdownUI: {fileID: 0}
-  handSphere: {fileID: 845703993011245451}
-  heldObject: {fileID: 0}
-  targetObject: {fileID: 0}
 --- !u!143 &4320026149834982299
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2237,6 +2220,22 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &5744939565016376668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7130809818878008018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f41e6a2c8b8384a83212406cb1f5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdPosition: {fileID: 0}
+  handSphere: {fileID: 845703993011245451}
+  heldObject: {fileID: 0}
+  targetObject: {fileID: 0}
 --- !u!1 &7388626240452511484
 GameObject:
   m_ObjectHideFlags: 0

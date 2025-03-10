@@ -33,46 +33,46 @@ namespace StarterAssets
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
         [Space(10)]
-        [Tooltip("The height the player can jump")]
+        [Tooltip("玩家可以跳跃的高度")]
         public float JumpHeight = 1.2f;
 
-        [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
+        [Tooltip("角色使用自己的重力值。引擎默认值为 -9.81f")]
         public float Gravity = -15.0f;
 
         [Space(10)]
-        [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
+        [Tooltip("再次跳跃所需的时间间隔。设置为 0f 可立即再次跳跃")]
         public float JumpTimeout = 0.50f;
 
-        [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
+        [Tooltip("进入下落状态前所需的时间。对于走下楼梯很有用")]
         public float FallTimeout = 0.15f;
 
-        [Header("Player Grounded")]
-        [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
+        [Header("玩家是否着地")]
+        [Tooltip("角色是否着地。这不是 CharacterController 内置的着地检查")]
         public bool Grounded = true;
 
-        [Tooltip("Useful for rough ground")]
+        [Tooltip("适用于不平整的地面")]
         public float GroundedOffset = -0.14f;
 
-        [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
+        [Tooltip("着地检查的半径。应与 CharacterController 的半径相匹配")]
         public float GroundedRadius = 0.28f;
 
-        [Tooltip("What layers the character uses as ground")]
+        [Tooltip("角色用作地面的图层")]
         public LayerMask GroundLayers;
 
         [Header("Cinemachine")]
-        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
+        [Tooltip("Cinemachine 虚拟相机中设置的跟随目标，相机将跟随该目标")]
         public GameObject CinemachineCameraTarget;
 
-        [Tooltip("How far in degrees can you move the camera up")]
+        [Tooltip("相机向上移动的最大角度（度）")]
         public float TopClamp = 70.0f;
 
-        [Tooltip("How far in degrees can you move the camera down")]
+        [Tooltip("相机向下移动的最大角度（度）")]
         public float BottomClamp = -30.0f;
 
-        [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
+        [Tooltip("用于覆盖相机角度的额外度数。在锁定相机位置时，可用于微调相机位置")]
         public float CameraAngleOverride = 0.0f;
 
-        [Tooltip("For locking the camera position on all axis")]
+        [Tooltip("用于锁定相机在所有轴上的位置")]
         public bool LockCameraPosition = false;
 
         // cinemachine
