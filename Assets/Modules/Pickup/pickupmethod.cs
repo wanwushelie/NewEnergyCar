@@ -9,12 +9,11 @@ public class pickupmethod : MonoBehaviour
 {
        // 拾取UI预制体
     public PickupController pickupController; // 拾取控制器
-
-    public GameObject pickupUI;        // 动态生成的UI实例
+    public Text pickupText;// 动态生成的UI实例
     public Button pickupButton;        // 拾取按钮组件
     public  Text objectNameText;        // UI中的文本组件
     public  GameObject targetObject;// 当前待拾取的物体
-    public string pickupname;
+    private string pickupname;
     public GameObject dizuo, chelun, tulun1, tulun2;
     Vector3 spawnPosition; // 拾取物品的位置  
     Quaternion spawnRotation = Quaternion.identity; // 默认为无旋转
@@ -26,66 +25,40 @@ public class pickupmethod : MonoBehaviour
     private ObjectData objectData;
     public ObjectDataManager objectdatamanager;
     public lingjiandate lingjiandate1;
-    public GameObject hitObject;
-
+    private GameObject hitObject;
+   
+    public GameObject panelpick,pu,pd;
     void Start()
     {
-        InitializePickupUI();
-
-
+        //InitializePickupUI();
+       
+          
+        
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (Input.mousePosition != Vector3.zero)
             CheckForClickableObject();
-        }
-
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
-    // 初始化拾取UI
-    void InitializePickupUI()
-    {
-        Canvas canvas = FindObjectOfType<Canvas>();
-        if (canvas == null)
-        {
-            Debug.LogError("场景中未找到Canvas！");
-            return;
-        }
-
-        // 实例化UI并获取组件
-        pickupUI.SetActive(false);
-        if(pickupUI==null)
-        {
-            Debug.LogError("000000");
-        }
-        // 绑定按钮事件
-        if (pickupButton != null)
-        {
-            pickupButton = pickupUI.GetComponentInChildren<Button>();
-            pickupButton.onClick.AddListener(OnPickupButtonClicked);
-        }
-        else
-        {
-            Debug.LogError("拾取UI中未找到Button组件！");
-        }
-    }
-
-    // 检测鼠标点击的物体
+   
     void CheckForClickableObject()
     {
         if (EventSystem.current.IsPointerOverGameObject() && !pickupController.IsHoldingObject) return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
+        //Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
+        //RaycastHit hit;
+       
         if (Physics.Raycast(ray, out hit))
         {
-            Debug.Log("111");
+            Debug.Log("11111111111");
             hitObject = hit.collider.gameObject;
-
+            pickupname = hitObject.name;
+            pickupText.text = pickupname.ToString();
             // 如果点击的是可拾取物体且当前未持有物体
             if (IsPickupable(hitObject) && !pickupController.IsHoldingObject)
             {
@@ -94,17 +67,31 @@ public class pickupmethod : MonoBehaviour
                 spawnRotation = hitObject.transform.rotation;//储存拾取物体位置
                 //hideobject = Instantiate(hitObject, spawnPosition, spawnRotation);
                 //hideobject.SetActive(false);
-                HideGameObjects.Add(hitObject);
-                pickupname = hitObject.name;
-                ShowPickupUI(hitObject.name);
+                panelpick.SetActive(true);
+                pu.SetActive(true);
+                pd.SetActive(false);
+                if(Input.GetKeyDown(KeyCode.X))
+                {
+                    OnPickupX();
+                    HideGameObjects.Add(hitObject);
+                }
+                //ShowPickupUI(hitObject.name);
             }
             else
             {
                 ClearTargetAndHideUI();
             }
-            if (pickupController.IsHoldingObject && hit.collider.CompareTag("xiaoche"))//组装小车部件
+           
+            if (pickupController.IsHoldingObject && hit.collider.CompareTag("xiaoche"))
             {
-                pickupController.PutDown();
+                panelpick.SetActive(true);
+                pickupText.text = pickupController.heldObject.name.ToString();
+                pu.SetActive(false);
+                pd.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    pickupController.PutDown();
+                }
 
             }
             if (pickupController.IsHoldingObject && hitObject.name == "机械小车未完成" && ObjectDataManager.Instance.GetData(pickupController.heldObject.name).canBemakeup)//组装小车部件
@@ -139,17 +126,7 @@ public class pickupmethod : MonoBehaviour
         }
         return false;
     }
-
-    // 显示拾取UI
-    void ShowPickupUI(string objectName)
-    {
-        Debug.Log("111111");
-        objectNameText.text = "拾取: " + objectName;
-        pickupUI.SetActive(true);
-    }
-
-    // 点击拾取按钮时的逻辑
-    public void OnPickupButtonClicked()
+    public void OnPickupX()
     {
         if (targetObject != null)
         {
@@ -163,7 +140,9 @@ public class pickupmethod : MonoBehaviour
     void ClearTargetAndHideUI()
     {
         targetObject = null;
-        pickupUI.SetActive(false);
+        panelpick.SetActive(false);
+        pickupText.text = "";
+        //pickupUI.SetActive(false);
     }
   
     void Assemble(GameObject car)
