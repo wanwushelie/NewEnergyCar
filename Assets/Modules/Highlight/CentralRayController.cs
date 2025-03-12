@@ -3,7 +3,9 @@ using UnityEngine;
 public class CentralRayController : MonoBehaviour
 {
     private Camera mainCamera;
-    private Transform currentTarget; // 当前高亮的目标物体
+    private Transform currentTarget;
+    public string objectName;
+        // 当前高亮的目标物体
 
     private void Start()
     {
@@ -12,14 +14,18 @@ public class CentralRayController : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
+        //Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
+        //RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        //if (Physics.Raycast(ray, out hit))
         {
-            string objectName = hit.collider.gameObject.name;
+            objectName = hit.collider.gameObject.name;
             ObjectData objectData = ObjectDataManager.Instance.GetData(objectName);
-
+            Debug.Log("hhhhhhh" +
+                    "");
             if (objectData != null)
             {
                 // 如果命中了新的目标物体或当前物体数据发生变化
@@ -77,7 +83,7 @@ public class CentralRayController : MonoBehaviour
             if (shouldHighlight)
             {
                 highlightableObject.On(highlightColor); // 开启高亮
-                Debug.Log("hhhhhhh" +
+                Debug.Log("h" +
                     "");
             }
             else
