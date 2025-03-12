@@ -18,6 +18,7 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
     private Image settingsButtonImage;
 
     public GameObject Player; // 玩家对象
+    public CentralRayController CentralRayController1;//光线投射器
 
     private void Start()
     {
@@ -27,9 +28,9 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
         settingsButtonImage = settingsButton.GetComponent<Image>();
         //隐藏玩家
         Player.SetActive(false);
-
         startUI.SetActive(true);
         gameUI.SetActive(false);
+        CentralRayController1.enabled = false;
     }
 
     // 开始游戏按钮点击事件
@@ -40,7 +41,7 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
         gameUI.SetActive(true);
         // 显示玩家
         Player.SetActive(true);
-
+        CentralRayController1.enabled = true;
         // 可以在这里添加其他游戏开始的逻辑
         Debug.Log("Game Started!");
     }

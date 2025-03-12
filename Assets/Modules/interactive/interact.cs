@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class NewBehaviourScript : MonoBehaviour
 {
     public GameObject interactivepanel;
-    public GameObject diannaopanel, qiegejipanel, dayinjipanel;
+    public GameObject diannaopanel, qiegejipanel;
     public CharacterController playercontrol;
     public ThirdPersonController ThirdPersonController;
     private Text interact;
@@ -29,13 +29,7 @@ public class NewBehaviourScript : MonoBehaviour
         interactivepanel.SetActive(true);
         interact.text = "按F 使用" + this.name;
         objectData = ObjectDataManager.Instance.GetData(this.name);
-        if (objectData.objectName=="打印机" && Input.GetKeyDown(KeyCode.F))
-        {
-            dayinjipanel.SetActive(true);
-            interactivepanel.SetActive(false);
-            playercontrol.enabled = false;
-            ThirdPersonController.enabled = false;
-        }
+       
         if (objectData.objectName == "切割机" && Input.GetKeyDown(KeyCode.F))
         {
             qiegejipanel.SetActive(true);

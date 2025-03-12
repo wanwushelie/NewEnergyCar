@@ -7,13 +7,13 @@ using Unity.VisualScripting;
 
 public class pickupmethod : MonoBehaviour
 {
-    public GameObject pickupUIPrefab;   // 拾取UI预制体
+       // 拾取UI预制体
     public PickupController pickupController; // 拾取控制器
 
-    private GameObject pickupUI;        // 动态生成的UI实例
-    private Button pickupButton;        // 拾取按钮组件
-    private Text objectNameText;        // UI中的文本组件
-    private GameObject targetObject;// 当前待拾取的物体
+    public GameObject pickupUI;        // 动态生成的UI实例
+    public Button pickupButton;        // 拾取按钮组件
+    public  Text objectNameText;        // UI中的文本组件
+    public  GameObject targetObject;// 当前待拾取的物体
     public string pickupname;
     public GameObject dizuo, chelun, tulun1, tulun2;
     Vector3 spawnPosition; // 拾取物品的位置  
@@ -26,6 +26,7 @@ public class pickupmethod : MonoBehaviour
     private ObjectData objectData;
     public ObjectDataManager objectdatamanager;
     public lingjiandate lingjiandate1;
+    public GameObject hitObject;
 
     void Start()
     {
@@ -56,11 +57,11 @@ public class pickupmethod : MonoBehaviour
         }
 
         // 实例化UI并获取组件
-        pickupUI = Instantiate(pickupUIPrefab, canvas.transform);
-        pickupButton = pickupUI.GetComponentInChildren<Button>();
-        objectNameText = pickupUI.GetComponentInChildren<Text>();
         pickupUI.SetActive(false);
-
+        if(pickupUI==null)
+        {
+            Debug.LogError("000000");
+        }
         // 绑定按钮事件
         if (pickupButton != null)
         {
@@ -82,7 +83,8 @@ public class pickupmethod : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            GameObject hitObject = hit.collider.gameObject;
+            Debug.Log("111");
+            hitObject = hit.collider.gameObject;
 
             // 如果点击的是可拾取物体且当前未持有物体
             if (IsPickupable(hitObject) && !pickupController.IsHoldingObject)
@@ -141,6 +143,7 @@ public class pickupmethod : MonoBehaviour
     // 显示拾取UI
     void ShowPickupUI(string objectName)
     {
+        Debug.Log("111111");
         objectNameText.text = "拾取: " + objectName;
         pickupUI.SetActive(true);
     }

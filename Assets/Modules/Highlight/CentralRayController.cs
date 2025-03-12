@@ -77,6 +77,8 @@ public class CentralRayController : MonoBehaviour
             if (shouldHighlight)
             {
                 highlightableObject.On(highlightColor); // 开启高亮
+                Debug.Log("hhhhhhh" +
+                    "");
             }
             else
             {
