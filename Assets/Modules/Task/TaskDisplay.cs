@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class TaskDisplay : MonoBehaviour
 {
+    public GameObject taskUI; // 公开的GameObject，用于控制任务UI的显示和隐藏
     public Text taskText; // 公开的Text组件，用于显示任务描述
 
     private void Start()
@@ -36,12 +37,23 @@ public class TaskDisplay : MonoBehaviour
             {
                 // 显示任务描述
                 taskText.text = firstIncompleteTask.description;
+                // 显示任务UI
+                ShowTaskUI(true);
             }
             else
             {
-                // 如果所有任务都已完成，显示提示信息
-                taskText.text = "所有任务已完成！";
+                // 如果所有任务都已完成，隐藏任务UI
+                ShowTaskUI(false);
             }
+        }
+    }
+
+    // 控制任务UI的显示和隐藏
+    private void ShowTaskUI(bool show)
+    {
+        if (taskUI != null)
+        {
+            taskUI.SetActive(show);
         }
     }
 }
