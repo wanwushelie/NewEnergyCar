@@ -14,10 +14,10 @@ public class CentralRayController : MonoBehaviour
 
     private void Update()
     {
-        //Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
-       // RaycastHit hit;
-       Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
         RaycastHit hit;
+       //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         //if (Physics.Raycast(ray, out hit))

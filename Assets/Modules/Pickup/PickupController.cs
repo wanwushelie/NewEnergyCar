@@ -12,10 +12,12 @@ public class PickupController : MonoBehaviour
     private Rigidbody heldObjectRb;  // 手持物体的刚体
     public GameObject targetObject; // 待拾取的物体
     public bool IsHoldingObject => heldObject != null; // 是否持有物体
-
+    private Camera mainCamera;
     void Start()
     {
         //holdPosition.position = handSphere.transform.position;
+        mainCamera = Camera.main;
+        
     }
 
     // 设置待拾取的物体
@@ -65,7 +67,7 @@ public class PickupController : MonoBehaviour
     {
         if (heldObject == null) return;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))

@@ -20,7 +20,7 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
     public GameObject Player; // 玩家对象
     public CentralRayController CentralRayController1;//光线投射器
     public pickupmethod pickupmethod1;
-
+    public PickupController pickupController1;
     private void Start()
     {
         // 获取按钮的Image组件
@@ -33,6 +33,7 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
         gameUI.SetActive(false);
         CentralRayController1.enabled = false;
         pickupmethod1.enabled = false;
+        pickupController1.enabled = false;
     }
 
     // 开始游戏按钮点击事件
@@ -45,6 +46,7 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
         Player.SetActive(true);
         CentralRayController1.enabled = true;
         pickupmethod1.enabled = true;
+        pickupController1.enabled = true;
         // 可以在这里添加其他游戏开始的逻辑
         Debug.Log("Game Started!");
     }

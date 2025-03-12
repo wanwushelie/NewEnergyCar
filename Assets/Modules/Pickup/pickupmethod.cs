@@ -26,15 +26,14 @@ public class pickupmethod : MonoBehaviour
     public ObjectDataManager objectdatamanager;
     public lingjiandate lingjiandate1;
     private GameObject hitObject;
-   
-    public GameObject panelpick,pu,pd;
+    public GameObject panelpick,pu,pd;//拾取面板、拾取题词、放下题词
+    private Camera mainCamera;
     void Start()
     {
         //InitializePickupUI();
-       
-          
-        
-    }
+        mainCamera = Camera.main;
+
+}
 
     void Update()
     {
@@ -48,10 +47,10 @@ public class pickupmethod : MonoBehaviour
     void CheckForClickableObject()
     {
         if (EventSystem.current.IsPointerOverGameObject() && !pickupController.IsHoldingObject) return;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+       // RaycastHit hit;
+        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
         RaycastHit hit;
-        //Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
-        //RaycastHit hit;
        
         if (Physics.Raycast(ray, out hit))
         {

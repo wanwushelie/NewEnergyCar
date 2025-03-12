@@ -1786,7 +1786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1065280996
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2697,6 +2697,10 @@ PrefabInstance:
       propertyPath: pickupmethod1
       value: 
       objectReference: {fileID: 1955543895}
+    - target: {fileID: 8058644082094614118, guid: 86b7a9fe5e22b6b4f8bb07d873eeb8b5, type: 3}
+      propertyPath: pickupController1
+      value: 
+      objectReference: {fileID: 1955543896}
     - target: {fileID: 8058644082094614118, guid: 86b7a9fe5e22b6b4f8bb07d873eeb8b5, type: 3}
       propertyPath: CentralRayController1
       value: 
