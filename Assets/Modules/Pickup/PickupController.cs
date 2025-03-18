@@ -86,9 +86,9 @@ public class PickupController : MonoBehaviour
             heldObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, surfaceNormal);
             Quaternion targetRotation = Quaternion.FromToRotation(Vector3.up, surfaceNormal);
             Vector3 euler = targetRotation.eulerAngles;
-            euler.x = -90;
-            euler.y = 0; // 锁定 X 轴旋转
-            euler.z = 0; // 锁定 Z 轴旋转
+            //euler.x = 0;
+           // euler.y = 0; // 锁定 X 轴旋转
+           // euler.z = 0; // 锁定 Z 轴旋转
             heldObject.transform.rotation = Quaternion.Euler(euler);
             // 清空引用
             heldObject = null;

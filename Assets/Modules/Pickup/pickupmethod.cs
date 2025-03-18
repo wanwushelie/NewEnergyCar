@@ -25,8 +25,9 @@ public class pickupmethod : MonoBehaviour
     private ObjectData objectData;
     public ObjectDataManager objectdatamanager;
     public lingjiandate lingjiandate1;
+    public lingjianused lingjianused1;
     private GameObject hitObject;
-    public GameObject panelpick,pu,pd;//拾取面板、拾取题词、放下题词
+    public GameObject panelpick,pu,pd,sh;//拾取面板、拾取题词、放下题词、使用题词
     private Camera mainCamera;
     void Start()
     {
@@ -43,15 +44,15 @@ public class pickupmethod : MonoBehaviour
         Cursor.visible = true;
     }
 
-   
+
     void CheckForClickableObject()
     {
         if (EventSystem.current.IsPointerOverGameObject() && !pickupController.IsHoldingObject) return;
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-       // RaycastHit hit;
+        // RaycastHit hit;
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
         RaycastHit hit;
-       
+
         if (Physics.Raycast(ray, out hit))
         {
             Debug.Log("11111111111");
@@ -61,54 +62,69 @@ public class pickupmethod : MonoBehaviour
             // 如果点击的是可拾取物体且当前未持有物体
             if (IsPickupable(hitObject) && !pickupController.IsHoldingObject)
             {
-                targetObject = hitObject;
-                spawnPosition = hitObject.transform.position;
-                spawnRotation = hitObject.transform.rotation;//储存拾取物体位置
-                //hideobject = Instantiate(hitObject, spawnPosition, spawnRotation);
-                //hideobject.SetActive(false);
+                objectData = ObjectDataManager.Instance.GetData(hitObject.name);
                 panelpick.SetActive(true);
-                pu.SetActive(true);
-                pd.SetActive(false);
-                if(Input.GetKeyDown(KeyCode.X))
+                if (objectData.isshowed)
                 {
-                    OnPickupX();
-                    HideGameObjects.Add(hitObject);
+                    pu.SetActive(false);
+                    pd.SetActive(false);
+                    sh.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.X))
+                    {
+                        lingjianused1.showed(hitObject);
+                    }
                 }
-                //ShowPickupUI(hitObject.name);
+                else
+                {
+                    targetObject = hitObject;
+                    spawnPosition = hitObject.transform.position;
+                    spawnRotation = hitObject.transform.rotation;//储存拾取物体位置
+                    pu.SetActive(true);
+                    pd.SetActive(false);
+                    sh.SetActive(false);
+                    if (Input.GetKeyDown(KeyCode.X))
+                    {
+                        OnPickupX();
+                        HideGameObjects.Add(hitObject);
+                    }
+                }
+                    //ShowPickupUI(hitObject.name);
+                }
+                else
+                {
+                    ClearTargetAndHideUI();
+                }
+
+                if (pickupController.IsHoldingObject && hit.collider.CompareTag("xiaoche"))
+                {
+                    panelpick.SetActive(true);
+                    pickupText.text = pickupController.heldObject.name.ToString();
+                    pu.SetActive(false);
+                    pd.SetActive(true);
+                    sh.SetActive(false);
+                    if (Input.GetKeyDown(KeyCode.X))
+                    {
+                        pickupController.PutDown();
+                    }
+
+                }
+                if (pickupController.IsHoldingObject && hitObject.name == "机械小车未完成" && ObjectDataManager.Instance.GetData(pickupController.heldObject.name).canBemakeup)//组装小车部件
+                {
+                    Assemble(pickupController.heldObject);
+
+                }
+                else if (!pickupController.IsHoldingObject && hitObject.name == "机械小车未完成")//拆卸小车部件
+                {
+                    chaixieUI.SetActive(true);
+                }
+
             }
             else
             {
                 ClearTargetAndHideUI();
             }
-           
-            if (pickupController.IsHoldingObject && hit.collider.CompareTag("xiaoche"))
-            {
-                panelpick.SetActive(true);
-                pickupText.text = pickupController.heldObject.name.ToString();
-                pu.SetActive(false);
-                pd.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.X))
-                {
-                    pickupController.PutDown();
-                }
-
-            }
-            if (pickupController.IsHoldingObject && hitObject.name == "机械小车未完成" && ObjectDataManager.Instance.GetData(pickupController.heldObject.name).canBemakeup)//组装小车部件
-            {
-                Assemble(pickupController.heldObject);
-
-            }
-            else if (!pickupController.IsHoldingObject && hitObject.name == "机械小车未完成")//拆卸小车部件
-            {
-                chaixieUI.SetActive(true);
-            }
-
         }
-        else
-        {
-            ClearTargetAndHideUI();
-        }
-    }
+    
 
     // 判断物体是否可拾取
     bool IsPickupable(GameObject obj)
@@ -125,6 +141,7 @@ public class pickupmethod : MonoBehaviour
         }
         return false;
     }
+    
     public void OnPickupX()
     {
         if (targetObject != null)

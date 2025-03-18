@@ -18,3 +18,7 @@ MonoBehaviour:
   showUI: 1
   uiPrefab: {fileID: 7715472019337851852, guid: a88a34a02cc464a4a819b1c1348e30e2, type: 3}
   canBePickedUp: 1
+  canBemakeup: 0
+  weight: 0
+  wnding: 0
+  isshowed: 1

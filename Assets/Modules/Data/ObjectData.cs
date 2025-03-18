@@ -25,4 +25,7 @@ public class ObjectData : ScriptableObject
 
     [Header("wending settings")]
     public int wnding;//稳定性
+
+    [Header("showed settings")]
+    public bool isshowed;//是否可以展示
 }
