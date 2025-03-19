@@ -1485,10 +1485,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 47b524152857da74c8c90d2d307c8d03, type: 2}
   tipsUI: {fileID: 1275126207}
   skipPrompt: {fileID: 1059945811}
-  virtualCameras:
-  - {fileID: 3664795}
-  - {fileID: 701593702}
-  - {fileID: 1174326138}
 --- !u!1001 &778214873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3747,7 +3743,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1955543885}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 8ea3b12bd45deac45bc74f504b916d4f, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: d35a6c94141a31a43bb976a5c6693717, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -3784,6 +3780,18 @@ PlayableDirector:
   - key: {fileID: 4353656817299512801, guid: 4b4d44f88af4b6e4abdb0df7be5f9364, type: 2}
     value: {fileID: 1174326137}
   - key: {fileID: 1486981399237309551, guid: 4b4d44f88af4b6e4abdb0df7be5f9364, type: 2}
+    value: {fileID: 571981792}
+  - key: {fileID: 7555430736411495331, guid: d35a6c94141a31a43bb976a5c6693717, type: 2}
+    value: {fileID: 774130134}
+  - key: {fileID: -7965895929918088494, guid: d35a6c94141a31a43bb976a5c6693717, type: 2}
+    value: {fileID: 1529964721}
+  - key: {fileID: -725009270954842853, guid: d35a6c94141a31a43bb976a5c6693717, type: 2}
+    value: {fileID: 3664794}
+  - key: {fileID: -3112844357689812778, guid: d35a6c94141a31a43bb976a5c6693717, type: 2}
+    value: {fileID: 701593700}
+  - key: {fileID: 4353656817299512801, guid: d35a6c94141a31a43bb976a5c6693717, type: 2}
+    value: {fileID: 1174326137}
+  - key: {fileID: 1486981399237309551, guid: d35a6c94141a31a43bb976a5c6693717, type: 2}
     value: {fileID: 571981792}
   m_ExposedReferences:
     m_References: []
