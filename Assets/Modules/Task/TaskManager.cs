@@ -1,27 +1,29 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class TaskManager : MonoBehaviour
 {
+    public static TaskManager Instance { get; private set; }
+
     public List<Task> tasks = new List<Task>();
-    public event System.Action OnTaskUpdated; // 定义一个事件
+    public event System.Action OnTaskUpdated;
 
-    // // 初始化任务列表
-    // void Start()
-    // {
-    //     tasks.Add(new Task("1", "前往普通车床"));
-    //     tasks.Add(new Task("2", "前往激光切割机"));
-    //     tasks.Add(new Task("3", "前往3D打印机"));
-        
-    //     // 打印任务初始化状态
-    //     foreach (Task task in tasks)
-    //     {
-    //         Debug.Log($"Task ID: {task.id}, Description: {task.description}, IsCompleted: {task.isCompleted}");
-    //     }
-        
-    // }
+    // 添加 TaskDisplay 引用
+    public TaskDisplay taskDisplay;
 
-    // 完成任务
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
     public void CompleteTask(string taskId)
     {
         foreach (Task task in tasks)
@@ -32,6 +34,34 @@ public class TaskManager : MonoBehaviour
                 break;
             }
         }
-        OnTaskUpdated?.Invoke(); // 触发事件
+        // 隐藏任务栏 UI
+        if (taskDisplay!= null)
+        {
+            taskDisplay.HideTaskUI();
+        }
     }
+  
+    public void UpdateTaskUI()
+    {
+        // 更新任务栏 UI
+        OnTaskUpdated?.Invoke();
+    }
+
+    public void HideTaskSystemUI()
+    {
+        if (taskDisplay != null)
+        {
+            taskDisplay.HideTaskUI();
+            taskDisplay.HideTipUI();
+        }
+    }
+
+    // public void HideTaskUI()
+    // {
+    //     if (taskDisplay != null)
+    //     {
+    //         taskDisplay.HideTaskUI();
+    //     }
+    // }
+
 }
