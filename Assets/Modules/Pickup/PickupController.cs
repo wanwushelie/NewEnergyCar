@@ -35,7 +35,6 @@ public class PickupController : MonoBehaviour
         ObjectData objectData = ObjectDataManager.Instance.GetData(obj.name);
         if (objectData == null || !objectData.canBePickedUp)
         {
-            Debug.LogWarning($"物体 {obj.name} 无法被拾取！");
             return;
         }
 
@@ -97,18 +96,5 @@ public class PickupController : MonoBehaviour
 
         // 隐藏放下UI
        
-    }
-
-    // 生成隐藏圆球（可选功能）
-    public void GenerateHiddenBall()
-    {
-        if (handSphere == null) return;
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            handSphere.transform.position = hit.point;
-            handSphere.SetActive(true);
-        }
     }
 }
