@@ -24,8 +24,6 @@ public class CentralRayController : MonoBehaviour
         {
             objectName = hit.collider.gameObject.name;
             ObjectData objectData = ObjectDataManager.Instance.GetData(objectName);
-            Debug.Log("hhhhhhh" +
-                    "");
             if (objectData != null)
             {
                 // 如果命中了新的目标物体或当前物体数据发生变化
@@ -83,8 +81,6 @@ public class CentralRayController : MonoBehaviour
             if (shouldHighlight)
             {
                 highlightableObject.On(highlightColor); // 开启高亮
-                Debug.Log("h" +
-                    "");
             }
             else
             {

@@ -27,17 +27,17 @@ public class NewBehaviourScript : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         interactivepanel.SetActive(true);
-        interact.text = "°´F Ê¹ÓÃ" + this.name;
+        interact.text = "æŒ‰Fä½¿ç”¨" + this.name;
         objectData = ObjectDataManager.Instance.GetData(this.name);
        
-        if (objectData.objectName == "ÇÐ¸î»ú" && Input.GetKeyDown(KeyCode.F))
+        if (objectData.objectName == "åˆ‡å‰²æœº" && Input.GetKeyDown(KeyCode.F))
         {
             qiegejipanel.SetActive(true);
             interactivepanel.SetActive(false);
             playercontrol.enabled = false;
             ThirdPersonController.enabled = false;
         }
-        if (objectData.objectName == "Ö÷»úµçÄÔ" && Input.GetKeyDown(KeyCode.F))
+        if (objectData.objectName == "ä¸»æœºç”µè„‘" && Input.GetKeyDown(KeyCode.F))
         {
             diannaopanel.SetActive(true);
             interactivepanel.SetActive(false);

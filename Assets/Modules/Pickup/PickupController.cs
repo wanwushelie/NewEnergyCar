@@ -5,7 +5,6 @@ public class PickupController : MonoBehaviour
 {
     public Transform holdPosition;   // 手持物体的位置
     //public GameObject putdownUI;     // 放下提示UI
-    public GameObject handSphere;    // 手上的圆球（可选）
 
     [Header("Debug")]
     [SerializeField] public  GameObject heldObject;  // 当前手持的物体
@@ -51,10 +50,6 @@ public class PickupController : MonoBehaviour
         // 将物体移动到手持位置并设置父物体
         heldObject.transform.position = holdPosition.position;
         heldObject.transform.parent = holdPosition;
-        if (handSphere != null)
-        {
-            handSphere.SetActive(false);
-        }
 
         // 显示放下UI
 

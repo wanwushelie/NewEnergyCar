@@ -16,14 +16,13 @@ public class pickupmethod : MonoBehaviour
     public Text pickupText;// 动态生成的UI实例
     public Button pickupButton;        // 拾取按钮组件
     public Text objectNameText;        // UI中的文本组件
-    private string pickupname;
     public Vector3 spawnPosition; // 拾取物品的位置  
     public Quaternion spawnRotation = Quaternion.identity; // 默认为无旋转
     public bool ischelun = false, isdizuo = false, istulun = false;//判断小车上是否搭载组件
     public xiaochedate Xiaochedate;
     private ObjectData objectData;
     public ObjectDataManager objectdatamanager;
-    public lingjiandate lingjiandate1;
+    public lingjiandate lingjiandate1;  
     public lingjianused lingjianused1;
     public Assemble assemble1;
 
@@ -47,8 +46,7 @@ public class pickupmethod : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             hitObject = hit.collider.gameObject;
-            pickupname = hitObject.name;
-            pickupText.text = pickupname.ToString();
+            pickupText.text = hitObject.name;
             // 如果点击的是可拾取物体且当前未持有物体
             if (IsPickupable(hitObject) && !pickupController.IsHoldingObject)
             {
@@ -83,6 +81,8 @@ public class pickupmethod : MonoBehaviour
             {
                 ClearTargetAndHideUI();
             }
+
+
             if (pickupController.IsHoldingObject && hit.collider.CompareTag("xiaoche"))
             {
                 panelpick.SetActive(true);
@@ -96,10 +96,12 @@ public class pickupmethod : MonoBehaviour
                 }
 
             }
+
+
             if (pickupController.IsHoldingObject && hitObject.name == "机械小车未完成" && ObjectDataManager.Instance.GetData(pickupController.heldObject.name).canBemakeup)//组装小车部件
             {
                 if(Input.GetKeyDown(KeyCode.X))
-                assemble1.assemble(pickupController.heldObject);
+                assemble1.assemble(pickupController.heldObject); 
             }
             else if (!pickupController.IsHoldingObject && hitObject.name == "机械小车未完成"&& Input.GetKeyDown(KeyCode.X))//拆卸小车部件
             {

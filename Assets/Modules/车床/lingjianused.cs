@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class lingjianused : MonoBehaviour
 {
-    public GameObject youhusposition, youhueposition,youhuoposition;//ÓÍºøÒÆ¶¯
-    public GameObject banshousposition, banshoueposition, banshouoposition,kpp1s,kpp1e,kpp2s,kpp2e,kpp3e,kpp3s;//°âÊÖÒÆ¶¯,¿¨ÅÌÎ»ÖÃÒÆ¶¯
-    public GameObject dingzi,dingzioposition,dingzieposition;//¶¤×ÓÒÆ¶¯
-    public GameObject zhuanzhou, kapan,kapanpart1,kapanpart2,kapanpart3;//¿¨ÅÌĞı×ª
+    public GameObject youhusposition, youhueposition,youhuoposition;//ï¿½Íºï¿½ï¿½Æ¶ï¿½
+    public GameObject banshousposition, banshoueposition, banshouoposition,kpp1s,kpp1e,kpp2s,kpp2e,kpp3e,kpp3s;//ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½,ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Æ¶ï¿½
+    public GameObject dingzi,dingzioposition,dingzieposition;//ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+    public GameObject zhuanzhou, kapan,kapanpart1,kapanpart2,kapanpart3;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ª
     public GameObject DaoJu1, DaoJu2, DaoJu3;
-    public GameObject DaoJu1oposition, DaoJu2oposition, DaoJu3oposition, DaoJuposition;//µ¶¾ßÎ»ÖÃ
-    public GameObject yuanjian, yuanjian0position, yuanjian1position, yuanjian2position,yuanjian3position;//Ôª¼şÎ»ÖÃ
+    public GameObject DaoJu1oposition, DaoJu2oposition, DaoJu3oposition, DaoJuposition;//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+    public GameObject yuanjian, yuanjian0position, yuanjian1position, yuanjian2position,yuanjian3position;//Ôªï¿½ï¿½Î»ï¿½ï¿½
     public float speed = 1.0f;
     public float duration = 2.0f;
     public pickupmethod pickupmethod1;
-    public bool isdianyuan=false,isdianji=false,isrotate=false,isdaojia=false,isdaoju=false,iskapan=false,isyuanjian=false;//¼ì²âµçÔ´ºÍµç»úÊÇ·ñÊ¹ÓÃ
-    private Renderer renderer; // ÎïÌåµÄ Renderer ×é¼ş
-    private Color originalColor; // ±£´æÔ­Ê¼ÑÕÉ«
+    public bool isdianyuan=false,isdianji=false,isrotate=false,isdaojia=false,isdaoju=false,iskapan=false,isyuanjian=false;//ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Íµï¿½ï¿½ï¿½Ç·ï¿½Ê¹ï¿½ï¿½
+    private Renderer renderer; // ç‰©ä½“çš„ Renderer ç»„ä»¶
+    private Color originalColor; // ä¿å­˜åŸå§‹é¢œè‰²
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class lingjianused : MonoBehaviour
                 obj.transform.rotation = Quaternion.Euler(0, -90, 90);
                 StartCoroutine(MoveAndReturnYouHu(obj, youhuoposition.transform, youhusposition.transform.position, youhueposition.transform.position, duration));
                 break;
-            case "µçÔ´¿ª¹Ø":
+            case "ç”µæºå¼€å…³":
                 renderer = obj.GetComponent<Renderer>();
                 originalColor = renderer.material.color;
                //Debug.Log("95959");
@@ -62,7 +62,7 @@ public class lingjianused : MonoBehaviour
                     StopCoroutine(RotateContinuously(zhuanzhou));
                 }
                 break;
-            case "µç»ú¿ª¹Ø":
+            case "ç”µæœºå¼€å…³":
                 if (!isdianji)
                 {
                     isdianji = true;
@@ -83,7 +83,7 @@ public class lingjianused : MonoBehaviour
                     StopCoroutine(RotateContinuously(zhuanzhou));
                 }
                 break;
-            case "°âÊÖ":
+            case "æ‰³æ‰‹":
                 if (!iskapan)
                 {
                     StartCoroutine(MoveBanShou(obj, banshouoposition.transform, Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 90, 0), banshousposition.transform.position, banshoueposition.transform.position, duration));
@@ -95,7 +95,7 @@ public class lingjianused : MonoBehaviour
                     iskapan = false;
                 }
                 break;
-            case "µ¶¼Ü¿ª¹Ø":
+            case "åˆ€æ¶å¼€å…³":
                 if (!isdaojia)
                 {
                     StartCoroutine(MoveRotation(obj, Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 0, -16), 1.0f));
@@ -130,7 +130,7 @@ public class lingjianused : MonoBehaviour
                     isdaoju = true;
                 }
                 break;
-            case "Ôª¼ş":
+            case "å…ƒä»¶":
                 if(iskapan&&!isyuanjian)
                 {
                     StartCoroutine(MoveAndReturnYuanJian(obj,yuanjian0position.transform.position,yuanjian1position.transform.position,yuanjian2position.transform.position,yuanjian3position.transform.position,2.0f));
@@ -148,10 +148,10 @@ public class lingjianused : MonoBehaviour
     }
     IEnumerator MoveAndReturnYouHu(GameObject targetObj,Transform ori, Vector3 startPosition, Vector3 endPosition, float duration)
     {
-        // µÚÒ»¶Î£º´ÓÆğµãµ½ÖÕµã
+        // ï¿½ï¿½Ò»ï¿½Î£ï¿½ï¿½ï¿½ï¿½ï¿½ãµ½ï¿½Õµï¿½
         yield return MoveToPosition(targetObj, ori.position, startPosition, duration);
         yield return new WaitForSeconds(1.0f);
-        // µÚ¶ş¶Î£º´ÓÖÕµã·µ»ØÆğµã
+        // ï¿½Ú¶ï¿½ï¿½Î£ï¿½ï¿½ï¿½ï¿½Õµã·µï¿½ï¿½ï¿½ï¿½ï¿½
         yield return MoveToPosition(targetObj, startPosition, endPosition, duration);
         yield return new WaitForSeconds(1.0f);
         targetObj.transform.rotation = new Quaternion(0, 0, 0,0);
@@ -160,10 +160,10 @@ public class lingjianused : MonoBehaviour
     }
     IEnumerator ReturnBanShou(GameObject targetObj, Transform ori, Vector3 startPosition, Vector3 endPosition, float duration)
     {
-        // µÚÒ»¶Î£º´ÓÆğµãµ½ÖÕµã
+        // ï¿½ï¿½Ò»ï¿½Î£ï¿½ï¿½ï¿½ï¿½ï¿½ãµ½ï¿½Õµï¿½
         yield return MoveToPosition(targetObj, ori.position, startPosition, duration);
         yield return new WaitForSeconds(1.0f);
-        // µÚ¶ş¶Î£º´ÓÖÕµã·µ»ØÆğµã
+        // ï¿½Ú¶ï¿½ï¿½Î£ï¿½ï¿½ï¿½ï¿½Õµã·µï¿½ï¿½ï¿½ï¿½ï¿½
         yield return MoveToPosition(targetObj, startPosition, endPosition, duration);
         
 
@@ -190,7 +190,7 @@ public class lingjianused : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        targetObj.transform.position = end; // È·±£×îÖÕµ½´ïÖÕµã
+        targetObj.transform.position = end; // È·ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½Õµï¿½
         //yield return new WaitForSeconds(1.0f);
        
     }
@@ -200,22 +200,22 @@ public class lingjianused : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            float t = elapsedTime / duration; // ²åÖµ²ÎÊı
-            obj.transform.rotation = Quaternion.Slerp(start, end, t); // Ê¹ÓÃ Slerp Æ½»¬²åÖµ
+            float t = elapsedTime / duration; // ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
+            obj.transform.rotation = Quaternion.Slerp(start, end, t); // Ê¹ï¿½ï¿½ Slerp Æ½ï¿½ï¿½ï¿½ï¿½Öµ
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // È·±£×îÖÕĞı×ªµ½Ä¿±êÎ»ÖÃ
+        // È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Ä¿ï¿½ï¿½Î»ï¿½ï¿½
         obj.transform.rotation = end;
     }
     IEnumerator RotateContinuously(GameObject obj)
     {
         while (isrotate)
         {
-            // Ã¿Ö¡ÈÆ X ÖáĞı×ª
+            // Ã¿Ö¡ï¿½ï¿½ X ï¿½ï¿½ï¿½ï¿½×ª
             obj.transform.Rotate(Vector3.right * 180.0f * Time.deltaTime);
-            yield return null; // µÈ´ıÏÂÒ»Ö¡
+            yield return null; // ï¿½È´ï¿½ï¿½ï¿½Ò»Ö¡
         }
     }
     IEnumerator MoveAndReturnYuanJian(GameObject targetObj, Vector3 position0, Vector3 position1, Vector3 position2,Vector3 position3, float duration)
