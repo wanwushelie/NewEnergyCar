@@ -102,7 +102,7 @@ public class lingjianused : MonoBehaviour
                     StartCoroutine(MoveToPosition(dingzi, dingzioposition.transform.position,dingzieposition.transform.position, 1.0f));
                     isdaojia = true;
                 }
-                else
+                else if(isdaojia&&!isdaoju)
                 {
                     StartCoroutine(MoveRotation(obj, Quaternion.Euler(0, 0, -16), Quaternion.Euler(0, 0, 0), 1.0f));
                     StartCoroutine(MoveToPosition(dingzi, dingzieposition.transform.position, dingzioposition.transform.position, 1.0f));
@@ -115,6 +115,11 @@ public class lingjianused : MonoBehaviour
                     StartCoroutine(MoveToPosition(obj, DaoJu1oposition.transform.position, DaoJuposition.transform.position, 2.0f));
                     isdaoju = true;
                 }
+                else if(isdaojia&&isdaoju)
+                {
+                    StartCoroutine(MoveToPosition(obj, DaoJuposition.transform.position, DaoJu1oposition.transform.position, 2.0f));
+                    isdaoju = false;
+                }
                 break;
             case "DaoJu2":
                 if (isdaojia && !isdaoju)
@@ -122,12 +127,22 @@ public class lingjianused : MonoBehaviour
                     StartCoroutine(MoveToPosition(obj, DaoJu2oposition.transform.position, DaoJuposition.transform.position, 2.0f));
                     isdaoju = true;
                 }
+                else if (isdaojia && isdaoju)
+                {
+                    StartCoroutine(MoveToPosition(obj, DaoJuposition.transform.position, DaoJu2oposition.transform.position, 2.0f));
+                    isdaoju = false;
+                }
                 break;
             case "DaoJu3":
                 if (isdaojia && !isdaoju)
                 {
                     StartCoroutine(MoveToPosition(obj, DaoJu3oposition.transform.position, DaoJuposition.transform.position, 2.0f));
                     isdaoju = true;
+                }
+                else if (isdaojia && isdaoju)
+                {
+                    StartCoroutine(MoveToPosition(obj, DaoJuposition.transform.position, DaoJu3oposition.transform.position, 2.0f));
+                    isdaoju = false;
                 }
                 break;
             case "元件":

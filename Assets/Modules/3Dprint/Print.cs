@@ -7,16 +7,16 @@ public class Print : MonoBehaviour
 {
     public GameObject banzi;
     public Transform trans;
-    private float fadeSpeed = 0.005f; // ½¥ÏÔËÙ¶È  
-    public float startHeight;// ¿ªÊ¼¸ß¶È  
-    public float targetHeight; // Ä¿±ê¸ß¶È  
+    private float fadeSpeed = 0.005f; // æ¸æ˜¾é€Ÿåº¦  
+    public float startHeight;// å¼€å§‹é«˜åº¦  
+    public float targetHeight; // ç›®æ ‡é«˜åº¦  
     public  Renderer rend;
     private Color originalColor;
     private bool isprint = false;
     private bool isstart = false;
     float timer = 0;
-    public CharacterController playercontrol;
-    public ThirdPersonController ThirdPersonController;
+    //public CharacterController playercontrol;
+    //public ThirdPersonController ThirdPersonController;
     public GameObject Camera1;
     public GameObject Camera2;
     private float currentHeight;
@@ -36,11 +36,11 @@ public class Print : MonoBehaviour
             currentHeight = transform.position.y;
             if (isstart)
             { 
-                startHeight = trans.position.y ; // ÏÂ±íÃæ  
-                targetHeight = trans.position.y+ (rend.bounds.size.y); // ÉÏ±íÃæ 
+                startHeight = trans.position.y ; // ä¸‹è¡¨é¢  
+                targetHeight = trans.position.y+ (rend.bounds.size.y); // ä¸Šè¡¨é¢ 
                 isstart = false;
             }
-            // Èç¹ûÎïÌå»¹Î´µ½´ïÄ¿±ê¸ß¶È£¬Ôò¼ÌĞøÒÆ¶¯  
+            // å¦‚æœç‰©ä½“è¿˜æœªåˆ°è¾¾ç›®æ ‡é«˜åº¦ï¼Œåˆ™ç»§ç»­ç§»åŠ¨  
             if (currentHeight < targetHeight)
             {
                 currentHeight += fadeSpeed * Time.deltaTime;
@@ -51,15 +51,15 @@ public class Print : MonoBehaviour
                 timer += Time.deltaTime;
                 if (timer >= 3)
                 {
-                    playercontrol.enabled = true;
-                    ThirdPersonController.enabled = true;
+                    //playercontrol.enabled = true;
+                    //ThirdPersonController.enabled = true;
                     Camera1.SetActive(true);
                     Camera2.SetActive(false);
                     isprint = false;
                 }
             }
         
-            // ¼ÆËãÍ¸Ã÷¶È£¬¸ù¾İ¸ß¶È±ÈÀı  
+            // è®¡ç®—é€æ˜åº¦ï¼Œæ ¹æ®é«˜åº¦æ¯”ä¾‹  
             float alpha = Mathf.Clamp01((currentHeight - startHeight) / (targetHeight - startHeight));
             rend.material.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
         }

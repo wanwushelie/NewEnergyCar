@@ -31,12 +31,15 @@ public class CollisionDetection : MonoBehaviour
         //如果动画正在播放
         if (director.state == PlayState.Playing)
         {
+            skipPrompt.SetActive(true);
             // 按下X键跳过当前剧情
             if (Input.GetKeyDown(KeyCode.X))
             {
                 SkipTimeline();
+                skipPrompt.SetActive(false);
             }
         }
+       
     }
     IEnumerator OnOprerate()
     {

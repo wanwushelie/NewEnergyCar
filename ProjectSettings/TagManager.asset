@@ -13,6 +13,7 @@ TagManager:
   - Check
   - OilPot
   - npc
+  - Cube
   layers:
   - Default
   - TransparentFX

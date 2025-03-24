@@ -23,7 +23,8 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
     public PickupController pickupController1;
     public 大托把扳手 tuoba;
     public 小托把扳手 xiaotuoba;
-    private void Start()
+    public PolygonDrawer PolygonDrawer1;
+    private void awake()
     {
         // 获取按钮的Image组件
         startButtonImage = startButton.GetComponent<Image>();
@@ -38,6 +39,7 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
         pickupController1.enabled = false;
         tuoba.enabled = false;
         xiaotuoba.enabled = false;
+        PolygonDrawer1.enabled = false;
     }
 
     // 开始游戏按钮点击事件
@@ -53,6 +55,7 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler, IPointerE
         pickupController1.enabled = true;
         tuoba.enabled = true;
         xiaotuoba.enabled = true;
+        PolygonDrawer1.enabled = true;
         // 可以在这里添加其他游戏开始的逻辑
         Debug.Log("Game Started!");
     }

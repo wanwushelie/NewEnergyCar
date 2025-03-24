@@ -1,0 +1,273 @@
+using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
+using StarterAssets;
+
+public class PolygonDrawer : MonoBehaviour
+{
+    public GameObject cube; // ������Ԥ����  
+    public Color fillColor = Color.red; // �����ɫ  
+    public Material lineMaterial; // ���������Ĳ���  
+    public float height = 0.2f; // ����߶�
+    public PolygonDrawer PolygonDrawer1;
+    private List<Vector3> points = new List<Vector3>();
+    private LineRenderer lineRenderer;
+    private GameObject polygonObject; 
+    private MeshFilter meshFilter; 
+    private GameObject cylinderObject;
+    public GameObject dingmian;
+    public Material material;
+    public bool isDrawing = false;
+    public Camera main, qiege;
+    public CharacterController characterController;
+    public ThirdPersonController thirdPersonController;
+    private bool isPaused = false;
+    void Start()
+    {
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.material = lineMaterial;
+        lineRenderer.startColor = fillColor;
+        lineRenderer.endColor = fillColor;
+        lineRenderer.startWidth = 0.005f;
+        lineRenderer.endWidth = 0.005f; 
+        lineRenderer.transform.position = new Vector3(0, 0, qiege.transform.position.z - 0.0000001f);
+        //qiege.enabled = false;
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = qiege.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.CompareTag("Cube"))
+                {
+                    isDrawing = true;
+                    points.Clear();
+                    points.Add(hit.point);
+                    DrawLine();
+                }
+            }
+        }
+
+        if (Input.GetMouseButton(0) && isDrawing)
+        {
+            Ray ray = qiege.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.CompareTag("Cube"))
+                {
+                    Vector3 currentPoint = hit.point;
+
+                    if (points.Count == 0 || Vector3.Distance(points[points.Count - 1], currentPoint) > 0.01f)
+                    {
+                        points.Add(currentPoint);
+                        DrawLine();  
+                    }
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0) && isDrawing)
+        {
+            isDrawing = false;
+            StartCoroutine(CompleteDrawing());
+        }
+    }
+
+    private void DrawLine()
+    {
+        lineRenderer.positionCount = points.Count;
+        lineRenderer.SetPositions(points.ToArray()); // ���������ĵ�  
+    }
+
+    private void CreatePolygon()
+    {
+        if (points.Count < 3) return; // ������Ҫ3����  
+
+        // ���� Mesh  
+        Mesh mesh = new Mesh();
+        Vector3[] vertices = new Vector3[points.Count];
+        int[] triangles = new int[(points.Count - 2) * 3];
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            vertices[i] = points[i];
+        }
+
+        for (int i = 0; i < points.Count - 2; i++)
+        {
+            triangles[i * 3] = 0;
+            triangles[i * 3 + 1] = i + 1;
+            triangles[i * 3 + 2] = i + 2;
+        }
+
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+
+        // ��������  
+        // Material material = new Material(Shader.Find("Unlit/Color"));
+        //material.color = fillColor;
+
+        // ���� GameObject �洢��� Mesh  
+        polygonObject = new GameObject("Polygon");
+        meshFilter = polygonObject.AddComponent<MeshFilter>(); // ȷ��ʹ�����Ա����
+        MeshRenderer meshRenderer = polygonObject.AddComponent<MeshRenderer>();
+
+        meshFilter.mesh = mesh;
+        meshRenderer.material = material;
+
+        // ���ö���������λ��Ϊ (0, 0, 0)�����Ը����������  
+        polygonObject.transform.position = Vector3.zero;
+
+    }
+
+    private void Createdingmian()
+    {
+        if (points.Count < 3) return; // ������Ҫ3����  
+
+        // ���� Mesh  
+        Mesh mesh = new Mesh();
+        Vector3[] vertices = new Vector3[points.Count];
+        int[] triangles = new int[(points.Count - 2) * 3];
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            vertices[i] = points[i];
+        }
+
+        for (int i = 0; i < points.Count - 2; i++)
+        {
+            triangles[i * 3] = 0;
+            triangles[i * 3 + 1] = i + 1;
+            triangles[i * 3 + 2] = i + 2;
+        }
+
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        dingmian = new GameObject("dingmian");
+        meshFilter = dingmian.AddComponent<MeshFilter>(); // ȷ��ʹ�����Ա����
+        MeshRenderer meshRenderer = dingmian.AddComponent<MeshRenderer>();
+
+        meshFilter.mesh = mesh;
+        meshRenderer.material = material;
+
+        Vector3 changeposition = polygonObject.transform.position;
+        changeposition.y -= 0.045f;
+        dingmian.transform.position = changeposition;
+    }
+    void GenerateCylinder(Vector3[] polygonVertices, float height)
+    {
+        if (polygonVertices.Length < 3)
+        {
+            Debug.LogError("多边形顶点不足，无法生成柱体！");
+            return;
+        }
+
+        // 创建柱体对象
+        cylinderObject = new GameObject("Cylinder");
+        MeshFilter cylinderMeshFilter = cylinderObject.AddComponent<MeshFilter>();
+        MeshRenderer cylinderMeshRenderer = cylinderObject.AddComponent<MeshRenderer>();
+
+        // 计算底面和顶面顶点（沿Y轴方向延伸）
+        Vector3[] vertices = new Vector3[polygonVertices.Length * 2];
+        for (int i = 0; i < polygonVertices.Length; i++)
+        {
+            // 底面顶点（Y坐标保持原始位置）
+            Vector3 bottomVertex = polygonVertices[i];
+
+            // 顶面顶点（Y坐标增加高度）
+            Vector3 topVertex = polygonVertices[i] + Vector3.down * height; // 修改点1：使用Y轴方向
+
+            vertices[i] = bottomVertex;                     // 底面顶点索引：0 ~ n-1
+            vertices[i + polygonVertices.Length] = topVertex; // 顶面顶点索引：n ~ 2n-1
+        }
+
+        // 生成侧面三角形（修正连接顺序）
+        int triangleCount = polygonVertices.Length * 6;
+        int[] triangles = new int[triangleCount];
+
+        for (int i = 0; i < polygonVertices.Length; i++)
+        {
+            int next = (i + 1) % polygonVertices.Length;
+            int baseIndex = i * 6;
+
+            // 第一个三角形（底面i -> 底面next -> 顶面i）
+            triangles[baseIndex] = i;
+            triangles[baseIndex + 1] = next;
+            triangles[baseIndex + 2] = i + polygonVertices.Length;
+
+            // 第二个三角形（顶面i -> 底面next -> 顶面next）
+            triangles[baseIndex + 3] = i + polygonVertices.Length;
+            triangles[baseIndex + 4] = next;
+            triangles[baseIndex + 5] = next + polygonVertices.Length;
+        }
+
+        // 生成网格
+        Mesh mesh = new Mesh
+        {
+            vertices = vertices,
+            triangles = triangles
+        };
+        mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
+
+        cylinderMeshFilter.mesh = mesh;
+        cylinderMeshRenderer.material = lineMaterial;
+
+        // 设置父物体和位置
+        cylinderObject.transform.position = Vector3.zero;
+        if (polygonObject != null) polygonObject.transform.SetParent(cylinderObject.transform);
+        if (dingmian != null) dingmian.transform.SetParent(cylinderObject.transform);
+    }
+    IEnumerator MoveRotation(Camera obj, Quaternion start, Quaternion end, float duration)
+    {
+        float elapsedTime = 0.0f;
+
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration; // ��ֵ����
+            obj.transform.rotation = Quaternion.Slerp(start, end, t); // ʹ�� Slerp ƽ����ֵ
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        obj.transform.rotation = end;
+    }
+    IEnumerator CompleteDrawing()
+    {
+        // 启动旋转协程
+        StartCoroutine(MoveRotation(qiege,qiege.transform.rotation, Quaternion.Euler(45.84f, 0.59f, 0.83f), 2.0f));
+
+        // 暂停 5 秒
+        yield return new WaitForSeconds(5);
+
+        // 暂停结束后执行后续逻辑
+        CreatePolygon();
+        Createdingmian();
+
+        lineRenderer.positionCount = 0;
+        cube.SetActive(false);
+
+        if (meshFilter != null && meshFilter.mesh != null)
+        {
+            Vector3[] polygonVertices = meshFilter.mesh.vertices;
+            GenerateCylinder(polygonVertices, height);
+        }
+        else
+        {
+            Debug.LogError("MeshFilter 未正确初始化");
+        }
+        yield return new WaitForSeconds(3);
+        qiege.enabled = false;
+        main.enabled = true;
+        PolygonDrawer1.enabled = false;
+        characterController.enabled = true;
+        thirdPersonController.enabled = true;
+    }
+}
