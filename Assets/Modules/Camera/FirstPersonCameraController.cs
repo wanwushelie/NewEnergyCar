@@ -1,7 +1,14 @@
 using UnityEngine;
+using System.Collections;
+using UnityEngine.Playables;
+using UnityEngine.UI;
+using Cinemachine;
+using System.Collections.Generic;
+
 
 public class FirstPersonCameraController : MonoBehaviour
 {
+    private CollisionDetection collisionDetection;
     public float moveSpeed = 5f;          // 水平移动速度
     public float verticalSpeed = 2f;      // 上下移动速度
     public float mouseSensitivity = 3f;  // 鼠标灵敏度
@@ -11,13 +18,36 @@ public class FirstPersonCameraController : MonoBehaviour
     private Quaternion initialRotation;  // 初始旋转角度
     private bool isDragging = false;     // 是否正在按住右键拖动
 
+    public bool canMove = true;//控制角色是否可以移动
+
+
+    private void Start()
+    {
+        collisionDetection = FindObjectOfType<CollisionDetection>();
+    }
 
     void Update()
     {
-        HandleHorizontalMovement();       // 处理水平移动逻辑
-        HandleVerticalMovement();         // 处理上下移动逻辑
+        if (canMove)
+        {
+            HandleHorizontalMovement();       // 处理水平移动逻辑
+            HandleVerticalMovement();         // 处理上下移动逻辑
+        }
+
         HandleMouseLook();                // 处理鼠标视角控制
+        // if (Input.GetKeyDown(KeyCode.F))
+        // {
+        //     StartCoroutine(OnOperate());
+        // }
     }
+
+    // private IEnumerator OnOperate()
+    // {
+    //     if (collisionDetection != null)
+    //     {
+    //         yield return collisionDetection.OnOperate();
+    //     }
+    // }
 
     void HandleHorizontalMovement()
     {

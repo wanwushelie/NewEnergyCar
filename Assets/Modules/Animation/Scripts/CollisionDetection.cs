@@ -9,6 +9,7 @@ using Cinemachine;
 
 public class CollisionDetection : MonoBehaviour
 {
+    public FirstPersonCameraController player;
     public PlayableDirector director;
     public List<TimelineAsset> timelines;
     public GameObject tipsUI;
@@ -23,8 +24,10 @@ public class CollisionDetection : MonoBehaviour
         isPlaying = true;
         //打印isPlaying
         Debug.Log("isPlaying:" + isPlaying);
+        // player.canMove = false;
         //播放第一段动画
         PlayTimeline(0);
+        isPlaying = false;
     }
     private void Update()
     {
@@ -37,15 +40,24 @@ public class CollisionDetection : MonoBehaviour
             {
                 SkipTimeline();
                 skipPrompt.SetActive(false);
+                // player.canMove = true;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("F键被按下");
+            StartCoroutine(OnOperate());
         }
        
     }
-    IEnumerator OnOprerate()
+    public IEnumerator OnOperate()
     {
         Debug.Log("OnOperate");
+
         if (isTure && !isPlaying)
         {
+            
             TaskManager taskManager = TaskManager.Instance;
             if (taskManager != null)
             {
@@ -58,17 +70,15 @@ public class CollisionDetection : MonoBehaviour
             }
 
             isPlaying = true;
-           
-            var thirdPersonController = GetComponent<ThirdPersonController>();
-            thirdPersonController.enabled = false;
+            player.canMove = false;
             //
             PlayTimeline(currentTaskIndex+1);
             while (director.state == PlayState.Playing)
             {
                 yield return null;
             }
-            thirdPersonController.enabled = true;
 
+            player.canMove = true;
             //更新任务UpdateTaskUI
             TaskManager.Instance.UpdateTaskUI();
             currentTaskIndex = Mathf.Min(currentTaskIndex + 1, timelines.Count - 1);
@@ -160,6 +170,6 @@ public class CollisionDetection : MonoBehaviour
         // 将播放时间设置为总时长，让动画停留在最后一帧
         director.time = totalDuration;
         director.Evaluate();
-        isPlaying = false;
+        // isPlaying = false;
     }
 }
