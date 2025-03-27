@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce2552419a6171d4bbff82099f97965e, type: 3}
-  m_Name: "\u4E3B\u673A\u7535\u8111"
+  m_Name: "\u4E3B\u673A\u7535\u8111\u5207\u5272"
   m_EditorClassIdentifier: 
-  objectName: "\u4E3B\u673A\u7535\u8111"
+  objectName: "\u4E3B\u673A\u7535\u8111\u5207\u5272"
   canBeHighlighted: 1
-  highlightColor: {r: 0.9413508, g: 1, b: 0, a: 1}
+  highlightColor: {r: 1, g: 0, b: 0, a: 1}
   showUI: 1
-  uiPrefab: {fileID: 919132149155446097, guid: 0fd5ca5dec6509346b96ed31282bfca9, type: 3}
+  uiPrefab: {fileID: 0}
   canBePickedUp: 0
   canBemakeup: 0
   weight: 0

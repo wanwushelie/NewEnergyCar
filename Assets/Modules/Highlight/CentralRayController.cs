@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class CentralRayController : MonoBehaviour
 {
-    private Camera mainCamera;
+    public Camera mainCamera;
     private Transform currentTarget;
     public string objectName;
         // 当前高亮的目标物体
 
     private void Start()
     {
-        mainCamera = Camera.main;
+        
     }
 
     private void Update()

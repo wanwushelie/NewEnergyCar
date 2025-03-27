@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class NewBehaviourScript : MonoBehaviour
 {
     public GameObject interactivepanel;
-    public GameObject diannaopanel;
+    public GameObject diannaopanel,printpanel;
     //public CharacterController playercontrol;
     //public ThirdPersonController ThirdPersonController;
     private Text interact;
@@ -15,6 +15,7 @@ public class NewBehaviourScript : MonoBehaviour
     private ObjectData objectData;
     public Camera main, qiege;
     public PolygonDrawer PolygonDrawer1;
+    public bool isinter=false;
     void Start()
     {
         interact = interactivepanel.GetComponentInChildren<Text>();
@@ -28,13 +29,22 @@ public class NewBehaviourScript : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        interactivepanel.SetActive(true);
+        interactivepanel.SetActive(!isinter);
         interact.text = "按F使用" + this.name;
         objectData = ObjectDataManager.Instance.GetData(this.name);
-        if (objectData.objectName == "主机电脑" && Input.GetKeyDown(KeyCode.F))
+        if (objectData.objectName == "主机电脑3d打印" && Input.GetKeyDown(KeyCode.F))
+        {
+            printpanel.SetActive(true);
+            interactivepanel.SetActive(false);
+            isinter = true;
+            //playercontrol.enabled = false;
+            //ThirdPersonController.enabled = false;
+        }
+        else if(objectData.objectName == "主机电脑切割" && Input.GetKeyDown(KeyCode.F))
         {
             diannaopanel.SetActive(true);
             interactivepanel.SetActive(false);
+            isinter = true;
             //playercontrol.enabled = false;
             //ThirdPersonController.enabled = false;
         }
@@ -42,6 +52,7 @@ public class NewBehaviourScript : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         interactivepanel.SetActive(false);
+        isinter = false;
     }
     public void click()
     {
