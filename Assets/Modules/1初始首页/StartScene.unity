@@ -183,8 +183,8 @@ MonoBehaviour:
   - {fileID: 1016263247}
   - {fileID: 105119014}
   sceneNames:
-  - story
-  - trans
+  - Scene1
+  - SampleScene
   - "\u5B89\u5168\u8003\u6838UI"
 --- !u!114 &100357719
 MonoBehaviour:
@@ -379,7 +379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 0}
 --- !u!4 &577928578
 Transform:
   m_ObjectHideFlags: 1
@@ -1149,8 +1148,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u96F6\u4EF6\u52A0\u5DE5"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f01b0184cfe3fa44d852e9e0eaa35dd3, type: 2}
-  m_sharedMaterial: {fileID: -472378874315259886, guid: f01b0184cfe3fa44d852e9e0eaa35dd3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

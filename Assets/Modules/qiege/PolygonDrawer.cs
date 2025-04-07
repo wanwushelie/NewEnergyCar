@@ -5,25 +5,24 @@ using StarterAssets;
 
 public class PolygonDrawer : MonoBehaviour
 {
-    public GameObject cube; // ������Ԥ����  
+    public GameObject[] objects=new GameObject[3];
+    public bool[] isSelected=new bool[3];
+    public GameObject cube, polygonObject, dingmian, cylinderObject,zhezhao,qiegepanel,zhutiposition; 
     public Color fillColor = Color.red; // �����ɫ  
     public Material lineMaterial; // ���������Ĳ���  
     public float height = 0.2f; // ����߶�
     public PolygonDrawer PolygonDrawer1;
     private List<Vector3> points = new List<Vector3>();
     private LineRenderer lineRenderer;
-    private GameObject polygonObject; 
     private MeshFilter meshFilter; 
-    private GameObject cylinderObject;
-    public GameObject dingmian;
     public Material material;
-    public bool isDrawing = false;
+    public bool isDrawing = false,isdizuo=false,ischelun=false,istulun=false, isqiege = false, haveqiege = false;//选择打印物体并且管理总控开关
     public Camera main, qiege;
-    public CharacterController characterController;
-    public ThirdPersonController thirdPersonController;
+    public ObjectData objectDatad, objectDatac, objectDatat;
     private bool isPaused = false;
     void Start()
     {
+       
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = lineMaterial;
         lineRenderer.startColor = fillColor;
@@ -31,11 +30,14 @@ public class PolygonDrawer : MonoBehaviour
         lineRenderer.startWidth = 0.005f;
         lineRenderer.endWidth = 0.005f; 
         lineRenderer.transform.position = new Vector3(0, 0, qiege.transform.position.z - 0.0000001f);
+        cube.SetActive(false);
         //qiege.enabled = false;
     }
 
     void Update()
     {
+        isSelected = new bool[] { isdizuo, ischelun, istulun };
+        isqiege = (objectDatac.havebeenqiege&&!objectDatac.havebeenpicked) || (objectDatad.havebeenqiege && !objectDatad.havebeenpicked) || (objectDatat.havebeenqiege && !objectDatat.havebeenpicked);
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = qiege.ScreenPointToRay(Input.mousePosition);
@@ -45,6 +47,7 @@ public class PolygonDrawer : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Cube"))
                 {
+                    Debug.Log("cube");
                     isDrawing = true;
                     points.Clear();
                     points.Add(hit.point);
@@ -90,7 +93,7 @@ public class PolygonDrawer : MonoBehaviour
     {
         if (points.Count < 3) return; // ������Ҫ3����  
 
-        // ���� Mesh  
+        
         Mesh mesh = new Mesh();
         Vector3[] vertices = new Vector3[points.Count];
         int[] triangles = new int[(points.Count - 2) * 3];
@@ -110,28 +113,18 @@ public class PolygonDrawer : MonoBehaviour
         mesh.vertices = vertices;
         mesh.triangles = triangles;
 
-        // ��������  
-        // Material material = new Material(Shader.Find("Unlit/Color"));
-        //material.color = fillColor;
-
-        // ���� GameObject �洢��� Mesh  
+        
         polygonObject = new GameObject("Polygon");
-        meshFilter = polygonObject.AddComponent<MeshFilter>(); // ȷ��ʹ�����Ա����
+        meshFilter = polygonObject.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = polygonObject.AddComponent<MeshRenderer>();
-
         meshFilter.mesh = mesh;
         meshRenderer.material = material;
-
-        // ���ö���������λ��Ϊ (0, 0, 0)�����Ը����������  
         polygonObject.transform.position = Vector3.zero;
 
     }
-
     private void Createdingmian()
     {
-        if (points.Count < 3) return; // ������Ҫ3����  
-
-        // ���� Mesh  
+        if (points.Count < 3) return; 
         Mesh mesh = new Mesh();
         Vector3[] vertices = new Vector3[points.Count];
         int[] triangles = new int[(points.Count - 2) * 3];
@@ -165,7 +158,6 @@ public class PolygonDrawer : MonoBehaviour
     {
         if (polygonVertices.Length < 3)
         {
-            Debug.LogError("多边形顶点不足，无法生成柱体！");
             return;
         }
 
@@ -242,11 +234,7 @@ public class PolygonDrawer : MonoBehaviour
     IEnumerator CompleteDrawing()
     {
         // 启动旋转协程
-        StartCoroutine(MoveRotation(qiege,qiege.transform.rotation, Quaternion.Euler(45.84f, 0.59f, 0.83f), 2.0f));
-
-        // 暂停 5 秒
-        yield return new WaitForSeconds(5);
-
+       // StartCoroutine(MoveRotation(qiege,qiege.transform.rotation, Quaternion.Euler(45.84f, 0.59f, 0.83f), 2.0f));
         // 暂停结束后执行后续逻辑
         CreatePolygon();
         Createdingmian();
@@ -264,10 +252,71 @@ public class PolygonDrawer : MonoBehaviour
             Debug.LogError("MeshFilter 未正确初始化");
         }
         yield return new WaitForSeconds(3);
-        qiege.enabled = false;
+        int i = 0;
+        for(i=0;i<3;i++)
+        {
+            if (isSelected[i])
+            {
+                Debug.Log("位移");
+                objects[i].transform.position = zhutiposition.transform.position;
+                break;
+            }
+        }
+        istulun = isdizuo = ischelun = false;
         main.enabled = true;
-        PolygonDrawer1.enabled = false;
-        characterController.enabled = true;
-        thirdPersonController.enabled = true;
+        Destroy(cylinderObject);
+        //PolygonDrawer1.enabled = false;
+        qiegepanel.SetActive(false);
+       //characterController.enabled = true;
+        //thirdPersonController.enabled = true;
+    }
+    public void itemchoosed()
+    {
+        itemchoose(false,true,false);
+    }
+    public void itemchooset()
+    {
+        itemchoose(false,false,true);
+    }
+    public void itemchoosec()
+    {
+        itemchoose(true,false,false);
+    }
+    public void putbutton()
+    {
+        if(ischelun||isdizuo||istulun&&!isqiege)
+        {
+            cube.SetActive(true);
+            if (ischelun&&!objectDatac.havebeenqiege)
+            {
+                cube.SetActive(true);
+                zhezhao.SetActive(false);
+                haveqiege = true;
+                objectDatac.havebeenqiege = true;
+            }
+            if (istulun&&!objectDatat.havebeenqiege)
+            {
+                cube.SetActive(true);
+                zhezhao.SetActive(false);
+                haveqiege = true;
+                objectDatat.havebeenqiege = true;
+            }
+            if (isdizuo&& !objectDatad.havebeenqiege)
+            {
+                cube.SetActive(true);
+                zhezhao.SetActive(false);
+                haveqiege = true;
+                objectDatad.havebeenqiege = true;
+            }
+            main.enabled = false;
+            qiege.enabled = true;
+            
+            }
+    }
+    public void itemchoose(bool c,bool d,bool t)
+    {
+        ischelun = c;
+        isdizuo = d;
+        istulun = t;
     }
 }

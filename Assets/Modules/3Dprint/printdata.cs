@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class printdata : MonoBehaviour
 {
-    public bool isdizuo = false, ischelun = false, istulun = false;
+    //public static printdata Instance { get; private set; }
+    public bool isdizuo = false, ischelun = false, istulun = false, isprinting = false, haveprint = false;//记录打印状态
+    public ObjectData datadizuo,datachelun,datatulun;
     void Start()
     {
         
@@ -13,7 +15,7 @@ public class printdata : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        isprinting =(datachelun.havebeenprinted&&!datachelun.havebeenpicked)|| (datatulun.havebeenprinted && !datatulun.havebeenpicked)|| (datadizuo.havebeenprinted && !datadizuo.havebeenpicked);//打印后未被拾取的物品即打印机还在工作
     }
     public void putdizuo()
     {

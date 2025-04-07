@@ -1,17 +1,27 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class TaskDisplay : MonoBehaviour
 {
     public GameObject taskUI; // 公开的GameObject，用于控制任务UI的显示和隐藏
-    public Text taskText; // 公开的Text组件，用于显示任务描述
+    public Text taskText,taskText2; // 公开的Text组件，用于显示任务描述
     public GameObject tipUI; // 公开的GameObject，用于控制任务提示UI的显示和隐藏
     public Text tipText; // 公开的Text组件，用于显示任务提示描述
     public float displayDuration = 3f; // 任务UI显示的持续时间
-
+    public Task firstIncompleteTask;//当前任务
+    public int position;//当前任务位置
+    public string[] utext = new string[4];
     private void Start()
     {
+        utext[0] = "使用一次工具";
+        utext[1] = "使用切割机切割出一个零件";
+        utext[2] = "使用3D打印机打印出一个零件";
+        utext[3] = "组装小车";
         TaskManager taskManager = TaskManager.Instance;
+        firstIncompleteTask = taskManager.tasks[0];
         if (taskManager != null)
         {
             taskManager.OnTaskUpdated += UpdateTaskDisplay; // 注册事件监听器
@@ -28,26 +38,28 @@ public class TaskDisplay : MonoBehaviour
         }
     }
 
-    private void UpdateTaskDisplay()
+    private void UpdateTaskDisplay()//更新任务状态
     {
         TaskManager taskManager = TaskManager.Instance;
         if (taskManager != null)
         {
             // 查找第一个未完成的任务
-            Task firstIncompleteTask = taskManager.tasks.Find(task => !task.isCompleted);
+            firstIncompleteTask = taskManager.tasks.Find(task => !task.isCompleted);
+            position = taskManager.tasks.IndexOf(firstIncompleteTask);
 
             if (firstIncompleteTask != null)
             {
                 // 显示任务描述
                 taskText.text = firstIncompleteTask.description;
                 tipText.text = firstIncompleteTask.description;
+                taskText2.text = utext[position - 1];
                 // 显示任务UI
                 ShowTaskUI();
                 ShowTipUI();
             }
             else
             {
-                //   如果所有任务都已完成，隐藏任务UI
+                Debug.Log("mission");
                 HideTaskUI();
                 HideTipUI();
             }
@@ -67,7 +79,7 @@ public class TaskDisplay : MonoBehaviour
     {
         if (taskUI!= null)
         {
-            taskUI.SetActive(false);
+            //taskUI.SetActive(false);
         }
     }
 

@@ -37,7 +37,7 @@ MonoBehaviour:
   template:
     color: {r: 1, g: 1, b: 1, a: 1}
     fontSize: 36
-    text: "\u5B83\u4E0D\u4EC5\u5F71\u54CD\u5C0F\u8F66\u7684\u884C\u9A76\u7A33\u5B9A\u6027\uFF0C\u8FD8\u5173\u7CFB\u5230\u8F6C\u5411\u7684\u7CBE\u786E\u6027"
+    text: "\u6211\u4EEC\u63A5\u4E0B\u6765\u53EF\u4EE5\u5C1D\u8BD5\u4E00\u4E0B3D\u6253\u5370"
 --- !u!114 &-7965895929918088494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -555,76 +555,7 @@ MonoBehaviour:
     m_Start: 0.8
     m_ClipIn: 0
     m_Asset: {fileID: 8448448909302302043}
-    m_Duration: 5
-    m_TimeScale: 1
-    m_ParentTrack: {fileID: 1486981399237309551}
-    m_EaseInDuration: 0
-    m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
-    m_MixInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_BlendInCurveMode: 0
-    m_BlendOutCurveMode: 0
-    m_ExposedParameterNames: []
-    m_AnimationCurves: {fileID: 0}
-    m_Recordable: 0
-    m_PostExtrapolationMode: 0
-    m_PreExtrapolationMode: 0
-    m_PostExtrapolationTime: 0
-    m_PreExtrapolationTime: 0
-    m_DisplayName: TextSwitcherClip
-  - m_Version: 1
-    m_Start: 5.8
-    m_ClipIn: 0
-    m_Asset: {fileID: -8673541406504980441}
-    m_Duration: 5
+    m_Duration: 5.466666666666667
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1486981399237309551}
     m_EaseInDuration: 0
@@ -672,7 +603,40 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 10.8
+    m_Start: 6.266666666666667
+    m_ClipIn: 0
+    m_Asset: {fileID: -8673541406504980441}
+    m_Duration: 5.233333333333333
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 1486981399237309551}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: TextSwitcherClip
+  - m_Version: 1
+    m_Start: 11.5
     m_ClipIn: 0
     m_Asset: {fileID: 8938245574826048436}
     m_Duration: 5
@@ -681,7 +645,7 @@ MonoBehaviour:
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0
+    m_BlendOutDuration: 0.7000000000000046
     m_MixInCurve:
       serializedVersion: 2
       m_Curve: []
@@ -713,7 +677,7 @@ MonoBehaviour:
     m_ParentTrack: {fileID: 1486981399237309551}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0
+    m_BlendInDuration: 0.7000000000000046
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -1487,7 +1451,7 @@ MonoBehaviour:
   template:
     color: {r: 1, g: 1, b: 1, a: 1}
     fontSize: 36
-    text: "\u6700\u540E\u662F\u5E95\u5EA7"
+    text: "\u5F88\u597D\uFF0C\u770B\u6765\u4F60\u5DF2\u7ECF\u719F\u7EC3\u638C\u63E1\u4E86\u96F6\u4EF6\u5236\u4F5C\u7684\u65B9\u6CD5"
 --- !u!114 &8938245574826048436
 MonoBehaviour:
   m_ObjectHideFlags: 1

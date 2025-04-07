@@ -17,8 +17,11 @@ MonoBehaviour:
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
   showUI: 1
   uiPrefab: {fileID: 0}
-  canBePickedUp: 1
+  canBePickedUp: 0
   canBemakeup: 0
   weight: 0
   wnding: 0
   isshowed: 0
+  havebeenpicked: 0
+  havebeenprinted: 0
+  havebeenqiege: 0

@@ -26,7 +26,7 @@ public class FirstPersonCameraController : MonoBehaviour
         collisionDetection = FindObjectOfType<CollisionDetection>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (canMove)
         {

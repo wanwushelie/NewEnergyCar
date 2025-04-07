@@ -21,4 +21,7 @@ MonoBehaviour:
   canBemakeup: 0
   weight: 0
   wnding: 0
-  isshowed: 1
+  isshowed: 0
+  havebeenpicked: 0
+  havebeenprinted: 0
+  havebeenqiege: 0

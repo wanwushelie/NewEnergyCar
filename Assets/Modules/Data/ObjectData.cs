@@ -28,4 +28,14 @@ public class ObjectData : ScriptableObject
 
     [Header("showed settings")]
     public bool isshowed;//是否可以展示
+
+
+    [Header("have been picked")]
+    public bool havebeenpicked=false;//是否被拾取过
+
+    [Header("have been printed")]
+    public bool havebeenprinted = false;//是否被打印过
+
+    [Header("have been qiege")]
+    public bool havebeenqiege = false;//是否被拾取过
 }

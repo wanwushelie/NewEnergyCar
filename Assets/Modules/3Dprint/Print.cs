@@ -21,18 +21,26 @@ public class Print : MonoBehaviour
     public GameObject Camera1;
     public GameObject Camera2;
     private float currentHeight;
+    public ObjectData objectData;
     void Start()
     {
 
         //trans = GetComponent<Transform>();
-         
+        objectData= ObjectDataManager.Instance.GetData(this.name); 
         originalColor = rend.material.color;
+        //printdata printdata1 = printdata.Instance;
+        if (printdata1 == null)
+        {
+            Debug.LogError("printdata 实例未正确初始化！");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isprint)
+        
+      
+        if (isprint&&printing!=null)
         {
             currentHeight = printing.transform.position.y;
             if (isstart)
@@ -79,32 +87,57 @@ public class Print : MonoBehaviour
                 printdata1.putchelun();
                 break;
         }
+        //objectData = ObjectDataManager.Instance.GetData(this.name);
     }
     public void buttomclick()
     {
-        if (printdata1.isdizuo || printdata1.ischelun || printdata1.istulun)
+       
+        if ((printdata1.isdizuo || printdata1.ischelun || printdata1.istulun)&&!printdata1.isprinting)
         {
-            if (printdata1.isdizuo)
+            Debug.Log("print");
+            if (printdata1.isdizuo && !objectData.havebeenprinted &&this.name=="塑料底座")
             {
                 dizuo.transform.position = new Vector3(banzi.transform.position.x, banzi.transform.position.y, banzi.transform.position.z);
                 printing = dizuo;
-            }
-            if (printdata1.ischelun)
+                objectData.havebeenprinted= true;
+                printdata1.haveprint = true;
+                dizuo.SetActive(true);
+                isprint = true;
+                isstart = true;
+                Camera1.SetActive(false);
+                Camera2.SetActive(true);
+                printpanel.SetActive(false);
+                printdata1.renew();
+            }//打印底座
+            if (printdata1.ischelun && !objectData.havebeenprinted && this.name == "塑料车轮")
             {
                 chelun.transform.position = new Vector3(banzi.transform.position.x, banzi.transform.position.y, banzi.transform.position.z);
                 printing = chelun;
+                objectData.havebeenprinted = true;
+                printdata1.haveprint = true;
+                chelun.SetActive(true);
+                isprint = true;
+                isstart = true;
+                Camera1.SetActive(false);
+                Camera2.SetActive(true);
+                printpanel.SetActive(false);
+                printdata1.renew();
             }
-            if (printdata1.istulun)
+            if (printdata1.istulun && !objectData.havebeenprinted && this.name == "塑料凸轮")
             {
                 tulun.transform.position = new Vector3(banzi.transform.position.x, banzi.transform.position.y, banzi.transform.position.z);
                 printing = tulun;
+                objectData.havebeenprinted = true;
+                printdata1.haveprint = true;
+                tulun.SetActive(true);
+                isprint = true;
+                isstart = true;
+                Camera1.SetActive(false);
+                Camera2.SetActive(true);
+                printpanel.SetActive(false);
+                printdata1.renew();
             }
-            isprint = true;
-            isstart = true;
-            Camera1.SetActive(false);
-            Camera2.SetActive(true);
-            printpanel.SetActive(false);
-            printdata1.renew();
+            
         }
     }
 }

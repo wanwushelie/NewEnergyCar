@@ -10,13 +10,25 @@ public class PickupController : MonoBehaviour
     [SerializeField] public  GameObject heldObject;  // 当前手持的物体
     private Rigidbody heldObjectRb;  // 手持物体的刚体
     public GameObject targetObject; // 待拾取的物体
-    public bool IsHoldingObject => heldObject != null; // 是否持有物体
-    private Camera mainCamera;
+    public bool IsHoldingObject=false; // 是否持有物体
+    public Camera mainCamera;
     void Start()
     {
         //holdPosition.position = handSphere.transform.position;
-        mainCamera = Camera.main;
+       
         
+    }
+    public void Update()
+    {
+        if(heldObject!=null)
+        {
+            IsHoldingObject = true;
+        }
+        else
+        {
+            IsHoldingObject = false;
+        }
+
     }
 
     // 设置待拾取的物体
@@ -28,8 +40,8 @@ public class PickupController : MonoBehaviour
     // 拾取物体
     public void Pickup(GameObject obj)
     {
-        if (IsHoldingObject || obj == null) return;
-
+        // if (IsHoldingObject || obj == null) return;
+      
         // 获取物体的 ObjectData
         ObjectData objectData = ObjectDataManager.Instance.GetData(obj.name);
         if (objectData == null || !objectData.canBePickedUp)
@@ -50,7 +62,7 @@ public class PickupController : MonoBehaviour
         // 将物体移动到手持位置并设置父物体
         heldObject.transform.position = holdPosition.position;
         heldObject.transform.parent = holdPosition;
-
+        objectData.havebeenpicked = true;
         // 显示放下UI
 
         Debug.Log("已拾取: " + obj.name);
@@ -60,7 +72,7 @@ public class PickupController : MonoBehaviour
     public void PutDown()
     {
         if (heldObject == null) return;
-
+        Debug.Log("PUTDOWN");
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
         RaycastHit hit;
 

@@ -16,7 +16,8 @@ public class Assemble : MonoBehaviour
     public xiaochedate xiaochedate1;  // 声明一个 public 的 xiaochedate 类型的变量
     public PickupController pickupController;  // 声明一个 public 的 PickupController 类型的变量
     public List<GameObject> HideGameObjects = new List<GameObject>();  // 声明一个 public 的 GameObject 列表，用于存储隐藏的游戏对象
-
+    public bool haveassmble = false;
+    public CarController carController;
     void Start()
     {
         // 此方法在脚本实例被启用时调用，当前为空
@@ -24,6 +25,9 @@ public class Assemble : MonoBehaviour
 
     void Update()
     {
+        haveassmble = pickupmethod1.istulun && pickupmethod1.ischelun && pickupmethod1.isdizuo;
+        carController.isRunning = haveassmble;
+        //判断是否组装完成
         // 此方法在每一帧调用，当前为空
     }
 

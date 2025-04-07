@@ -9,15 +9,16 @@ using Cinemachine;
 
 public class CollisionDetection : MonoBehaviour
 {
-    public FirstPersonCameraController player;
+    //public FirstPersonCameraController player;
     public PlayableDirector director;
     public List<TimelineAsset> timelines;
     public GameObject tipsUI;
     public GameObject skipPrompt; // 跳过提示的UI
-
+    public int currentcount;
     private bool isPlaying = false;
     private bool isTure = false;//是否在可交互范围内
-    private int currentTaskIndex = 0;// 默认动画为0，发布任务0，（0完成）正式交互时第一个动画应该为1，发布任务1
+    //public bool iscomplete = false;
+    public int currentTaskIndex = 0;// 默认动画为0，发布任务0，（0完成）正式交互时第一个动画应该为1，发布任务1
 
     private void Start()
     {
@@ -31,19 +32,24 @@ public class CollisionDetection : MonoBehaviour
     }
     private void Update()
     {
-        //如果动画正在播放
+
+        currentcount = timelines.Count;
         if (director.state == PlayState.Playing)
         {
             skipPrompt.SetActive(true);
+            tipsUI.SetActive(false);
             // 按下X键跳过当前剧情
             if (Input.GetKeyDown(KeyCode.X))
             {
                 SkipTimeline();
                 skipPrompt.SetActive(false);
-                // player.canMove = true;
+                Debug.Log("X键被按下");
             }
         }
-
+        else
+        {
+            //tipsUI.SetActive(true);
+        }
         if (Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("F键被按下");
@@ -54,11 +60,10 @@ public class CollisionDetection : MonoBehaviour
     public IEnumerator OnOperate()
     {
         Debug.Log("OnOperate");
-
-        if (isTure && !isPlaying)
+        TaskManager taskManager = TaskManager.Instance;
+        if (isTure && !isPlaying&&taskManager.taskDisplay.firstIncompleteTask.isCompleted)
         {
-            
-            TaskManager taskManager = TaskManager.Instance;
+            //iscomplete = taskManager.taskDisplay.firstIncompleteTask.isCompleted;
             if (taskManager != null)
             {
                 Task currentTask = taskManager.tasks.Find(task => task.id == (currentTaskIndex).ToString());
@@ -70,15 +75,15 @@ public class CollisionDetection : MonoBehaviour
             }
 
             isPlaying = true;
-            player.canMove = false;
-            //
+            //player.canMove = false;
+            
             PlayTimeline(currentTaskIndex+1);
             while (director.state == PlayState.Playing)
             {
                 yield return null;
             }
 
-            player.canMove = true;
+            //player.canMove = true;
             //更新任务UpdateTaskUI
             TaskManager.Instance.UpdateTaskUI();
             currentTaskIndex = Mathf.Min(currentTaskIndex + 1, timelines.Count - 1);
@@ -95,11 +100,12 @@ public class CollisionDetection : MonoBehaviour
 
     public void PlayTimeline(int index)
     {
-        if (index < timelines.Count)
+        if (index <timelines.Count)
         {
+            Debug.Log("播放");
             TimelineAsset currentTimeline = timelines[index];
             director.playableAsset = currentTimeline;
-
+            
             // 绑定输出轨道（如果有需要）
             // foreach (var output in director.playableAsset.outputs)
             // {
@@ -111,7 +117,8 @@ public class CollisionDetection : MonoBehaviour
             //     }
             // }
             //  隐藏任务系统 UI
-            TaskManager.Instance.HideTaskSystemUI();
+            if (index!=0)
+            //TaskManager.Instance.HideTaskSystemUI();
             // 隐藏UI
             if (tipsUI != null)
             {

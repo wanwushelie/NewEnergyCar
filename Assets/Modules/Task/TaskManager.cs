@@ -31,6 +31,7 @@ public class TaskManager : MonoBehaviour
             if (task.id == taskId)
             {
                 task.isCompleted = true;
+                //taskDisplay.taskText.text +="(已完成)".ToString();
                 break;
                 //打印数据
                 Debug.Log("任务已完成：" + task.id + " " + task.description + " " + task.isCompleted);

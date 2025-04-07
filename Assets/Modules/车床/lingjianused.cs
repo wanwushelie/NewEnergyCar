@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Net.NetworkInformation;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
+//using UnityEditorInternal;
 using UnityEngine;
+
 
 public class lingjianused : MonoBehaviour
 {
@@ -11,13 +14,17 @@ public class lingjianused : MonoBehaviour
     public GameObject zhuanzhou, kapan,kapanpart1,kapanpart2,kapanpart3;//������ת
     public GameObject DaoJu1, DaoJu2, DaoJu3;
     public GameObject DaoJu1oposition, DaoJu2oposition, DaoJu3oposition, DaoJuposition;//����λ��
-    public GameObject yuanjian, yuanjian0position, yuanjian1position, yuanjian2position,yuanjian3position;//Ԫ��λ��
+    public GameObject yuanjian, yuanjian0position, yuanjian1position, yuanjian2position,yuanjian3position;
+    public GameObject bloodpanel,currentobj;
+    public playmusic playmusic1;
     public float speed = 1.0f;
     public float duration = 2.0f;
     public pickupmethod pickupmethod1;
     public bool isdianyuan=false,isdianji=false,isrotate=false,isdaojia=false,isdaoju=false,iskapan=false,isyuanjian=false;//����Դ�͵���Ƿ�ʹ��
     private Renderer renderer; // 物体的 Renderer 组件
     private Color originalColor; // 保存原始颜色
+    private StateMachine stateMachine;
+    public bool haveshowed = false;
 
     void Start()
     {
@@ -25,10 +32,13 @@ public class lingjianused : MonoBehaviour
         {
             Debug.LogError("YouHu start or end position is not set!");
         }
+       
     }
 
     public void showed(GameObject obj)
     {
+        currentobj = obj;
+        haveshowed = true;
         switch (obj.name)
         {
             case "YouHu":
@@ -39,7 +49,6 @@ public class lingjianused : MonoBehaviour
             case "电源开关":
                 renderer = obj.GetComponent<Renderer>();
                 originalColor = renderer.material.color;
-               //Debug.Log("95959");
                 if(!isdianyuan)
                 {
                     renderer.material.color = Color.green;
@@ -72,6 +81,12 @@ public class lingjianused : MonoBehaviour
                         isrotate = true;
                         StartCoroutine(RotateContinuously(kapan));
                         StartCoroutine(RotateContinuously(zhuanzhou));
+                        playmusic1.Playxuanzhuan();
+                        if(iskapan)
+                        {
+                            bloodpanel.SetActive(true);
+                            playmusic1.Playjinggao();
+                        }
                     }
                 }
                 else
@@ -81,6 +96,7 @@ public class lingjianused : MonoBehaviour
                     StartCoroutine(MoveRotation(obj, Quaternion.Euler(-110, 0, 0), Quaternion.Euler(-90, 0, 0), 1.0f));
                     StopCoroutine(RotateContinuously(kapan));
                     StopCoroutine(RotateContinuously(zhuanzhou));
+                    playmusic1.Pause();
                 }
                 break;
             case "扳手":
@@ -150,11 +166,13 @@ public class lingjianused : MonoBehaviour
                 {
                     StartCoroutine(MoveAndReturnYuanJian(obj,yuanjian0position.transform.position,yuanjian1position.transform.position,yuanjian2position.transform.position,yuanjian3position.transform.position,2.0f));
                     isyuanjian = true;
+                    playmusic1.Playqiege();
                 }
                 else if(iskapan&&isyuanjian)
                 {
                     StartCoroutine(MoveAndReturnYuanJian(obj, yuanjian3position.transform.position, yuanjian2position.transform.position, yuanjian1position.transform.position, yuanjian0position.transform.position, 2.0f));
                     isyuanjian = false;
+                    playmusic1.Pause();
                 }
                 break;
         }
@@ -163,10 +181,8 @@ public class lingjianused : MonoBehaviour
     }
     IEnumerator MoveAndReturnYouHu(GameObject targetObj,Transform ori, Vector3 startPosition, Vector3 endPosition, float duration)
     {
-        // ��һ�Σ�����㵽�յ�
         yield return MoveToPosition(targetObj, ori.position, startPosition, duration);
         yield return new WaitForSeconds(1.0f);
-        // �ڶ��Σ����յ㷵�����
         yield return MoveToPosition(targetObj, startPosition, endPosition, duration);
         yield return new WaitForSeconds(1.0f);
         targetObj.transform.rotation = new Quaternion(0, 0, 0,0);
@@ -205,14 +221,11 @@ public class lingjianused : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        targetObj.transform.position = end; // ȷ�����յ����յ�
-        //yield return new WaitForSeconds(1.0f);
-       
+        targetObj.transform.position = end; 
     }
     IEnumerator MoveRotation(GameObject obj,Quaternion start,Quaternion end,float duration)
     {
         float elapsedTime = 0.0f;
-
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration; // ��ֵ����
@@ -220,15 +233,12 @@ public class lingjianused : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        // ȷ��������ת��Ŀ��λ��
         obj.transform.rotation = end;
     }
     IEnumerator RotateContinuously(GameObject obj)
     {
         while (isrotate)
-        {
-            // ÿ֡�� X ����ת
+        { 
             obj.transform.Rotate(Vector3.right * 180.0f * Time.deltaTime);
             yield return null; // �ȴ���һ֡
         }
@@ -242,5 +252,15 @@ public class lingjianused : MonoBehaviour
         targetObj.transform.rotation = new Quaternion(0, 0, 0, 0);
         yield return MoveToPosition(targetObj, position2, position3, duration);
 
+    }
+    public void putback()
+    {
+        isdianji = false;
+        isrotate = false;
+        StartCoroutine(MoveRotation(currentobj, Quaternion.Euler(-110, 0, 0), Quaternion.Euler(-90, 0, 0), 1.0f));
+        StopCoroutine(RotateContinuously(kapan));
+        StopCoroutine(RotateContinuously(zhuanzhou));
+        playmusic1.Pause();
+        bloodpanel.SetActive(false);
     }
 }

@@ -43,11 +43,12 @@ public class pickupmethod : MonoBehaviour
 
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
         RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        
+        if (Physics.Raycast(ray, out hit)&& ObjectDataManager.Instance.GetData(hit.collider.gameObject.name)!=null)
         {
             hitObject = hit.collider.gameObject;
             pickupText.text = hitObject.name;
+            Debug.Log(hitObject.name);
 
             if (IsPickupable(hitObject) && !pickupController.IsHoldingObject)
             {
