@@ -10,7 +10,7 @@ public class FloatingWindow : MonoBehaviour
     public List<Sprite>[] listArray;
     public GameObject panel,xuanfu;
     public List<Sprite> imagesc,imagesq,images3,imagesz,currentimage; // ��Inspector������ͼƬ�б�
-    private int currentIndex = 0;
+    public int currentIndex = 0;
     public Image imageDisplay;
     public Button prevButton;
     public Button nextButton;
@@ -29,9 +29,13 @@ public class FloatingWindow : MonoBehaviour
         cam = Camera.main; // ��ȡ�������
         UpdateImage(imagesc);
         listArray = new List<Sprite>[4];
-        prevButton.onClick.AddListener(() => ShowPreviousImage(imagesc));
-        nextButton.onClick.AddListener(() => ShowNextImage(imagesc));
+        prevButton.onClick.AddListener(() => ShowPreviousImage(currentimage));
+        nextButton.onClick.AddListener(() => ShowNextImage(currentimage));
         closeButton.onClick.AddListener(ToggleMinimize);
+        for (int i = 0; i < listArray.Length; i++)
+        {
+            listArray[i] = new List<Sprite>();
+        }
         if (imagesc != null)
         {
             foreach (var sprite in imagesc)
@@ -68,11 +72,15 @@ public class FloatingWindow : MonoBehaviour
         }
 
     }
-
+    private void Update()
+    {
+        isstart(currentimage);
+    }
     void ShowPreviousImage(List<Sprite> images)
     {
         if (currentIndex > 0)
         {
+            Debug.Log("pre");
             currentIndex--;
             UpdateImage(images);
         }
@@ -82,6 +90,7 @@ public class FloatingWindow : MonoBehaviour
     {
         if (currentIndex < images.Count - 1)
         {
+            Debug.Log("next");
             currentIndex++;
             UpdateImage(images);
         }
@@ -115,7 +124,7 @@ public class FloatingWindow : MonoBehaviour
         }
     }
 
-    void RestoreWindow()
+    public void RestoreWindow()
     {
         panel.SetActive(true);
         imageDisplay.gameObject.SetActive(true);
@@ -135,7 +144,6 @@ public class FloatingWindow : MonoBehaviour
     {
         if (imageDisplay != null && images.Count > 0)
         {
-            currentIndex = 0;
             imageDisplay.sprite = images[currentIndex];
         }
     }
@@ -182,6 +190,23 @@ public class FloatingWindow : MonoBehaviour
         // 更新图片显示
         currentIndex = 0;
         UpdateImage(newImages);
+    }
+    void isstart(List<Sprite> images)
+    {
+        int i = 0;
+        for(i=0;i<images.Count;i++)
+        {
+            if (imageDisplay.sprite == images[i])
+            {
+                break;
+            }
+            if(i==images.Count-1)
+            {
+                UpdateImage(currentimage);
+                prevButton.onClick.AddListener(() => ShowPreviousImage(images));
+                nextButton.onClick.AddListener(() => ShowNextImage(images));
+            }
+        }
     }
 
 }

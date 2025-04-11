@@ -54,13 +54,33 @@ public class TaskCompletionOnTrigger : MonoBehaviour
         TaskManager taskManager = TaskManager.Instance;
         taskDisplay = taskManager.taskDisplay;
         // 检查是否是玩家进入触发器，并且任务还未完成
-        floatingWindow.UpdateImage(usprite);
-        floatingWindow.UpdateFloatingWindow(usprite); // 更新 FloatingWindow 的图片和按钮监听器
-        
-        if (!firsttime&&!floatingWindow.xuanfu.activeSelf)
+        if (!firsttime)
         {
-            floatingWindow.xuanfu.SetActive(true);
-            
+            if (!floatingWindow.xuanfu.activeSelf)
+            {
+                floatingWindow.xuanfu.SetActive(true);
+                floatingWindow.UpdateFloatingWindow(usprite); // 更新 FloatingWindow 的图片和按钮监听器
+                floatingWindow.UpdateImage(usprite);
+                firsttime = true;
+            }
+            if (floatingWindow.icon.text != "X")
+            {
+                floatingWindow.RestoreWindow();
+                firsttime = true;
+            }
+            else
+            {
+                floatingWindow.UpdateFloatingWindow(usprite); // 更新 FloatingWindow 的图片和按钮监听器
+                floatingWindow.UpdateImage(usprite);
+                floatingWindow.currentimage = usprite;
+                firsttime = true;
+            }
+        }
+        else
+        {
+            floatingWindow.UpdateFloatingWindow(usprite); // 更新 FloatingWindow 的图片和按钮监听器
+            floatingWindow.UpdateImage(usprite);
+            floatingWindow.currentimage = usprite;
         }
         if (other.CompareTag("Player") && !taskCompleted&&!taskDisplay.firstIncompleteTask.iscollider)
         {
