@@ -22,6 +22,6 @@ MonoBehaviour:
   weight: 0
   wnding: 0
   isshowed: 0
-  havebeenpicked: 0
+  havebeenpicked: 1
   havebeenprinted: 0
-  havebeenqiege: 0
+  havebeenqiege: 1

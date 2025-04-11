@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2552419a6171d4bbff82099f97965e, type: 3}
   m_Name: DaoJu2
   m_EditorClassIdentifier: 
-  objectName: "\u5207\u69FD\u5200"
+  objectName: DaoJu2
   canBeHighlighted: 1
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
   showUI: 1
@@ -22,6 +22,3 @@ MonoBehaviour:
   weight: 0
   wnding: 0
   isshowed: 1
-  havebeenpicked: 0
-  havebeenprinted: 0
-  havebeenqiege: 0

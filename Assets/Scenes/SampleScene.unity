@@ -8127,7 +8127,10 @@ RectTransform:
   - {fileID: 888190277}
   - {fileID: 431562307}
   - {fileID: 1984817986}
+<<<<<<< HEAD
   - {fileID: 1815846429}
+=======
+>>>>>>> parent of 37d571c (剧情)
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12095,6 +12098,7 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+<<<<<<< HEAD
 --- !u!1001 &1815846428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12197,6 +12201,8 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4659115083609362093, guid: d9b668ea8c12d464b9ccb209aee512c8, type: 3}
   m_PrefabInstance: {fileID: 1815846428}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of 37d571c (剧情)
 --- !u!1 &1823884737
 GameObject:
   m_ObjectHideFlags: 0
@@ -30744,4 +30750,7 @@ SceneRoots:
   - {fileID: 277298655}
   - {fileID: 1494788456}
   - {fileID: 722641075}
+<<<<<<< HEAD
   - {fileID: 1678458218}
+=======
+>>>>>>> parent of 37d571c (剧情)
