@@ -7,8 +7,9 @@ using TMPro;
 public class FloatingWindow : MonoBehaviour
 {
     //创建一个公开游戏物体变量
+    public List<object>[] listArray;
     public GameObject panel;
-    public List<Sprite> images; // ��Inspector������ͼƬ�б�
+    public List<Sprite> imagesc,imagesq,images3,imagesz; // ��Inspector������ͼƬ�б�
     private int currentIndex = 0;
     public Image imageDisplay;
     public Button prevButton;
@@ -26,28 +27,63 @@ public class FloatingWindow : MonoBehaviour
     void Start()
     {
         cam = Camera.main; // ��ȡ�������
-        UpdateImage();
-
-        prevButton.onClick.AddListener(ShowPreviousImage);
-        nextButton.onClick.AddListener(ShowNextImage);
+        UpdateImage(imagesc);
+        listArray = new List<object>[4];
+        prevButton.onClick.AddListener(() => ShowPreviousImage(imagesc));
+        nextButton.onClick.AddListener(() => ShowNextImage(imagesc));
         closeButton.onClick.AddListener(ToggleMinimize);
+        if (imagesc != null)
+        {
+            foreach (var sprite in imagesc)
+            {
+                listArray[0].Add(sprite);
+            }
+        }
+
+        // 将 imagesq 的内容添加到 listArray[1] 中
+        if (imagesq != null)
+        {
+            foreach (var sprite in imagesq)
+            {
+                listArray[1].Add(sprite);
+            }
+        }
+
+        // 将 images3 的内容添加到 listArray[2] 中
+        if (images3 != null)
+        {
+            foreach (var sprite in images3)
+            {
+                listArray[2].Add(sprite);
+            }
+        }
+
+        // 将 imagesz 的内容添加到 listArray[3] 中
+        if (imagesz != null)
+        {
+            foreach (var sprite in imagesz)
+            {
+                listArray[3].Add(sprite);
+            }
+        }
+
     }
 
-    void ShowPreviousImage()
+    void ShowPreviousImage(List<Sprite> images)
     {
         if (currentIndex > 0)
         {
             currentIndex--;
-            UpdateImage();
+            UpdateImage(images);
         }
     }
 
-    void ShowNextImage()
+    void ShowNextImage(List<Sprite>  images)
     {
         if (currentIndex < images.Count - 1)
         {
             currentIndex++;
-            UpdateImage();
+            UpdateImage(images);
         }
     }
 
@@ -96,7 +132,7 @@ public class FloatingWindow : MonoBehaviour
     }
 
 
-    void UpdateImage()
+    void UpdateImage(List<Sprite> images)
     {
         if (imageDisplay != null && images.Count > 0)
         {
@@ -133,6 +169,21 @@ public class FloatingWindow : MonoBehaviour
             transform.position = worldPosition + offset;
         }
     }
+    public void UpdateFloatingWindow(List<Sprite> newImages)
+    {
+        // 移除旧的监听器
+        prevButton.onClick.RemoveAllListeners();
+        nextButton.onClick.RemoveAllListeners();
+
+        // 添加新的监听器
+        prevButton.onClick.AddListener(() => ShowPreviousImage(newImages));
+        nextButton.onClick.AddListener(() => ShowNextImage(newImages));
+
+        // 更新图片显示
+        currentIndex = 0;
+        UpdateImage(newImages);
+    }
+
 }
 
 

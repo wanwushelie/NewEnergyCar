@@ -3405,6 +3405,7 @@ GameObject:
   - component: {fileID: 511499057}
   - component: {fileID: 511499059}
   - component: {fileID: 511499058}
+  - component: {fileID: 511499060}
   m_Layer: 5
   m_Name: 3D-panel
   m_TagString: Untagged
@@ -3476,6 +3477,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 511499056}
   m_CullTransparentMesh: 1
+--- !u!114 &511499060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511499056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d85349d3cdc9d242ac0e778bb3697d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 511499056}
 --- !u!1 &513515443
 GameObject:
   m_ObjectHideFlags: 0
@@ -4816,10 +4830,13 @@ MonoBehaviour:
   taskDisplay: {fileID: 1955543901}
   utask: 0
   havefinished: 0
+  firsttime: 0
   printdata1: {fileID: 474902793}
   polygonDrawer1: {fileID: 1014844180}
   lingjianused1: {fileID: 1955543899}
   assemble1: {fileID: 203312828}
+  usprite: []
+  floatingWindow: {fileID: 0}
 --- !u!65 &657993841
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6479,10 +6496,13 @@ MonoBehaviour:
   taskDisplay: {fileID: 1955543901}
   utask: 0
   havefinished: 0
+  firsttime: 0
   printdata1: {fileID: 474902793}
   polygonDrawer1: {fileID: 1014844180}
   lingjianused1: {fileID: 1955543899}
   assemble1: {fileID: 203312828}
+  usprite: []
+  floatingWindow: {fileID: 0}
 --- !u!65 &917556557
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6502,8 +6522,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.2712946, y: 2.5357776, z: 1.5762267}
-  m_Center: {x: 1.2135758, y: -0.2234118, z: 0.0683167}
+  m_Size: {x: 1.7362213, y: 2.050749, z: 4.129756}
+  m_Center: {x: 1.4811125, y: -0.46592605, z: -1.2084479}
 --- !u!1 &923472485
 GameObject:
   m_ObjectHideFlags: 0
@@ -7196,6 +7216,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9006927880490531570, guid: 99e8f0d9999c7cb4fa16b8100cb79509, type: 3}
   m_PrefabInstance: {fileID: 3828990203750657548}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1040921813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040921809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d85349d3cdc9d242ac0e778bb3697d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 1040921809}
 --- !u!1 &1043548442
 GameObject:
   m_ObjectHideFlags: 0
@@ -7787,10 +7820,13 @@ MonoBehaviour:
   taskDisplay: {fileID: 1955543901}
   utask: 0
   havefinished: 0
+  firsttime: 0
   printdata1: {fileID: 474902793}
   polygonDrawer1: {fileID: 1014844180}
   lingjianused1: {fileID: 1955543899}
   assemble1: {fileID: 203312828}
+  usprite: []
+  floatingWindow: {fileID: 0}
 --- !u!65 &1125757557
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10419,10 +10455,13 @@ MonoBehaviour:
   taskDisplay: {fileID: 1955543901}
   utask: 0
   havefinished: 0
+  firsttime: 0
   printdata1: {fileID: 474902793}
   polygonDrawer1: {fileID: 1014844180}
   lingjianused1: {fileID: 1955543899}
   assemble1: {fileID: 203312828}
+  usprite: []
+  floatingWindow: {fileID: 0}
 --- !u!65 &1561622504
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10442,8 +10481,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.4629745, y: 2.218495, z: 1.4577386}
-  m_Center: {x: 1.6177359, y: 0.60924745, z: 0.3154565}
+  m_Size: {x: 1.4629745, y: 1.4938314, z: 1.4577386}
+  m_Center: {x: 1.6177359, y: 0.2469157, z: 0.3154565}
 --- !u!1001 &1575767190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13283,12 +13322,12 @@ MonoBehaviour:
     description: "\u524D\u5F80\u666E\u901A\u8F66\u5E8A"
     iscollider: 0
     isCompleted: 0
-  - id: "\u524D\u5F80\u6FC0\u5149\u5207\u5272\u673A"
-    description: "\u524D\u5F80\u6FC0\u5149\u5207\u5272\u673A"
+  - id: "\u524D\u5F80\u6FC0\u5149\u5207\u5272\u673A\u63A7\u5236\u7535\u8111"
+    description: "\u524D\u5F80\u6FC0\u5149\u5207\u5272\u673A\u63A7\u5236\u7535\u8111"
     iscollider: 0
     isCompleted: 0
-  - id: "\u524D\u5F803D\u6253\u5370\u673A"
-    description: "\u524D\u5F803D\u6253\u5370\u673A"
+  - id: "\u524D\u5F803D\u6253\u5370\u673A\u63A7\u5236\u7535\u8111"
+    description: "\u524D\u5F803D\u6253\u5370\u673A\u63A7\u5236\u7535\u8111"
     iscollider: 0
     isCompleted: 0
   - id: "\u524D\u5F80\u5DE5\u4F5C\u53F0"
@@ -21210,7 +21249,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9006927880490531570, guid: 99e8f0d9999c7cb4fa16b8100cb79509, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1592804657}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4032282098235700276, guid: 99e8f0d9999c7cb4fa16b8100cb79509, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1040921813}
   m_SourcePrefab: {fileID: 100100000, guid: 99e8f0d9999c7cb4fa16b8100cb79509, type: 3}
 --- !u!33 &3841082566073062977
 MeshFilter:

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -8,11 +9,13 @@ public class TaskCompletionOnTrigger : MonoBehaviour
     // 标志位，用于判断任务是否已经完成
     private bool taskCompleted = false;
     public TaskDisplay taskDisplay;
-    public bool utask,havefinished;
+    public bool utask,havefinished,firsttime=false;
     public printdata printdata1;
     public PolygonDrawer polygonDrawer1;
     public lingjianused lingjianused1;
     public Assemble assemble1;
+    public List<Sprite> usprite;
+    public FloatingWindow floatingWindow;
     private void Update()
     {
         if(!taskCompleted)
@@ -21,15 +24,19 @@ public class TaskCompletionOnTrigger : MonoBehaviour
                 {
                 case "车床触发器":
                     utask = lingjianused1.haveshowed;
+                    usprite = floatingWindow.imagesc;
                     break;
                 case "激光切割机触发器":
                     utask = polygonDrawer1.haveqiege;
+                    usprite = floatingWindow.imagesq;
                     break;
                 case "3D打印机触发器":
                     utask = printdata1.haveprint;
+                    usprite = floatingWindow.images3;
                     break;
                 case "组装触发器":
                     utask = assemble1.haveassmble;
+                    usprite = floatingWindow.imagesz;
                     break;
                 }
             taskCompleted = utask && taskDisplay.firstIncompleteTask.iscollider;
@@ -46,11 +53,18 @@ public class TaskCompletionOnTrigger : MonoBehaviour
         TaskManager taskManager = TaskManager.Instance;
         taskDisplay = taskManager.taskDisplay;
         // 检查是否是玩家进入触发器，并且任务还未完成
+        if(!firsttime)
+        {
+            floatingWindow.UpdateFloatingWindow(usprite);
+            firsttime = true;
+        }
         if (other.CompareTag("Player") && !taskCompleted&&!taskDisplay.firstIncompleteTask.iscollider)
         {
-            taskDisplay.firstIncompleteTask.iscollider = true;
-            taskDisplay.taskText.text += "(已完成)".ToString();
-           
+            if(taskDisplay.taskText.text!="")
+            {
+                taskDisplay.firstIncompleteTask.iscollider = true;
+                taskDisplay.taskText.text += "(已完成)".ToString();
+            }
         }
     }
 
