@@ -16,6 +16,7 @@ public class TaskCompletionOnTrigger : MonoBehaviour
     public Assemble assemble1;
     public List<Sprite> usprite;
     public FloatingWindow floatingWindow;
+
     private void Update()
     {
         if(!taskCompleted)
@@ -53,10 +54,13 @@ public class TaskCompletionOnTrigger : MonoBehaviour
         TaskManager taskManager = TaskManager.Instance;
         taskDisplay = taskManager.taskDisplay;
         // 检查是否是玩家进入触发器，并且任务还未完成
-        if(!firsttime)
+        floatingWindow.UpdateImage(usprite);
+        floatingWindow.UpdateFloatingWindow(usprite); // 更新 FloatingWindow 的图片和按钮监听器
+        
+        if (!firsttime&&!floatingWindow.xuanfu.activeSelf)
         {
-            floatingWindow.UpdateFloatingWindow(usprite);
-            firsttime = true;
+            floatingWindow.xuanfu.SetActive(true);
+            
         }
         if (other.CompareTag("Player") && !taskCompleted&&!taskDisplay.firstIncompleteTask.iscollider)
         {

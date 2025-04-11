@@ -253,6 +253,7 @@ public class PolygonDrawer : MonoBehaviour
         }
         yield return new WaitForSeconds(3);
         int i = 0;
+       
         for(i=0;i<3;i++)
         {
             if (isSelected[i])

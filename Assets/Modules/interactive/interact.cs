@@ -13,7 +13,7 @@ public class NewBehaviourScript : MonoBehaviour
     private Text interact;
     public ObjectDataManager ObjectDataManager;
     private ObjectData objectData;
-    public Camera main, qiege;
+    public GameObject main, qiege;
     public PolygonDrawer PolygonDrawer1;
     public bool isinter=false;
     void Start()
@@ -45,6 +45,7 @@ public class NewBehaviourScript : MonoBehaviour
             diannaopanel.SetActive(true);
             interactivepanel.SetActive(false);
             isinter = true;
+            PolygonDrawer1.zhezhao.SetActive(true);
             //playercontrol.enabled = false;
             //ThirdPersonController.enabled = false;
         }
@@ -57,8 +58,8 @@ public class NewBehaviourScript : MonoBehaviour
     public void click()
     {
         PolygonDrawer1.enabled = true;
-        qiege.enabled = true;
-        main.enabled = false;
+        qiege.SetActive(true); ;
+        main.SetActive(false);
         diannaopanel.SetActive(false);
     }
 

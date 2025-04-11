@@ -7,9 +7,9 @@ using TMPro;
 public class FloatingWindow : MonoBehaviour
 {
     //创建一个公开游戏物体变量
-    public List<object>[] listArray;
-    public GameObject panel;
-    public List<Sprite> imagesc,imagesq,images3,imagesz; // ��Inspector������ͼƬ�б�
+    public List<Sprite>[] listArray;
+    public GameObject panel,xuanfu;
+    public List<Sprite> imagesc,imagesq,images3,imagesz,currentimage; // ��Inspector������ͼƬ�б�
     private int currentIndex = 0;
     public Image imageDisplay;
     public Button prevButton;
@@ -28,7 +28,7 @@ public class FloatingWindow : MonoBehaviour
     {
         cam = Camera.main; // ��ȡ�������
         UpdateImage(imagesc);
-        listArray = new List<object>[4];
+        listArray = new List<Sprite>[4];
         prevButton.onClick.AddListener(() => ShowPreviousImage(imagesc));
         nextButton.onClick.AddListener(() => ShowNextImage(imagesc));
         closeButton.onClick.AddListener(ToggleMinimize);
@@ -105,10 +105,9 @@ public class FloatingWindow : MonoBehaviour
     {
         panel.SetActive(false);
         imageDisplay.gameObject.SetActive(false);
-        // �������а�ť���������˳���ť
         prevButton.gameObject.SetActive(false);
         nextButton.gameObject.SetActive(false);
-    
+        currentIndex = 0;
         // ֱ���޸�icon�������ı�
         if (icon != null)
         {
@@ -132,10 +131,11 @@ public class FloatingWindow : MonoBehaviour
     }
 
 
-    void UpdateImage(List<Sprite> images)
+    public void UpdateImage(List<Sprite> images)
     {
         if (imageDisplay != null && images.Count > 0)
         {
+            currentIndex = 0;
             imageDisplay.sprite = images[currentIndex];
         }
     }

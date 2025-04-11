@@ -68,15 +68,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37c3f7077fa12548bfb51b03561589b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  printdata1: {fileID: 0}
   banzi: {fileID: 0}
-  trans: {fileID: 0}
+  dizuo: {fileID: 0}
+  chelun: {fileID: 0}
+  tulun: {fileID: 0}
+  printpanel: {fileID: 0}
+  printing: {fileID: 0}
   startHeight: 0
   targetHeight: 0
   rend: {fileID: 4819932582168236194}
-  playercontrol: {fileID: 0}
-  ThirdPersonController: {fileID: 0}
+  isprint: 0
+  isstart: 0
   Camera1: {fileID: 0}
   Camera2: {fileID: 0}
+  objectData: {fileID: 0}
 --- !u!114 &1224890075240280951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,13 +121,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5028714171519677314}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0461588, y: 0.0004087388, z: -0.99881184, w: -0.015622422}
-  m_LocalPosition: {x: 0.16645384, y: -0.06499994, z: 0.1464405}
+  m_LocalRotation: {x: 0.57083225, y: -0.17892006, z: -0.7426418, w: 0.3010338}
+  m_LocalPosition: {x: 0.077, y: -0.06499994, z: 0.1464405}
   m_LocalScale: {x: -0.1883101, y: -0.18830995, z: -0.18830997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5591928496842882610}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 4.47, y: -73.433, z: 220.797}
 --- !u!33 &8952597260541281504
 MeshFilter:
   m_ObjectHideFlags: 0
