@@ -12,7 +12,7 @@ public class lingjianused : MonoBehaviour
     public GameObject banshousposition, banshoueposition, banshouoposition,kpp1s,kpp1e,kpp2s,kpp2e,kpp3e,kpp3s;//�����ƶ�,����λ���ƶ�
     public GameObject dingzi,dingzioposition,dingzieposition;//�����ƶ�
     public GameObject zhuanzhou, kapan,kapanpart1,kapanpart2,kapanpart3;//������ת
-    public GameObject DaoJu1, DaoJu2, DaoJu3;
+    public GameObject DaoJu1, DaoJu2, DaoJu3,banshou;
     public GameObject DaoJu1oposition, DaoJu2oposition, DaoJu3oposition, DaoJuposition;//����λ��
     public GameObject yuanjian, yuanjian0position, yuanjian1position, yuanjian2position,yuanjian3position;
     public GameObject bloodpanel,currentobj;
@@ -41,7 +41,7 @@ public class lingjianused : MonoBehaviour
         haveshowed = true;
         switch (obj.name)
         {
-            case "YouHu":
+            case "油壶":
                 //obj.transform.position = youhusposition.transform.position;
                 obj.transform.rotation = Quaternion.Euler(0, -90, 90);
                 StartCoroutine(MoveAndReturnYouHu(obj, youhuoposition.transform, youhusposition.transform.position, youhueposition.transform.position, duration));
@@ -86,6 +86,7 @@ public class lingjianused : MonoBehaviour
                         {
                             bloodpanel.SetActive(true);
                             playmusic1.Playjinggao();
+                            StartCoroutine(stopjinggao());
                         }
                     }
                 }
@@ -104,11 +105,17 @@ public class lingjianused : MonoBehaviour
                 {
                     StartCoroutine(MoveBanShou(obj, banshouoposition.transform, Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 90, 0), banshousposition.transform.position, banshoueposition.transform.position, duration));
                     iskapan = true;
+                    if(isrotate)
+                            {
+                        bloodpanel.SetActive(true);
+                        playmusic1.Playjinggao();
+                        StartCoroutine(stopjinggao());
+                    }
                 }
                 else
                 {
-                    StartCoroutine(ReturnBanShou(obj, banshoueposition.transform, banshousposition.transform.position, banshouoposition.transform.position, duration));
-                    iskapan = false;
+                    StartCoroutine(ReturnBanShou(obj,banshoueposition.transform,banshousposition.transform.position,banshouoposition.transform.position,1.0f));
+                    //iskapan = false;
                 }
                 break;
             case "刀架开关":
@@ -125,7 +132,7 @@ public class lingjianused : MonoBehaviour
                     isdaojia = false;
                 }
                 break;
-            case "DaoJu1":
+            case "外圆车刀":
                 if(isdaojia&&!isdaoju)
                 { 
                     StartCoroutine(MoveToPosition(obj, DaoJu1oposition.transform.position, DaoJuposition.transform.position, 2.0f));
@@ -137,7 +144,7 @@ public class lingjianused : MonoBehaviour
                     isdaoju = false;
                 }
                 break;
-            case "DaoJu2":
+            case "切槽刀":
                 if (isdaojia && !isdaoju)
                 {
                     StartCoroutine(MoveToPosition(obj, DaoJu2oposition.transform.position, DaoJuposition.transform.position, 2.0f));
@@ -149,7 +156,7 @@ public class lingjianused : MonoBehaviour
                     isdaoju = false;
                 }
                 break;
-            case "DaoJu3":
+            case "螺纹刀":
                 if (isdaojia && !isdaoju)
                 {
                     StartCoroutine(MoveToPosition(obj, DaoJu3oposition.transform.position, DaoJuposition.transform.position, 2.0f));
@@ -262,5 +269,18 @@ public class lingjianused : MonoBehaviour
         StopCoroutine(RotateContinuously(zhuanzhou));
         playmusic1.Pause();
         bloodpanel.SetActive(false);
+    }
+    IEnumerator stopjinggao()
+    {
+        yield return new WaitForSeconds(5.0f);
+        playmusic1.Pause();
+        bloodpanel.SetActive(false);
+        iskapan = false;
+        isdianji = false;
+        isdianyuan = false;
+        isrotate = false;
+        StartCoroutine(ReturnBanShou(banshou, banshoueposition.transform, banshousposition.transform.position, banshouoposition.transform.position, duration));
+        StopCoroutine(RotateContinuously(kapan));
+        StopCoroutine(RotateContinuously(zhuanzhou));
     }
 }

@@ -7,7 +7,7 @@ public class PolygonDrawer : MonoBehaviour
 {
     public GameObject[] objects=new GameObject[3];
     public bool[] isSelected=new bool[3];
-    public GameObject cube, polygonObject, dingmian, cylinderObject,zhezhao,qiegepanel,zhutiposition; 
+    public GameObject cube, polygonObject, dingmian, cylinderObject,zhezhao,qiegepanel,zhutiposition,main,qiege; 
     public Color fillColor = Color.red; // �����ɫ  
     public Material lineMaterial; // ���������Ĳ���  
     public float height = 0.2f; // ����߶�
@@ -17,7 +17,7 @@ public class PolygonDrawer : MonoBehaviour
     private MeshFilter meshFilter; 
     public Material material;
     public bool isDrawing = false,isdizuo=false,ischelun=false,istulun=false, isqiege = false, haveqiege = false;//选择打印物体并且管理总控开关
-    public Camera main, qiege;
+    //public Camera main, qiege;
     public ObjectData objectDatad, objectDatac, objectDatat;
     private bool isPaused = false;
     void Start()
@@ -40,7 +40,9 @@ public class PolygonDrawer : MonoBehaviour
         isqiege = (objectDatac.havebeenqiege&&!objectDatac.havebeenpicked) || (objectDatad.havebeenqiege && !objectDatad.havebeenpicked) || (objectDatat.havebeenqiege && !objectDatat.havebeenpicked);
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = qiege.ScreenPointToRay(Input.mousePosition);
+            Camera qiegecamera = qiege.GetComponent<Camera>();
+
+            Ray ray = qiegecamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
@@ -58,7 +60,8 @@ public class PolygonDrawer : MonoBehaviour
 
         if (Input.GetMouseButton(0) && isDrawing)
         {
-            Ray ray = qiege.ScreenPointToRay(Input.mousePosition);
+            Camera qiegecamera = qiege.GetComponent<Camera>();
+            Ray ray = qiegecamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
@@ -263,7 +266,8 @@ public class PolygonDrawer : MonoBehaviour
             }
         }
         istulun = isdizuo = ischelun = false;
-        main.enabled = true;
+        main.SetActive(true);
+        zhezhao.SetActive(true);
         Destroy(cylinderObject);
         //PolygonDrawer1.enabled = false;
         qiegepanel.SetActive(false);
@@ -293,6 +297,8 @@ public class PolygonDrawer : MonoBehaviour
                 zhezhao.SetActive(false);
                 haveqiege = true;
                 objectDatac.havebeenqiege = true;
+                main.SetActive(false);
+                qiege.SetActive(true);
             }
             if (istulun&&!objectDatat.havebeenqiege)
             {
@@ -300,6 +306,8 @@ public class PolygonDrawer : MonoBehaviour
                 zhezhao.SetActive(false);
                 haveqiege = true;
                 objectDatat.havebeenqiege = true;
+                main.SetActive(false);
+                qiege.SetActive(true);
             }
             if (isdizuo&& !objectDatad.havebeenqiege)
             {
@@ -307,10 +315,9 @@ public class PolygonDrawer : MonoBehaviour
                 zhezhao.SetActive(false);
                 haveqiege = true;
                 objectDatad.havebeenqiege = true;
+                main.SetActive(false);
+                qiege.SetActive(true);
             }
-            main.enabled = false;
-            qiege.enabled = true;
-            
             }
     }
     public void itemchoose(bool c,bool d,bool t)
