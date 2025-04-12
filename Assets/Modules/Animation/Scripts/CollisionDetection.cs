@@ -19,6 +19,7 @@ public class CollisionDetection : MonoBehaviour
     private bool isPlaying = false;
     public int currentTaskIndex = 0;// 默认动画为0，发布任务0，（0完成）正式交互时第一个动画应该为1，发布任务1
     public CharacterMovement characterMovement;
+    public bool iscom1 = false;
     private void Start()
     {
         isPlaying = true;
@@ -51,9 +52,10 @@ public class CollisionDetection : MonoBehaviour
             skipPrompt.SetActive(false);
             characterMovement.canMove =true;
             TaskManager taskManager = TaskManager.Instance;
-            if(taskManager.taskDisplay.firstIncompleteTask == taskManager.tasks[1])
+            if(taskManager.taskDisplay.firstIncompleteTask == taskManager.tasks[1]&&!iscom1)
             {
                 TaskManager.Instance.UpdateTaskUI();
+                iscom1 = true;
             }
             else if (taskManager.taskDisplay.firstIncompleteTask == taskManager.tasks[0])
             {
