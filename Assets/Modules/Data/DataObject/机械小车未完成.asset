@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce2552419a6171d4bbff82099f97965e, type: 3}
-  m_Name: "\u5851\u6599\u51F8\u8F6E"
+  m_Name: "\u673A\u68B0\u5C0F\u8F66\u672A\u5B8C\u6210"
   m_EditorClassIdentifier: 
-  objectName: "\u5851\u6599\u51F8\u8F6E"
+  objectName: "\u673A\u68B0\u5C0F\u8F66\u672A\u5B8C\u6210"
   canBeHighlighted: 1
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
   showUI: 1
   uiPrefab: {fileID: 0}
-  canBePickedUp: 1
-  canBemakeup: 1
+  canBePickedUp: 0
+  canBemakeup: 0
   weight: 0
   wnding: 0
   isshowed: 0

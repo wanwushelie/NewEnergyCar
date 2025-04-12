@@ -4674,6 +4674,12 @@ MonoBehaviour:
   assemble1: {fileID: 203312828}
   usprite: []
   floatingWindow: {fileID: 1815846431}
+  uniqueTask:
+    id: 
+    description: 
+    iscollider: 0
+    isCompleted: 0
+  taskManager: {fileID: 1955543900}
 --- !u!65 &657993841
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6331,6 +6337,12 @@ MonoBehaviour:
   assemble1: {fileID: 203312828}
   usprite: []
   floatingWindow: {fileID: 1815846431}
+  uniqueTask:
+    id: 
+    description: 
+    iscollider: 0
+    isCompleted: 0
+  taskManager: {fileID: 1955543900}
 --- !u!65 &917556557
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7698,6 +7710,12 @@ MonoBehaviour:
   assemble1: {fileID: 203312828}
   usprite: []
   floatingWindow: {fileID: 1815846431}
+  uniqueTask:
+    id: 
+    description: 
+    iscollider: 0
+    isCompleted: 0
+  taskManager: {fileID: 1955543900}
 --- !u!65 &1125757557
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10298,6 +10316,12 @@ MonoBehaviour:
   assemble1: {fileID: 203312828}
   usprite: []
   floatingWindow: {fileID: 1815846431}
+  uniqueTask:
+    id: 
+    description: 
+    iscollider: 0
+    isCompleted: 0
+  taskManager: {fileID: 1955543900}
 --- !u!65 &1561622504
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13819,7 +13843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6771191929904859839, guid: 918fc5d56aadd554da3e7eb2aa62feb1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 143.02759
+      value: 208
       objectReference: {fileID: 0}
     - target: {fileID: 8023966549282297205, guid: 918fc5d56aadd554da3e7eb2aa62feb1, type: 3}
       propertyPath: m_Name

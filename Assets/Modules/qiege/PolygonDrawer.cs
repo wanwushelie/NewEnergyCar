@@ -266,10 +266,8 @@ public class PolygonDrawer : MonoBehaviour
         istulun = isdizuo = ischelun = false;
         main.enabled = true;
         Destroy(cylinderObject);
-        //PolygonDrawer1.enabled = false;
         qiegepanel.SetActive(false);
-       //characterController.enabled = true;
-        //thirdPersonController.enabled = true;
+        haveqiege = true;
     }
     public void itemchoosed()
     {
@@ -292,21 +290,18 @@ public class PolygonDrawer : MonoBehaviour
             {
                 cube.SetActive(true);
                 zhezhao.SetActive(false);
-                haveqiege = true;
                 objectDatac.havebeenqiege = true;
             }
             if (istulun&&!objectDatat.havebeenqiege)
             {
                 cube.SetActive(true);
                 zhezhao.SetActive(false);
-                haveqiege = true;
                 objectDatat.havebeenqiege = true;
             }
             if (isdizuo&& !objectDatad.havebeenqiege)
             {
                 cube.SetActive(true);
                 zhezhao.SetActive(false);
-                haveqiege = true;
                 objectDatad.havebeenqiege = true;
             }
             main.enabled = false;

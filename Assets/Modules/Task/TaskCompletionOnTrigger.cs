@@ -16,6 +16,13 @@ public class TaskCompletionOnTrigger : MonoBehaviour
     public Assemble assemble1;
     public List<Sprite> usprite;
     public FloatingWindow floatingWindow;
+    public Task uniqueTask;
+    public TaskManager taskManager;
+
+    private void Start()
+    {
+        taskDisplay = taskManager.taskDisplay;
+    }
 
     private void Update()
     {
@@ -26,18 +33,26 @@ public class TaskCompletionOnTrigger : MonoBehaviour
                 case "车床触发器":
                     utask = lingjianused1.haveshowed;
                     usprite = floatingWindow.imagesc;
+                    uniqueTask = taskManager.tasks[1];
+                    targetTaskId = uniqueTask.id;
                     break;
                 case "激光切割机触发器":
                     utask = polygonDrawer1.haveqiege;
                     usprite = floatingWindow.imagesq;
+                    uniqueTask = taskManager.tasks[2];
+                    targetTaskId = uniqueTask.id;
                     break;
                 case "3D打印机触发器":
                     utask = printdata1.haveprint;
                     usprite = floatingWindow.images3;
+                    uniqueTask = taskManager.tasks[3];
+                    targetTaskId = uniqueTask.id;
                     break;
                 case "组装触发器":
                     utask = assemble1.haveassmble;
                     usprite = floatingWindow.imagesz;
+                    uniqueTask = taskManager.tasks[4];
+                    targetTaskId = uniqueTask.id;
                     break;
                 }
             taskCompleted = utask && taskDisplay.firstIncompleteTask.iscollider;
@@ -51,7 +66,6 @@ public class TaskCompletionOnTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        TaskManager taskManager = TaskManager.Instance;
         taskDisplay = taskManager.taskDisplay;
         // 检查是否是玩家进入触发器，并且任务还未完成
         if (!firsttime)
@@ -61,11 +75,15 @@ public class TaskCompletionOnTrigger : MonoBehaviour
                 floatingWindow.xuanfu.SetActive(true);
                 floatingWindow.UpdateFloatingWindow(usprite); // 更新 FloatingWindow 的图片和按钮监听器
                 floatingWindow.UpdateImage(usprite);
+                floatingWindow.currentimage = usprite;
                 firsttime = true;
             }
-            if (floatingWindow.icon.text != "X")
+            else if (floatingWindow.icon.text != "X")
             {
                 floatingWindow.RestoreWindow();
+                floatingWindow.UpdateFloatingWindow(usprite); // 更新 FloatingWindow 的图片和按钮监听器
+                floatingWindow.UpdateImage(usprite);
+                floatingWindow.currentimage = usprite;
                 firsttime = true;
             }
             else
@@ -82,7 +100,7 @@ public class TaskCompletionOnTrigger : MonoBehaviour
             floatingWindow.UpdateImage(usprite);
             floatingWindow.currentimage = usprite;
         }
-        if (other.CompareTag("Player") && !taskCompleted&&!taskDisplay.firstIncompleteTask.iscollider)
+        if (other.CompareTag("Player") && !taskCompleted&&!taskDisplay.firstIncompleteTask.iscollider&&taskDisplay.firstIncompleteTask.id==uniqueTask.id)
         {
             if(taskDisplay.taskText.text!="")
             {
@@ -94,7 +112,6 @@ public class TaskCompletionOnTrigger : MonoBehaviour
 
     private void CompleteTask()
     {
-        TaskManager taskManager = TaskManager.Instance;
         taskDisplay = taskManager.taskDisplay;
         if (taskManager != null && !string.IsNullOrEmpty(targetTaskId)&&targetTaskId==taskDisplay.firstIncompleteTask.id)
         {
