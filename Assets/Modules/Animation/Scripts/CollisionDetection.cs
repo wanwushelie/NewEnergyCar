@@ -15,11 +15,10 @@ public class CollisionDetection : MonoBehaviour
     public GameObject tipsUI;
     public GameObject skipPrompt; // 跳过提示的UI
     public int currentcount;
+    public bool isTure = false;
     private bool isPlaying = false;
-    private bool isTure = false;//是否在可交互范围内
-    //public bool iscomplete = false;
     public int currentTaskIndex = 0;// 默认动画为0，发布任务0，（0完成）正式交互时第一个动画应该为1，发布任务1
-
+    public CharacterMovement characterMovement;
     private void Start()
     {
         isPlaying = true;
@@ -38,6 +37,7 @@ public class CollisionDetection : MonoBehaviour
         {
             skipPrompt.SetActive(true);
             tipsUI.SetActive(false);
+            characterMovement.canMove = false;
             // 按下X键跳过当前剧情
             if (Input.GetKeyDown(KeyCode.X))
             {
@@ -48,7 +48,17 @@ public class CollisionDetection : MonoBehaviour
         }
         else
         {
-            //tipsUI.SetActive(true);
+            skipPrompt.SetActive(false);
+            characterMovement.canMove =true;
+            TaskManager taskManager = TaskManager.Instance;
+            if(taskManager.taskDisplay.firstIncompleteTask == taskManager.tasks[1])
+            {
+                TaskManager.Instance.UpdateTaskUI();
+            }
+            else if (taskManager.taskDisplay.firstIncompleteTask == taskManager.tasks[0])
+            {
+                StartCoroutine(waitfornextanimation());
+            }
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -96,6 +106,15 @@ public class CollisionDetection : MonoBehaviour
                 skipPrompt.gameObject.SetActive(false);
             }
         }
+    }
+
+    public IEnumerator waitfornextanimation()
+    {
+        TaskManager taskManager = TaskManager.Instance;
+        yield return new WaitForSeconds(2.0f);
+        taskManager.taskDisplay.firstIncompleteTask = taskManager.tasks[1];
+        currentTaskIndex = 1;
+        PlayTimeline(1);
     }
 
     public void PlayTimeline(int index)
