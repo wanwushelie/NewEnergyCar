@@ -32,6 +32,7 @@ public class TaskDisplay : MonoBehaviour
     private void Update()
     {
         changetext();
+        
     }
     private void OnDestroy()
     {
@@ -107,18 +108,22 @@ public class TaskDisplay : MonoBehaviour
     }
     public void changetext()
     {
-        if(pickupmethod1.istulun)
+        TaskManager taskManager = TaskManager.Instance;
+        if (firstIncompleteTask == taskManager.tasks[4]&&!(tulun==1&&chelun==1&&dizuo==1))
         {
-            tulun = 1;
+            if (pickupmethod1.istulun)
+            {
+                tulun = 1;
+            }
+            if (pickupmethod1.ischelun)
+            {
+                chelun = 1;
+            }
+            if (pickupmethod1.isdizuo)
+            {
+                dizuo = 1;
+            }
+            taskText2.text = "组装小车：底座(" + dizuo.ToString() + "/1)、车轮(" + chelun.ToString() + "/1),凸轮(" + tulun.ToString() + "/1)";
         }
-        if (pickupmethod1.ischelun)
-        {
-            chelun = 1;
-        }
-        if (pickupmethod1.isdizuo)
-        {
-            dizuo = 1;
-        }
-        utext[3] = "组装小车：底座("+dizuo.ToString()+"/1)、车轮("+chelun.ToString()+"/1),凸轮("+tulun.ToString()+"/1)";
     }
 }

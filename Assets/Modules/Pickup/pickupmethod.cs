@@ -110,6 +110,7 @@ public class pickupmethod : MonoBehaviour
     void HandleAssembling()
     {
         CheckAssembleInput();
+        panelpick.SetActive(false);
     }
 
     void HandleDismantling()
