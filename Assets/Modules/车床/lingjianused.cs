@@ -114,13 +114,13 @@ public class lingjianused : MonoBehaviour
             case "刀架开关":
                 if (!isdaojia)
                 {
-                    StartCoroutine(MoveRotation(obj, Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 0, -16), 1.0f));
+                    StartCoroutine(MoveRotation(obj, Quaternion.Euler(-90, 0, 0), Quaternion.Euler(-90, 0, -15), 1.0f));
                     StartCoroutine(MoveToPosition(dingzi, dingzioposition.transform.position,dingzieposition.transform.position, 1.0f));
                     isdaojia = true;
                 }
                 else if(isdaojia&&!isdaoju)
                 {
-                    StartCoroutine(MoveRotation(obj, Quaternion.Euler(0, 0, -16), Quaternion.Euler(0, 0, 0), 1.0f));
+                    StartCoroutine(MoveRotation(obj, Quaternion.Euler(-90, 0, -15), Quaternion.Euler(-90, 0, 0), 1.0f));
                     StartCoroutine(MoveToPosition(dingzi, dingzieposition.transform.position, dingzioposition.transform.position, 1.0f));
                     isdaojia = false;
                 }
