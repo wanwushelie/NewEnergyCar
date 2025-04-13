@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class lingjianused : MonoBehaviour
 {
-    public GameObject youhusposition, youhueposition,youhuoposition;//�ͺ��ƶ�
-    public GameObject banshousposition, banshoueposition, banshouoposition,kpp1s,kpp1e,kpp2s,kpp2e,kpp3e,kpp3s;//�����ƶ�,����λ���ƶ�
+    public GameObject youhusposition, youhueposition,youhuoposition;
+    public GameObject banshousposition, banshoueposition, banshouoposition,kpp1s,kpp1e,kpp2s,kpp2e,kpp3e,kpp3s;
     public GameObject dingzi,dingzioposition,dingzieposition,dianji,banshou;//�����ƶ�
     public GameObject zhuanzhou, kapan,kapanpart1,kapanpart2,kapanpart3;//������ת
     public GameObject DaoJu1, DaoJu2, DaoJu3;
@@ -20,21 +20,12 @@ public class lingjianused : MonoBehaviour
     public float speed = 1.0f;
     public float duration = 2.0f;
     public pickupmethod pickupmethod1;
-    public bool isdianyuan=false,isdianji=false,isrotate=false,isdaojia=false,isdaoju=false,iskapan=false,isyuanjian=false;//����Դ�͵���Ƿ�ʹ��
+    public bool isdianyuan=false,isdianji=false,isrotate=false,isdaojia=false,isdaoju=false,iskapan=false,isyuanjian=false;
     private Renderer renderer; // 物体的 Renderer 组件
     private Color originalColor; // 保存原始颜色
     private StateMachine stateMachine;
     public RefinedColorTransition refinedColorTransition;
     public bool haveshowed = false;
-
-    void Start()
-    {
-        if (youhusposition == null || youhueposition == null)
-        {
-            Debug.LogError("YouHu start or end position is not set!");
-        }
-       
-    }
 
     public void showed(GameObject obj)
     {
@@ -42,145 +33,32 @@ public class lingjianused : MonoBehaviour
         haveshowed = true;
         switch (obj.name)
         {
-            case "YouHu":
-                //obj.transform.position = youhusposition.transform.position;
-                obj.transform.rotation = Quaternion.Euler(0, -90, 90);
-                StartCoroutine(MoveAndReturnYouHu(obj, youhuoposition.transform, youhusposition.transform.position, youhueposition.transform.position, duration));
+            case "油壶":
+                useYouhu(obj);
                 break;
             case "电源开关":
-                renderer = obj.GetComponent<Renderer>();
-                originalColor = renderer.material.color;
-                if(!isdianyuan)
-                {
-                    renderer.material.color = Color.green;
-                    isdianyuan = true;
-                    obj.transform.rotation = Quaternion.Euler(-110,-90,90);
-                    if (isdianji)
-                    {
-                        isrotate = true;
-                        StartCoroutine(RotateContinuously(kapan));
-                        StartCoroutine(RotateContinuously(zhuanzhou));
-                    }
-                }
-                else
-                {
-                    renderer.material.color = originalColor;
-                    isdianyuan = false;
-                    isrotate = false;
-                    obj.transform.rotation = Quaternion.Euler(-90, -90, 90);
-                    StopCoroutine(RotateContinuously(kapan));
-                    StopCoroutine(RotateContinuously(zhuanzhou));
-                }
+                usedianyuan(obj);
                 break;
             case "电机开关":
-                if (!isdianji)
-                {
-                    isdianji = true;
-                    StartCoroutine(MoveRotation(obj, Quaternion.Euler(-90, 0, 0), Quaternion.Euler(-110, 0, 0), 1.0f));
-                    if(isdianyuan)
-                    {
-                        isrotate = true;
-                        StartCoroutine(RotateContinuously(kapan));
-                        StartCoroutine(RotateContinuously(zhuanzhou));
-                        playmusic1.Playxuanzhuan();
-                        if(iskapan)
-                        {
-                            error();
-                        }
-                    }
-                }
-                else
-                {
-                    isdianji = false;
-                    isrotate = false;
-                    StartCoroutine(MoveRotation(obj, Quaternion.Euler(-110, 0, 0), Quaternion.Euler(-90, 0, 0), 1.0f));
-                    StopCoroutine(RotateContinuously(kapan));
-                    StopCoroutine(RotateContinuously(zhuanzhou));
-                    playmusic1.Pause();
-                }
+                usedianji(obj);
                 break;
             case "扳手":
-                if (!iskapan)
-                {
-                    if (isdianji)
-                    {
-                        error();
-                    }
-                    else
-                    {
-                        StartCoroutine(MoveBanShou(obj, banshouoposition.transform, Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 90, 0), banshousposition.transform.position, banshoueposition.transform.position, duration));
-                        iskapan = true;
-                    }
-                }
-                else
-                {
-                    StartCoroutine(ReturnBanShou(obj, banshoueposition.transform, banshousposition.transform.position, banshouoposition.transform.position, duration));
-                    //iskapan = false;
-                }
+                usebanshou(obj);
                 break;
             case "刀架开关":
-                if (!isdaojia)
-                {
-                    StartCoroutine(MoveRotation(obj, Quaternion.Euler(-90, 0, 0), Quaternion.Euler(-90, 0, -15), 1.0f));
-                    StartCoroutine(MoveToPosition(dingzi, dingzioposition.transform.position,dingzieposition.transform.position, 1.0f));
-                    isdaojia = true;
-                }
-                else if(isdaojia&&!isdaoju)
-                {
-                    StartCoroutine(MoveRotation(obj, Quaternion.Euler(-90, 0, -15), Quaternion.Euler(-90, 0, 0), 1.0f));
-                    StartCoroutine(MoveToPosition(dingzi, dingzieposition.transform.position, dingzioposition.transform.position, 1.0f));
-                    isdaojia = false;
-                }
+                usedaojia(obj);
                 break;
             case "外圆车刀":
-                if(isdaojia&&!isdaoju)
-                { 
-                    StartCoroutine(MoveToPosition(obj, DaoJu1oposition.transform.position, DaoJuposition.transform.position, 2.0f));
-                    isdaoju = true;
-                }
-                else if(isdaojia&&isdaoju)
-                {
-                    StartCoroutine(MoveToPosition(obj, DaoJuposition.transform.position, DaoJu1oposition.transform.position, 2.0f));
-                    isdaoju = false;
-                }
+                usewaiyaun(obj);
                 break;
             case "切槽刀":
-                if (isdaojia && !isdaoju)
-                {
-                    StartCoroutine(MoveToPosition(obj, DaoJu2oposition.transform.position, DaoJuposition.transform.position, 2.0f));
-                    isdaoju = true;
-                }
-                else if (isdaojia && isdaoju)
-                {
-                    StartCoroutine(MoveToPosition(obj, DaoJuposition.transform.position, DaoJu2oposition.transform.position, 2.0f));
-                    isdaoju = false;
-                }
+                useqiecao(obj);
                 break;
             case "螺纹刀":
-                if (isdaojia && !isdaoju)
-                {
-                    StartCoroutine(MoveToPosition(obj, DaoJu3oposition.transform.position, DaoJuposition.transform.position, 2.0f));
-                    isdaoju = true;
-                }
-                else if (isdaojia && isdaoju)
-                {
-                    StartCoroutine(MoveToPosition(obj, DaoJuposition.transform.position, DaoJu3oposition.transform.position, 2.0f));
-                    isdaoju = false;
-                }
+                useluowen(obj);
                 break;
             case "元件":
-                if(iskapan&&!isyuanjian)
-                {
-                    StartCoroutine(MoveAndReturnYuanJian(obj,yuanjian0position.transform.position,yuanjian1position.transform.position,yuanjian2position.transform.position,yuanjian3position.transform.position,2.0f));
-                    isyuanjian = true;
-                    playmusic1.Playqiege();
-                }
-                else if(iskapan&&isyuanjian)
-                {
-                    StartCoroutine(MoveAndReturnYuanJian(obj, yuanjian3position.transform.position, yuanjian2position.transform.position, yuanjian1position.transform.position, yuanjian0position.transform.position, 2.0f));
-                    isyuanjian = false;
-                    playmusic1.Pause();
-                }
+                useyuanjian(obj);
                 break;
         }
 
@@ -219,7 +97,6 @@ public class lingjianused : MonoBehaviour
     }
     IEnumerator MoveToPosition(GameObject targetObj, Vector3 start, Vector3 end, float duration)
     {
-       
         float elapsedTime = 0.0f;
         while (elapsedTime < duration)
         {
@@ -234,7 +111,6 @@ public class lingjianused : MonoBehaviour
     {
         yield return new WaitForSeconds(3.0f);
         lizi.SetActive(false);
-        
     }
     IEnumerator MoveRotation(GameObject obj,Quaternion start,Quaternion end,float duration)
     {
@@ -276,13 +152,160 @@ public class lingjianused : MonoBehaviour
         playmusic1.Pause();
         bloodpanel.SetActive(false);
     }
-
     public void error()
     {
-        bloodpanel.SetActive(true);
+        //bloodpanel.SetActive(true);
         playmusic1.Playjinggao();
         //lizi.SetActive(true);
         refinedColorTransition.StartFullTransition();
         StartCoroutine(wait());
+    }
+    public void useYouhu(GameObject obj)
+    {
+        obj.transform.rotation = Quaternion.Euler(0, -90, 90);
+        StartCoroutine(MoveAndReturnYouHu(obj, youhuoposition.transform, youhusposition.transform.position, youhueposition.transform.position, duration));
+    }
+    public void usedianyuan(GameObject obj)
+    {
+        renderer = obj.GetComponent<Renderer>();
+        originalColor = renderer.material.color;
+        if (!isdianyuan)
+        {
+            renderer.material.color = Color.green;
+            isdianyuan = true;
+            obj.transform.rotation = Quaternion.Euler(-110, -90, 90);
+            if (isdianji)
+            {
+                isrotate = true;
+                StartCoroutine(RotateContinuously(kapan));
+                StartCoroutine(RotateContinuously(zhuanzhou));
+            }
+        }
+        else
+        {
+            renderer.material.color = originalColor;
+            isdianyuan = false;
+            isrotate = false;
+            obj.transform.rotation = Quaternion.Euler(-90, -90, 90);
+            StopCoroutine(RotateContinuously(kapan));
+            StopCoroutine(RotateContinuously(zhuanzhou));
+        }
+    }
+    public void usedianji(GameObject obj)
+    {
+        if (!isdianji)
+        {
+            isdianji = true;
+            StartCoroutine(MoveRotation(obj, Quaternion.Euler(-90, 0, 0), Quaternion.Euler(-110, 0, 0), 1.0f));
+            if (isdianyuan)
+            {
+                isrotate = true;
+                StartCoroutine(RotateContinuously(kapan));
+                StartCoroutine(RotateContinuously(zhuanzhou));
+                playmusic1.Playxuanzhuan();
+                if (iskapan)
+                {
+                    error();
+                }
+            }
+        }
+        else
+        {
+            isdianji = false;
+            isrotate = false;
+            StartCoroutine(MoveRotation(obj, Quaternion.Euler(-110, 0, 0), Quaternion.Euler(-90, 0, 0), 1.0f));
+            StopCoroutine(RotateContinuously(kapan));
+            StopCoroutine(RotateContinuously(zhuanzhou));
+            playmusic1.Pause();
+        }
+    }
+    public void usebanshou(GameObject obj)
+    {
+        if (!iskapan)
+        {
+            if (isdianji)
+            {
+                error();
+            }
+            else
+            {
+                StartCoroutine(MoveBanShou(obj, banshouoposition.transform, Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 90, 0), banshousposition.transform.position, banshoueposition.transform.position, duration));
+                iskapan = true;
+            }
+        }
+        else
+        {
+            StartCoroutine(ReturnBanShou(obj, banshoueposition.transform, banshousposition.transform.position, banshouoposition.transform.position, duration));
+            //iskapan = false;
+        }
+    }
+    public void usedaojia(GameObject obj)
+    {
+        if (!isdaojia)
+        {
+            StartCoroutine(MoveRotation(obj, Quaternion.Euler(-90, 0, 0), Quaternion.Euler(-90, 0, -15), 1.0f));
+            StartCoroutine(MoveToPosition(dingzi, dingzioposition.transform.position, dingzieposition.transform.position, 1.0f));
+            isdaojia = true;
+        }
+        else if (isdaojia && !isdaoju)
+        {
+            StartCoroutine(MoveRotation(obj, Quaternion.Euler(-90, 0, -15), Quaternion.Euler(-90, 0, 0), 1.0f));
+            StartCoroutine(MoveToPosition(dingzi, dingzieposition.transform.position, dingzioposition.transform.position, 1.0f));
+            isdaojia = false;
+        }
+    }
+    public void usewaiyaun(GameObject obj)
+    {
+        if (isdaojia && !isdaoju)
+        {
+            StartCoroutine(MoveToPosition(obj, DaoJu1oposition.transform.position, DaoJuposition.transform.position, 2.0f));
+            isdaoju = true;
+        }
+        else if (isdaojia && isdaoju)
+        {
+            StartCoroutine(MoveToPosition(obj, DaoJuposition.transform.position, DaoJu1oposition.transform.position, 2.0f));
+            isdaoju = false;
+        }
+    }
+    public void useqiecao(GameObject obj)
+    {
+        if (isdaojia && !isdaoju)
+        {
+            StartCoroutine(MoveToPosition(obj, DaoJu2oposition.transform.position, DaoJuposition.transform.position, 2.0f));
+            isdaoju = true;
+        }
+        else if (isdaojia && isdaoju)
+        {
+            StartCoroutine(MoveToPosition(obj, DaoJuposition.transform.position, DaoJu2oposition.transform.position, 2.0f));
+            isdaoju = false;
+        }
+    }
+    public void useluowen(GameObject obj)
+    {
+        if (isdaojia && !isdaoju)
+        {
+            StartCoroutine(MoveToPosition(obj, DaoJu3oposition.transform.position, DaoJuposition.transform.position, 2.0f));
+            isdaoju = true;
+        }
+        else if (isdaojia && isdaoju)
+        {
+            StartCoroutine(MoveToPosition(obj, DaoJuposition.transform.position, DaoJu3oposition.transform.position, 2.0f));
+            isdaoju = false;
+        }
+    }
+    public void useyuanjian(GameObject obj)
+    {
+        if (iskapan && !isyuanjian)
+        {
+            StartCoroutine(MoveAndReturnYuanJian(obj, yuanjian0position.transform.position, yuanjian1position.transform.position, yuanjian2position.transform.position, yuanjian3position.transform.position, 2.0f));
+            isyuanjian = true;
+            playmusic1.Playqiege();
+        }
+        else if (iskapan && isyuanjian)
+        {
+            StartCoroutine(MoveAndReturnYuanJian(obj, yuanjian3position.transform.position, yuanjian2position.transform.position, yuanjian1position.transform.position, yuanjian0position.transform.position, 2.0f));
+            isyuanjian = false;
+            playmusic1.Pause();
+        }
     }
 }

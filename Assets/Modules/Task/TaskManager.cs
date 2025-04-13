@@ -60,13 +60,4 @@ public class TaskManager : MonoBehaviour
             taskDisplay.HideTipUI();
         }
     }
-
-    // public void HideTaskUI()
-    // {
-    //     if (taskDisplay != null)
-    //     {
-    //         taskDisplay.HideTaskUI();
-    //     }
-    // }
-
 }

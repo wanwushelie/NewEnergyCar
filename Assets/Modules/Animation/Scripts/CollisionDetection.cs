@@ -20,6 +20,7 @@ public class CollisionDetection : MonoBehaviour
     public int currentTaskIndex = 0;// 默认动画为0，发布任务0，（0完成）正式交互时第一个动画应该为1，发布任务1
     public CharacterMovement characterMovement;
     public bool iscom1 = false;
+    public GameObject aistart;
     private void Start()
     {
         isPlaying = true;
@@ -113,9 +114,10 @@ public class CollisionDetection : MonoBehaviour
     public IEnumerator waitfornextanimation()
     {
         TaskManager taskManager = TaskManager.Instance;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.5f);
         taskManager.taskDisplay.firstIncompleteTask = taskManager.tasks[1];
         currentTaskIndex = 1;
+        aistart.SetActive(true);
         PlayTimeline(1);
     }
 
@@ -126,21 +128,7 @@ public class CollisionDetection : MonoBehaviour
             Debug.Log("播放");
             TimelineAsset currentTimeline = timelines[index];
             director.playableAsset = currentTimeline;
-            
-            // 绑定输出轨道（如果有需要）
-            // foreach (var output in director.playableAsset.outputs)
-            // {
-            //     if (output.streamName == "Player Track")
-            //     {
-            //         var animator = GetComponent<Animator>();
-            //         director.SetGenericBinding(output.sourceObject, animator);
-            //         break;
-            //     }
-            // }
-            //  隐藏任务系统 UI
             if (index!=0)
-            //TaskManager.Instance.HideTaskSystemUI();
-            // 隐藏UI
             if (tipsUI != null)
             {
                 tipsUI.SetActive(false);

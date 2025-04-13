@@ -44,17 +44,12 @@ public class RefinedColorTransition : MonoBehaviour
 
     private IEnumerator FullTransitionCoroutine()
     {
-        // 阶段1: 当前色 → 淡绿色
-        yield return TransitionColorCoroutine(initialColor, paleGreen, eachPhaseDuration);
-
-        // 阶段2: 淡绿色 → 淡蓝色
-        yield return TransitionColorCoroutine(paleGreen, paleBlue, eachPhaseDuration);
         shiwu.SetActive(true);
         // 阶段3: 降低饱和度到-100 (完全黑白)
         yield return TransitionSaturationCoroutine(initialSaturation, desaturatedValue, eachPhaseDuration);
 
         // 等待4秒
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(5f);
 
         // 阶段4: 恢复饱和度
         yield return TransitionSaturationCoroutine(desaturatedValue, initialSaturation, eachPhaseDuration * 0.5f);
