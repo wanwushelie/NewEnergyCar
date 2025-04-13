@@ -125,7 +125,7 @@ public class lingjianused : MonoBehaviour
                     isdaojia = false;
                 }
                 break;
-            case "DaoJu1":
+            case "外圆车刀":
                 if(isdaojia&&!isdaoju)
                 { 
                     StartCoroutine(MoveToPosition(obj, DaoJu1oposition.transform.position, DaoJuposition.transform.position, 2.0f));
@@ -137,7 +137,7 @@ public class lingjianused : MonoBehaviour
                     isdaoju = false;
                 }
                 break;
-            case "DaoJu2":
+            case "切槽刀":
                 if (isdaojia && !isdaoju)
                 {
                     StartCoroutine(MoveToPosition(obj, DaoJu2oposition.transform.position, DaoJuposition.transform.position, 2.0f));
@@ -149,7 +149,7 @@ public class lingjianused : MonoBehaviour
                     isdaoju = false;
                 }
                 break;
-            case "DaoJu3":
+            case "螺纹刀":
                 if (isdaojia && !isdaoju)
                 {
                     StartCoroutine(MoveToPosition(obj, DaoJu3oposition.transform.position, DaoJuposition.transform.position, 2.0f));
