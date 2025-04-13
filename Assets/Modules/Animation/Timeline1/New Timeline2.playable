@@ -668,10 +668,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 0
+    m_Start: 0.2833333333333333
     m_ClipIn: 0
     m_Asset: {fileID: -3518031952568093394}
-    m_Duration: 2.066666666666668
+    m_Duration: 1.783333333333335
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1486981399237309551}
     m_EaseInDuration: 0

@@ -230,10 +230,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 18.333333333333332
+    m_Start: 16.066666666666666
     m_ClipIn: 0
     m_Asset: {fileID: -2923513318381503252}
-    m_Duration: 15.833333333333332
+    m_Duration: 14.599999999999998
     m_TimeScale: 1
     m_ParentTrack: {fileID: -3112844357689812778}
     m_EaseInDuration: 0
@@ -366,7 +366,7 @@ MonoBehaviour:
     m_Start: 2.2666666666666657
     m_ClipIn: 0
     m_Asset: {fileID: -4605309911192062893}
-    m_Duration: 16.066666666666666
+    m_Duration: 13.8
     m_TimeScale: 1
     m_ParentTrack: {fileID: -725009270954842853}
     m_EaseInDuration: 0
@@ -513,7 +513,7 @@ MonoBehaviour:
   template:
     color: {r: 1, g: 1, b: 1, a: 1}
     fontSize: 36
-    text: "\u5206\u522B\u5851\u6599\uFF0C\u91D1\u5C5E\u548C\u590D\u5408\u6750\u6599"
+    text: "\u5206\u522B\u662F\u5851\u6599\u548C\u91D1\u5C5E"
 --- !u!114 &1486981399237309551
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -536,10 +536,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 0.8
+    m_Start: 0.31666666666666665
     m_ClipIn: 0
     m_Asset: {fileID: 8448448909302302043}
-    m_Duration: 5.6000000000000005
+    m_Duration: 4.216666666666667
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1486981399237309551}
     m_EaseInDuration: 0
@@ -572,25 +572,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -605,10 +587,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 6.4
+    m_Start: 4.533333333333333
     m_ClipIn: 0
     m_Asset: {fileID: -8673541406504980441}
-    m_Duration: 5.2333333333333325
+    m_Duration: 4.716666666666668
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1486981399237309551}
     m_EaseInDuration: 0
@@ -617,25 +599,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -656,10 +620,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 11.633333333333333
+    m_Start: 9.25
     m_ClipIn: 0
     m_Asset: {fileID: 8938245574826048436}
-    m_Duration: 4.816666666666666
+    m_Duration: 3.916666666666666
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1486981399237309551}
     m_EaseInDuration: 0
@@ -689,7 +653,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 16.45
+    m_Start: 13.166666666666666
     m_ClipIn: 0
     m_Asset: {fileID: 1083741829583179999}
     m_Duration: 4.349999999999996
@@ -740,10 +704,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 20.799999999999997
+    m_Start: 17.516666666666662
     m_ClipIn: 0
     m_Asset: {fileID: -1038542493652612298}
-    m_Duration: 6.650000000000002
+    m_Duration: 4.649999999999999
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1486981399237309551}
     m_EaseInDuration: 0
@@ -791,7 +755,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 27.45
+    m_Start: 22.16666666666666
     m_ClipIn: 0
     m_Asset: {fileID: 5582675604363535853}
     m_Duration: 5.166666666666668
@@ -827,25 +791,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -860,10 +806,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 32.61666666666667
+    m_Start: 27.33333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 981007213867968178}
-    m_Duration: 6.583333333333336
+    m_Duration: 4.599999999999998
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1486981399237309551}
     m_EaseInDuration: 0
@@ -872,25 +818,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -911,10 +839,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 39.2
+    m_Start: 31.933333333333326
     m_ClipIn: 0
     m_Asset: {fileID: -6473830228159730101}
-    m_Duration: 6.599999999999994
+    m_Duration: 5.049999999999997
     m_TimeScale: 1
     m_ParentTrack: {fileID: 1486981399237309551}
     m_EaseInDuration: 0
@@ -944,7 +872,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 45.8
+    m_Start: 36.98333333333332
     m_ClipIn: 0
     m_Asset: {fileID: -6995656771462757684}
     m_Duration: 6.600000000000001
@@ -962,25 +890,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -995,7 +905,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: TextSwitcherClip
   - m_Version: 1
-    m_Start: 52.4
+    m_Start: 43.58333333333332
     m_ClipIn: 0
     m_Asset: {fileID: -3760965730457272058}
     m_Duration: 5.133333333333333
@@ -1007,25 +917,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1087,10 +979,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 34.166666666666664
+    m_Start: 30.666666666666664
     m_ClipIn: 0
     m_Asset: {fileID: -2029131298545239362}
-    m_Duration: 24.1
+    m_Duration: 18.04999999999999
     m_TimeScale: 1
     m_ParentTrack: {fileID: 4353656817299512801}
     m_EaseInDuration: 0
@@ -1315,4 +1207,4 @@ MonoBehaviour:
   template:
     color: {r: 1, g: 1, b: 1, a: 1}
     fontSize: 36
-    text: "\u6750\u6599\u5927\u81F4\u5206\u4E3A\u4E09\u79CD"
+    text: "\u6750\u6599\u5927\u81F4\u5206\u4E3A\u4E24\u79CD"

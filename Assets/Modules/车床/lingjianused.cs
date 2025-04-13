@@ -10,12 +10,12 @@ public class lingjianused : MonoBehaviour
 {
     public GameObject youhusposition, youhueposition,youhuoposition;//�ͺ��ƶ�
     public GameObject banshousposition, banshoueposition, banshouoposition,kpp1s,kpp1e,kpp2s,kpp2e,kpp3e,kpp3s;//�����ƶ�,����λ���ƶ�
-    public GameObject dingzi,dingzioposition,dingzieposition;//�����ƶ�
+    public GameObject dingzi,dingzioposition,dingzieposition,dianji,banshou;//�����ƶ�
     public GameObject zhuanzhou, kapan,kapanpart1,kapanpart2,kapanpart3;//������ת
     public GameObject DaoJu1, DaoJu2, DaoJu3;
     public GameObject DaoJu1oposition, DaoJu2oposition, DaoJu3oposition, DaoJuposition;//����λ��
     public GameObject yuanjian, yuanjian0position, yuanjian1position, yuanjian2position,yuanjian3position;
-    public GameObject bloodpanel,currentobj;
+    public GameObject bloodpanel,currentobj,lizi;
     public playmusic playmusic1;
     public float speed = 1.0f;
     public float duration = 2.0f;
@@ -24,6 +24,7 @@ public class lingjianused : MonoBehaviour
     private Renderer renderer; // 物体的 Renderer 组件
     private Color originalColor; // 保存原始颜色
     private StateMachine stateMachine;
+    public RefinedColorTransition refinedColorTransition;
     public bool haveshowed = false;
 
     void Start()
@@ -84,8 +85,7 @@ public class lingjianused : MonoBehaviour
                         playmusic1.Playxuanzhuan();
                         if(iskapan)
                         {
-                            bloodpanel.SetActive(true);
-                            playmusic1.Playjinggao();
+                            error();
                         }
                     }
                 }
@@ -102,13 +102,20 @@ public class lingjianused : MonoBehaviour
             case "扳手":
                 if (!iskapan)
                 {
-                    StartCoroutine(MoveBanShou(obj, banshouoposition.transform, Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 90, 0), banshousposition.transform.position, banshoueposition.transform.position, duration));
-                    iskapan = true;
+                    if (isdianji)
+                    {
+                        error();
+                    }
+                    else
+                    {
+                        StartCoroutine(MoveBanShou(obj, banshouoposition.transform, Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 90, 0), banshousposition.transform.position, banshoueposition.transform.position, duration));
+                        iskapan = true;
+                    }
                 }
                 else
                 {
                     StartCoroutine(ReturnBanShou(obj, banshoueposition.transform, banshousposition.transform.position, banshouoposition.transform.position, duration));
-                    iskapan = false;
+                    //iskapan = false;
                 }
                 break;
             case "刀架开关":
@@ -223,6 +230,12 @@ public class lingjianused : MonoBehaviour
         }
         targetObj.transform.position = end; 
     }
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(3.0f);
+        lizi.SetActive(false);
+        
+    }
     IEnumerator MoveRotation(GameObject obj,Quaternion start,Quaternion end,float duration)
     {
         float elapsedTime = 0.0f;
@@ -262,5 +275,14 @@ public class lingjianused : MonoBehaviour
         StopCoroutine(RotateContinuously(zhuanzhou));
         playmusic1.Pause();
         bloodpanel.SetActive(false);
+    }
+
+    public void error()
+    {
+        bloodpanel.SetActive(true);
+        playmusic1.Playjinggao();
+        //lizi.SetActive(true);
+        refinedColorTransition.StartFullTransition();
+        StartCoroutine(wait());
     }
 }
