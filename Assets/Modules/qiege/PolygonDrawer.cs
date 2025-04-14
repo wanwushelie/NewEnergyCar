@@ -6,20 +6,20 @@ using StarterAssets;
 public class PolygonDrawer : MonoBehaviour
 {
     public GameObject[] objects=new GameObject[3];
-    public bool[] isSelected=new bool[3];
-    public GameObject cube, polygonObject, dingmian, cylinderObject,zhezhao,qiegepanel,zhutiposition; 
+    public GameObject cube, polygonObject, dingmian, cylinderObject,zhezhao,qiegepanel,zhutiposition;
+    public bool[] isSelected = new bool[3];
+    public bool isDrawing = false, isdizuo = false, ischelun = false, istulun = false, isqiege = false, haveqiege = false;//选择打印物体并且管理总控开关
+    private bool isPaused = false, chongfu = false;
     public Color fillColor = Color.red; // �����ɫ  
-    public Material lineMaterial; // ���������Ĳ���  
+    public Material lineMaterial, material; // ���������Ĳ���  
     public float height = 0.2f; // ����߶�
     public PolygonDrawer PolygonDrawer1;
     private List<Vector3> points = new List<Vector3>();
     private LineRenderer lineRenderer;
-    private MeshFilter meshFilter; 
-    public Material material;
-    public bool isDrawing = false,isdizuo=false,ischelun=false,istulun=false, isqiege = false, haveqiege = false;//选择打印物体并且管理总控开关
+    private MeshFilter meshFilter;
     public Camera main, qiege;
     public ObjectData objectDatad, objectDatac, objectDatat;
-    private bool isPaused = false;
+   
     void Start()
     {
        
@@ -217,25 +217,8 @@ public class PolygonDrawer : MonoBehaviour
         if (polygonObject != null) polygonObject.transform.SetParent(cylinderObject.transform);
         if (dingmian != null) dingmian.transform.SetParent(cylinderObject.transform);
     }
-    IEnumerator MoveRotation(Camera obj, Quaternion start, Quaternion end, float duration)
-    {
-        float elapsedTime = 0.0f;
-
-        while (elapsedTime < duration)
-        {
-            float t = elapsedTime / duration; // ��ֵ����
-            obj.transform.rotation = Quaternion.Slerp(start, end, t); // ʹ�� Slerp ƽ����ֵ
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        obj.transform.rotation = end;
-    }
     IEnumerator CompleteDrawing()
     {
-        // 启动旋转协程
-       // StartCoroutine(MoveRotation(qiege,qiege.transform.rotation, Quaternion.Euler(45.84f, 0.59f, 0.83f), 2.0f));
-        // 暂停结束后执行后续逻辑
         CreatePolygon();
         Createdingmian();
 
@@ -263,7 +246,7 @@ public class PolygonDrawer : MonoBehaviour
                 break;
             }
         }
-        istulun = isdizuo = ischelun = false;
+        istulun = isdizuo = ischelun = chongfu =false;
         main.enabled = true;
         Destroy(cylinderObject);
         qiegepanel.SetActive(false);
@@ -283,9 +266,10 @@ public class PolygonDrawer : MonoBehaviour
     }
     public void putbutton()
     {
-        if(ischelun||isdizuo||istulun&&!isqiege)
+        if(ischelun||isdizuo||istulun&&!isqiege&&!chongfu)
         {
             cube.SetActive(true);
+            chongfu = true;
             if (ischelun&&!objectDatac.havebeenqiege)
             {
                 cube.SetActive(true);

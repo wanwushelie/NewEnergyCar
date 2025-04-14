@@ -25,7 +25,7 @@ public class RETURN : MonoBehaviour
         assemble.pickupmethod1.ischelun = false;
         assemble.pickupmethod1.istulun = false;
         assemble.pickupmethod1.isdizuo = false;
-    }
+    }//仅做调用
 
  
 }

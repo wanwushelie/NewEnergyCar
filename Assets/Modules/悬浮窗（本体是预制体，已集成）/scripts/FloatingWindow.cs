@@ -29,8 +29,11 @@ public class FloatingWindow : MonoBehaviour
         cam = Camera.main; // ��ȡ�������
         UpdateImage(imagesc);
         listArray = new List<Sprite>[4];
-        prevButton.onClick.AddListener(() => ShowPreviousImage(currentimage));
-        nextButton.onClick.AddListener(() => ShowNextImage(currentimage));
+        if (currentimage==null)
+        {
+            prevButton.onClick.AddListener(() => ShowPreviousImage(currentimage));
+            nextButton.onClick.AddListener(() => ShowNextImage(currentimage));
+        }
         closeButton.onClick.AddListener(ToggleMinimize);
         for (int i = 0; i < listArray.Length; i++)
         {
@@ -73,8 +76,10 @@ public class FloatingWindow : MonoBehaviour
 
     }
     private void Update()
-    {
-        isstart(currentimage);
+    {if (currentimage!=null)
+        {
+            isstart(currentimage);
+        }
     }
     void ShowPreviousImage(List<Sprite> images)
     {

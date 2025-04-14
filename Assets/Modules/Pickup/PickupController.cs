@@ -12,12 +12,6 @@ public class PickupController : MonoBehaviour
     public GameObject targetObject; // 待拾取的物体
     public bool IsHoldingObject=false; // 是否持有物体
     public Camera mainCamera;
-    void Start()
-    {
-        //holdPosition.position = handSphere.transform.position;
-       
-        
-    }
     public void Update()
     {
         if(heldObject!=null)
@@ -92,16 +86,10 @@ public class PickupController : MonoBehaviour
             heldObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, surfaceNormal);
             Quaternion targetRotation = Quaternion.FromToRotation(Vector3.up, surfaceNormal);
             Vector3 euler = targetRotation.eulerAngles;
-            //euler.x = 0;
-           // euler.y = 0; // 锁定 X 轴旋转
-           // euler.z = 0; // 锁定 Z 轴旋转
             heldObject.transform.rotation = Quaternion.Euler(euler);
             // 清空引用
             heldObject = null;
             heldObjectRb = null;
         }
-
-        // 隐藏放下UI
-       
     }
 }

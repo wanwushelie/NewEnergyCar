@@ -20,7 +20,7 @@ public class lingjianused : MonoBehaviour
     public float speed = 1.0f;
     public float duration = 2.0f;
     public pickupmethod pickupmethod1;
-    public bool isdianyuan=false,isdianji=false,isrotate=false,isdaojia=false,isdaoju=false,iskapan=false,isyuanjian=false;
+    public bool isdianyuan=false,isdianji=false,isrotate=false,isdaojia=false,isdaoju=false,iskapan=false,isyuanjian=false,isbanshou=false;
     private Renderer renderer; // 物体的 Renderer 组件
     private Color originalColor; // 保存原始颜色
     private StateMachine stateMachine;
@@ -203,7 +203,7 @@ public class lingjianused : MonoBehaviour
                 StartCoroutine(RotateContinuously(kapan));
                 StartCoroutine(RotateContinuously(zhuanzhou));
                 playmusic1.Playxuanzhuan();
-                if (iskapan)
+                if (isbanshou)
                 {
                     error();
                 }
@@ -221,9 +221,9 @@ public class lingjianused : MonoBehaviour
     }
     public void usebanshou(GameObject obj)
     {
-        if (!iskapan)
+        if (!iskapan&&!isbanshou)
         {
-            if (isdianji)
+            if (isdianji&&isdianyuan)
             {
                 error();
             }
@@ -231,12 +231,13 @@ public class lingjianused : MonoBehaviour
             {
                 StartCoroutine(MoveBanShou(obj, banshouoposition.transform, Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 90, 0), banshousposition.transform.position, banshoueposition.transform.position, duration));
                 iskapan = true;
+                isbanshou = true;
             }
         }
-        else
+        else if(iskapan&&isbanshou)
         {
             StartCoroutine(ReturnBanShou(obj, banshoueposition.transform, banshousposition.transform.position, banshouoposition.transform.position, duration));
-            //iskapan = false;
+            isbanshou = false;
         }
     }
     public void usedaojia(GameObject obj)
@@ -299,7 +300,11 @@ public class lingjianused : MonoBehaviour
         {
             StartCoroutine(MoveAndReturnYuanJian(obj, yuanjian0position.transform.position, yuanjian1position.transform.position, yuanjian2position.transform.position, yuanjian3position.transform.position, 2.0f));
             isyuanjian = true;
-            playmusic1.Playqiege();
+            //playmusic1.Playqiege();
+            if(isdianji&&isdianyuan)
+            {
+                error();
+            }
         }
         else if (iskapan && isyuanjian)
         {

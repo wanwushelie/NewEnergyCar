@@ -129,16 +129,16 @@ public class Assemble : MonoBehaviour
     {
         if (pickupmethod1.isdizuo)  // 如果底座已安装
         {
-            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name.Contains("dizuo"));  // 查找包含 "dizuo" 的游戏对象
+            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name.Contains("底座"));  // 查找包含 "dizuo" 的游戏对象
             foundObject.SetActive(true);  // 激活找到的游戏对象
-            lingjiandate lingjiandate = foundObject.GetComponent<lingjiandate>();  // 获取找到的游戏对象的 lingjiandate 组件
+            //lingjiandate lingjiandate = foundObject.GetComponent<lingjiandate>();  // 获取找到的游戏对象的 lingjiandate 组件
             int i = 0;
             for (i = 0; i < 6; i++)  // 遍历查找匹配的部件信息
             {
-                if (foundObject.name == lingjiandate.C[i].gameobjectname)
+                if (foundObject.name == lingjiandate1.C[i].gameobjectname)
                 {
-                    xiaochedate1.totalweight -= lingjiandate.C[i].weight;  // 减少总重量
-                    xiaochedate1.totalwending -= lingjiandate.C[i].wending;  // 减少总稳定性
+                    xiaochedate1.totalweight -= lingjiandate1.C[i].weight;  // 减少总重量
+                    xiaochedate1.totalwending -= lingjiandate1.C[i].wending;  // 减少总稳定性
                     break;
                 }
             }
@@ -159,16 +159,16 @@ public class Assemble : MonoBehaviour
     {
         if (pickupmethod1.ischelun)  // 如果车轮已安装
         {
-            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name.Contains("chelun"));  // 查找包含 "chelun" 的游戏对象
-            lingjiandate lingjiandate = foundObject.GetComponent<lingjiandate>();  // 获取找到的游戏对象的 lingjiandate 组件
+            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name.Contains("车轮"));  // 查找包含 "chelun" 的游戏对象
+            //lingjiandate lingjiandate = foundObject.GetComponent<lingjiandate>();  // 获取找到的游戏对象的 lingjiandate 组件
             foundObject.SetActive(true);  // 激活找到的游戏对象
             int i = 0;
             for (i = 0; i < 6; i++)  // 遍历查找匹配的部件信息
             {
-                if (foundObject.name == lingjiandate.C[i].gameobjectname)
+                if (foundObject.name == lingjiandate1.C[i].gameobjectname)
                 {
-                    xiaochedate1.totalweight -= lingjiandate.C[i].weight;  // 减少总重量
-                    xiaochedate1.totalwending -= lingjiandate.C[i].wending;  // 减少总稳定性
+                    xiaochedate1.totalweight -= lingjiandate1.C[i].weight;  // 减少总重量
+                    xiaochedate1.totalwending -= lingjiandate1.C[i].wending;  // 减少总稳定性
                     break;
                 }
             }
@@ -181,29 +181,25 @@ public class Assemble : MonoBehaviour
         }
         pickupmethod1.ischelun = false;  // 标记车轮未安装
     }
-
-    /// <summary>
-    /// 拆卸凸轮
-    /// </summary>
     public void Disassemblytulun()
     {
         if (pickupmethod1.istulun)  // 如果凸轮已安装
         {
-            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name.Contains("tulun"));  // 查找包含 "tulun" 的游戏对象
+            GameObject foundObject = HideGameObjects.FirstOrDefault(obj => obj.name.Contains("凸轮"));  // 查找包含 "tulun" 的游戏对象
             if (foundObject != null)
             {
                 foundObject.SetActive(true);  // 激活找到的游戏对象
             }
             else
                 Debug.LogError("未找到匹配的对象");  // 未找到匹配对象，输出错误信息
-            lingjiandate lingjiandate = foundObject.GetComponent<lingjiandate>();  // 获取找到的游戏对象的 lingjiandate 组件
+           // lingjiandate lingjiandate = foundObject.GetComponent<lingjiandate>();  // 获取找到的游戏对象的 lingjiandate 组件
             int i = 0;
             for (i = 0; i < 6; i++)  // 遍历查找匹配的部件信息
             {
-                if (foundObject.name == lingjiandate.C[i].gameobjectname)
+                if (foundObject.name == lingjiandate1.C[i].gameobjectname)
                 {
-                    xiaochedate1.totalweight -= lingjiandate.C[i].weight;  // 减少总重量
-                    xiaochedate1.totalwending -= lingjiandate.C[i].wending;  // 减少总稳定性
+                    xiaochedate1.totalweight -= lingjiandate1.C[i].weight;  // 减少总重量
+                    xiaochedate1.totalwending -= lingjiandate1.C[i].wending;  // 减少总稳定性
                     break;
                 }
             }
